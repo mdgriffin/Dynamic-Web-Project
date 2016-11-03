@@ -13,18 +13,6 @@ CREATE TABLE Users (
 	PRIMARY KEY (user_id)
 );
 
-DESCRIBE Users;
-
-SELECT * FROM Users;
-
-INSERT INTO Users (forename, surname) VALUES('Michael', 'Griffin');
-INSERT INTO Users (forename, surname) VALUES('Tom', 'Brien');
-INSERT INTO Users (forename, surname) VALUES('Zygmunt', 'Wypych');
-INSERT INTO Users (forename, surname) VALUES('Wayne', 'Rooney');
-INSERT INTO Users (forename, surname) VALUES('Mary', 'Fleming');
-INSERT INTO Users (forename, surname) VALUES('Anne', 'Anderson');
-INSERT INTO Users (forename, surname) VALUES('Phillip', 'Reilly');
-
 CREATE TABLE Hotel (
 	hotel_id int NOT NULL AUTO_INCREMENT,
 	name varchar(60) NOT NULL,
