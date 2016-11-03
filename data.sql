@@ -3,9 +3,13 @@ CREATE DATABASE DynamicProject;
 USE DynamicProject;
 
 CREATE TABLE Users (
-	user_id int AUTO_INCREMENT,
-	forename varchar(30),
-	surname varchar(30),
+	user_id int NOT NULL AUTO_INCREMENT,
+	title char(30) NOT NULL,
+	forename varchar(30) NOT NULL,
+	surname varchar(30) NOT NULL,
+	email varchar(40) NOT NULL,
+	password char(32) NOT NULL,
+	telephone varchar(20),
 	PRIMARY KEY (user_id)
 );
 
