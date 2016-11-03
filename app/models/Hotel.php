@@ -68,6 +68,14 @@ class	Hotel {
 		$this->longitude = $longitude;
 	}
 
+	public static function getAll () {
+		global $db;
+
+		$select_stmt = $db->prepare("SELECT * FROM Hotels");
+		$select_stmt->execute();
+		return $select_stmt->fetchAll();
+	}
+
 }
 
 ?>
