@@ -22,6 +22,7 @@ $users = $db->query("SELECT * FROM Users");
 //$gleneagle->update();
 
 $hotels = Hotel::getAll();
+//$hotel_single = Hotel::get(10);
 
 ?>
 
