@@ -1,0 +1,28 @@
+#<Files sub.php>
+#     Order Deny,Allow
+#     Deny from All
+#</Files>
+
+# Order sets which order the deny and allow directives will be executes in
+# There is a three pass control system, the first pass applies the directive as the first
+# argument in order, the second pass applies the second directive, and the third pass appies
+# to anything not covered in the first two passes
+# Later passes overwrite earlier passes
+
+# The following example Allows from all
+# Allows comes second and takes precedence.
+#Order Deny,Allow
+#Deny From All
+#Allow From All
+
+# Deny will take precedence and overwrite the initial permission
+#Order Allow,Deny
+#Allow From All
+
+# This will block access to all php files
+#<files app/*.php>
+#	Deny from All
+#</Files>
+
+# Block access to all files in app folder
+RedirectMatch 403 ^.*/app/.*
