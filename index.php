@@ -24,40 +24,37 @@ $users = $db->query("SELECT * FROM Users");
 $hotels = Hotel::getAll();
 //$hotel_single = Hotel::get(10);
 
+$pageTitle = "Find the perfect venue";
+
+include_once("partials/header.php");
+
 ?>
 
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-	</head>
-	<body>
+<h2>Hotels</h2>
 
-		<h2>Hotels</h2>
+<table>
+	<thead>
+		<th>ID</th>
+		<th>Name</th>
+		<th>Address</th>
+		<th>Description</th>
+		<th>Latitude</th>
+		<th>longitude</th>
+	</thead>
+	<tbody>
+		<?php foreach ($hotels as $hotel) { ?>
+			<tr>
+				<td><?php echo $hotel["hotel_id"]; ?></td>
+				<td><?php echo $hotel["name"]; ?></td>
+				<td><?php echo $hotel["address"]; ?></td>
+				<td><?php echo $hotel["description"]; ?></td>
+				<td><?php echo $hotel["latitude"]; ?></td>
+				<td><?php echo $hotel["longitude"]; ?></td>
+			</tr>
+		<?php } ?>
+	</tbody>
+</table>
 
-		<table>
-			<thead>
-				<th>ID</th>
-				<th>Name</th>
-				<th>Address</th>
-				<th>Description</th>
-				<th>Latitude</th>
-				<th>longitude</th>
-			</thead>
-			<tbody>
-				<?php foreach ($hotels as $hotel) { ?>
-					<tr>
-						<td><?php echo $hotel["hotel_id"]; ?></td>
-						<td><?php echo $hotel["name"]; ?></td>
-						<td><?php echo $hotel["address"]; ?></td>
-						<td><?php echo $hotel["description"]; ?></td>
-						<td><?php echo $hotel["latitude"]; ?></td>
-						<td><?php echo $hotel["longitude"]; ?></td>
-					</tr>
-				<?php } ?>
-			</tbody>
-		</table>
-
-	</body>
-</html>
+<?php
+include_once("partials/footer.php");
+?>
