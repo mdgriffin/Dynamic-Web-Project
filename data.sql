@@ -20,3 +20,13 @@ INSERT INTO Users (forename, surname) VALUES('Wayne', 'Rooney');
 INSERT INTO Users (forename, surname) VALUES('Mary', 'Fleming');
 INSERT INTO Users (forename, surname) VALUES('Anne', 'Anderson');
 INSERT INTO Users (forename, surname) VALUES('Phillip', 'Reilly');
+
+CREATE TABLE Hotel (
+	hotel_id int NOT NULL AUTO_INCREMENT,
+	name varchar(60) NOT NULL,
+	address varchar(120) NOT NULL,
+	description varchar(255) NOT NULL,
+	latitude FLOAT( 10, 6 ) NOT NULL,
+	longitude FLOAT( 10, 6 ) NOT NULL,
+	PRIMARY KEY (hotel_id)
+);
