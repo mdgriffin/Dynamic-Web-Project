@@ -1,5 +1,5 @@
 <?php
-class	Hotel {
+class	Venue {
 	private $id;
 	private $name;
 	private $address;
@@ -18,7 +18,7 @@ class	Hotel {
 	public function save () {
 		global $db;
 
-		$insert_stmt = $db->prepare("INSERT INTO Hotels (name, address, description, latitude, longitude) VALUES(:name, :address, :description, :latitude, :longitude)");
+		$insert_stmt = $db->prepare("INSERT INTO Venues (name, address, description, latitude, longitude) VALUES(:name, :address, :description, :latitude, :longitude)");
 
 		$insert_stmt->execute(array(
 			':name' => $this->name,
@@ -28,14 +28,14 @@ class	Hotel {
 			':longitude' => $this->longitude
 		));
 
-		$this->id = $db->lastInsertId("hotel_id");
+		$this->id = $db->lastInsertId("venue_id");
 	}
 
 	public function update () {
 		global $db;
 
 		if (isset($this->id)) {
-			$update_stmt = $db->prepare("UPDATE Hotels SET name=:name, address=:address, description=:description, latitude=:latitude, longitude=:longitude WHERE hotel_id=:id");
+			$update_stmt = $db->prepare("UPDATE Venues SET name=:name, address=:address, description=:description, latitude=:latitude, longitude=:longitude WHERE venue_id=:id");
 
 			$update_stmt->execute(array(
 				':name' => $this->name,
@@ -71,7 +71,7 @@ class	Hotel {
 	public static function getAll () {
 		global $db;
 
-		$select_stmt = $db->prepare("SELECT * FROM Hotels");
+		$select_stmt = $db->prepare("SELECT * FROM Venues");
 		$select_stmt->execute();
 		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
@@ -79,7 +79,7 @@ class	Hotel {
 	public static function get($id) {
 		global $db;
 
-		$select_stmt = $db->prepare("SELECT * FROM Hotels WHERE hotel_id=?");
+		$select_stmt = $db->prepare("SELECT * FROM Venues WHERE venue_id=?");
 		$select_stmt->execute(array($id));
 		return $select_stmt->fetch(PDO::FETCH_ASSOC);
 	}
