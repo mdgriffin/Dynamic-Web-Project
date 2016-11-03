@@ -73,7 +73,15 @@ class	Hotel {
 
 		$select_stmt = $db->prepare("SELECT * FROM Hotels");
 		$select_stmt->execute();
-		return $select_stmt->fetchAll();
+		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public static function get($id) {
+		global $db;
+
+		$select_stmt = $db->prepare("SELECT * FROM Hotels WHERE hotel_id=?");
+		$select_stmt->execute(array($id));
+		return $select_stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
 }
