@@ -2,6 +2,17 @@ CREATE DATABASE DynamicProject;
 
 USE DynamicProject;
 
+CREATE TABLE Admins (
+	admin_id int NOT NULL AUTO_INCREMENT,
+	title char(30) NOT NULL,
+	forename varchar(30) NOT NULL,
+	surname varchar(30) NOT NULL,
+	email varchar(40) NOT NULL,
+	password char(32) NOT NULL,
+	telephone varchar(20),
+	PRIMARY KEY (admin_id)
+);
+
 CREATE TABLE Users (
 	user_id int NOT NULL AUTO_INCREMENT,
 	title char(30) NOT NULL,
@@ -11,6 +22,17 @@ CREATE TABLE Users (
 	password char(32) NOT NULL,
 	telephone varchar(20),
 	PRIMARY KEY (user_id)
+);
+
+CREATE TABLE Manangers (
+	manager_id int NOT NULL AUTO_INCREMENT,
+	title char(30) NOT NULL,
+	forename varchar(30) NOT NULL,
+	surname varchar(30) NOT NULL,
+	email varchar(40) NOT NULL,
+	password char(32) NOT NULL,
+	telephone varchar(20),
+	PRIMARY KEY (manager_id)
 );
 
 CREATE TABLE Hotel (
