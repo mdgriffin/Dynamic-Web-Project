@@ -35,12 +35,12 @@ CREATE TABLE Manangers (
 	PRIMARY KEY (manager_id)
 );
 
-CREATE TABLE Hotel (
-	hotel_id int NOT NULL AUTO_INCREMENT,
+CREATE TABLE Venues (
+	venue_id int NOT NULL AUTO_INCREMENT,
 	name varchar(60) NOT NULL,
 	address varchar(120) NOT NULL,
 	description varchar(255) NOT NULL,
 	latitude FLOAT( 10, 6 ) NOT NULL,
 	longitude FLOAT( 10, 6 ) NOT NULL,
-	PRIMARY KEY (hotel_id)
+	PRIMARY KEY (venue_id)
 );
