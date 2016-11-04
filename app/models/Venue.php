@@ -1,5 +1,9 @@
 <?php
+
 class	Venue {
+	// reference to the db connection
+	private static $db;
+
 	private $id;
 	private $name;
 	private $address;
@@ -15,10 +19,44 @@ class	Venue {
 		$this->longitude = $longitude;
 	}
 
-	public function save () {
-		global $db;
+	public function __call ($name, $arguments) {
+		// if the method called starts with set and the property exists, set the property
+		if (substr($name, 0,3) == "set" && property_exists($this, strtolower(substr($name, 3)))) {
+			$propName = strtolower(substr($name, 3));
+			$this->$propName = $arguments[0];
+		// otherwise try and call one of the other methods
+		} else {
+			if (!isset(self::$db)) {
+				self::$db = Connection::get_connection();
+			}
 
-		$insert_stmt = $db->prepare("INSERT INTO Venues (name, address, description, latitude, longitude) VALUES(:name, :address, :description, :latitude, :longitude)");
+			$name = '_' . $name;
+
+			if (method_exists($this, $name)) {
+				return $this->$name(implode(', ', $arguments));
+			} else {
+				return null;
+			}
+		}
+	}
+
+	public static function __callStatic ($name, $arguments) {
+		if (!isset(self::$db)) {
+			self::$db = Connection::get_connection();
+		}
+
+		$name = '_' . $name;
+
+		if (method_exists(get_class(), $name)) {
+			return self::$name(implode(', ', $arguments));
+		} else {
+			return null;
+		}
+	}
+
+	private function _save () {
+
+		$insert_stmt = self::$db->prepare("INSERT INTO Venues (name, address, description, latitude, longitude) VALUES(:name, :address, :description, :latitude, :longitude)");
 
 		$insert_stmt->execute(array(
 			':name' => $this->name,
@@ -28,14 +66,12 @@ class	Venue {
 			':longitude' => $this->longitude
 		));
 
-		$this->id = $db->lastInsertId("venue_id");
+		$this->id = self::$db->lastInsertId("venue_id");
 	}
 
-	public function update () {
-		global $db;
-
+	private function _update () {
 		if (isset($this->id)) {
-			$update_stmt = $db->prepare("UPDATE Venues SET name=:name, address=:address, description=:description, latitude=:latitude, longitude=:longitude WHERE venue_id=:id");
+			$update_stmt = self::$db->prepare("UPDATE Venues SET name=:name, address=:address, description=:description, latitude=:latitude, longitude=:longitude WHERE venue_id=:id");
 
 			$update_stmt->execute(array(
 				':name' => $this->name,
@@ -48,38 +84,14 @@ class	Venue {
 		}
 	}
 
-	public function setName ($name) {
-		$this->name  = $name;
-	}
-
-	public function setAddress ($name) {
-		$this->address = $address;
-	}
-
-	public function setDescription ($description) {
-		$this->description = $description;
-	}
-
-	public function setLatitude ($latitude) {
-		$this->latitude = $latitude;
-	}
-
-	public function setLongitude ($longitude) {
-		$this->longitude = $longitude;
-	}
-
-	public static function getAll () {
-		global $db;
-
-		$select_stmt = $db->prepare("SELECT * FROM Venues");
+	private static function _getAll ($arg) {
+		$select_stmt = self::$db->prepare("SELECT * FROM Venues");
 		$select_stmt->execute();
 		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	public static function get($id) {
-		global $db;
-
-		$select_stmt = $db->prepare("SELECT * FROM Venues WHERE venue_id=?");
+	private static function _get($id) {
+		$select_stmt = self::$db->prepare("SELECT * FROM Venues WHERE venue_id=?");
 		$select_stmt->execute(array($id));
 		return $select_stmt->fetch(PDO::FETCH_ASSOC);
 	}
