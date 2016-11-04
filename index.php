@@ -1,6 +1,7 @@
 <?php
 require_once "app/connection.php";
 require_once "app/models/Model.php";
+require_once "app/Validator.php";
 require_once "app/models/Venue.php";
 
 /*
@@ -11,8 +12,13 @@ $count = $db->exec("INSERT INTO Users (forename, surname) VALUES('Michael', 'Gri
 
 //$users = $db->query("SELECT * FROM Users");
 
-//$brehon = new Venue("Brehon", "Killarney, Co. Kerry", "Luxury Hotel in the heart of Killarney", 52.059935, -9.504427);
-//$brehon->save();
+$brehon = new Venue("Brehon", "Killarney, Co. Kerry", "Luxury Hotel in the heart of Killarney", 52.059935, -9.504427);
+
+if (!$brehon->errors()) {
+	$brehon->save();
+} else {
+	print_r($brehon->errors());
+}
 
 //$malton = new Venue("Malton", "Killarney, Co. Kerry", "Killarney National Park just a short stroll away", 52.059935, -9.504427);
 //$malton->save();
