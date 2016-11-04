@@ -17,6 +17,19 @@ class	Venue {
 		$this->setLongitude($longitude);
 	}
 
+	public function errors () {
+		$errors = array();
+
+		$nameValidator = new Validator($this->name, array("isMinLength" => "Hotel Name must contain at least 5 characters"));
+		$nameValidator->isMinLength(5)->isMaxLength(50);
+
+		if (!$nameValidator->isValid()) {
+			$errors["name"] = $nameValidator->errors();
+		}
+
+		return $errors;
+	}
+
 	private function _save () {
 
 		$insert_stmt = self::$db->prepare("INSERT INTO Venues (name, address, description, latitude, longitude) VALUES(:name, :address, :description, :latitude, :longitude)");
