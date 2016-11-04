@@ -2,7 +2,6 @@
 class	Venue {
 	use Model;
 
-	// reference to the db connection
 	private $id;
 	private $name;
 	private $address;
