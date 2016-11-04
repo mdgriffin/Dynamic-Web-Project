@@ -16,7 +16,6 @@ class	Venue {
 		$this->setDescription($description);
 		$this->setLatitude($latitude);
 		$this->setLongitude($longitude);
-
 	}
 
 	private function _save () {
