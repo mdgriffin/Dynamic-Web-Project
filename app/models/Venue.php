@@ -20,11 +20,22 @@ class	Venue {
 	public function errors () {
 		$errors = array();
 
-		$nameValidator = new Validator($this->name, array("isMinLength" => "Hotel Name must contain at least 5 characters"));
-		$nameValidator->isMinLength(5)->isMaxLength(50);
+		$nameValidator = (new Validator($this->name, array("isMinLength" => "Hotel Name must contain at least 7 characters")))->isMinLength(7)->isMaxLength(50);
 
 		if (!$nameValidator->isValid()) {
 			$errors["name"] = $nameValidator->errors();
+		}
+
+		$addressValidator = (new Validator($this->address))->isMinLength(20)->isMaxLength(150);
+
+		if (!$addressValidator->isValid()) {
+			$errors["address"] = $addressValidator->errors();
+		}
+
+		$descriptionValidator = (new Validator($this->description))->isMinLength(30)->isMaxLength(150);
+
+		if (!$descriptionValidator->isValid()) {
+			$errors["description"] = $descriptionValidator->errors();
 		}
 
 		return $errors;
