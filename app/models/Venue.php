@@ -11,11 +11,12 @@ class	Venue {
 	private $longitude;
 
 	public function __construct ($name, $address, $description, $latitude, $longitude) {
-		$this->name = $name;
-		$this->address = $address;
-		$this->description = $description;
-		$this->latitude = $latitude;
-		$this->longitude = $longitude;
+		$this->setName($name);
+		$this->setAddress($address);
+		$this->setDescription($description);
+		$this->setLatitude($latitude);
+		$this->setLongitude($longitude);
+
 	}
 
 	private function _save () {
