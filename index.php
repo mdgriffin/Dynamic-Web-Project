@@ -1,5 +1,6 @@
 <?php
 require_once "app/connection.php";
+require_once "app/models/Model.php";
 require_once "app/models/Venue.php";
 
 /*
