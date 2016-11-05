@@ -4,32 +4,19 @@ require_once "app/models/Model.php";
 require_once "app/Validator.php";
 require_once "app/models/Venue.php";
 
-/*
+$errors = null;
 
-$count = $db->exec("INSERT INTO Users (forename, surname) VALUES('Michael', 'Griffin')");
+if (isset($_POST["name"])) {
+	$venue = new Venue($_POST["name"], $_POST["address"], $_POST["description"], $_POST["latitude"], $_POST["longitude"]);
 
-*/
-
-//$users = $db->query("SELECT * FROM Users");
-
-$brehon = new Venue("Brehon", "Killarney, Co. Kerry", "Luxury Hotel in the heart of Killarney", 52.059935, -9.504427);
-
-if (!$brehon->errors()) {
-	$brehon->save();
-} else {
-	print_r($brehon->errors());
+	if (!$venue->errors()) {
+		$venue->save();
+	} else {
+		$errors = $venue->errors();
+	}
 }
 
-//$malton = new Venue("Malton", "Killarney, Co. Kerry", "Killarney National Park just a short stroll away", 52.059935, -9.504427);
-//$malton->save();
-
-//$gleneagle = new Venue("Gleneagle", "Mucross Road Killarney, Co.Kerry", "Killarney's premier events hotel", 39.045270, -104.824423);
-//$gleneagle->save();
-//$gleneagle->setDescription("Killarey's finest music and events destination");
-//$gleneagle->update();
-
 $venues = Venue::getAll();
-//$hotel_single = Hotel::get(10);
 
 $pageTitle = "Find the perfect venue";
 
@@ -62,6 +49,54 @@ include_once("partials/header.php");
 	</tbody>
 </table>
 
-<?php
-include_once("partials/footer.php");
-?>
+
+<h3>Register Hotel</h3>
+
+<form action="index.php" method="post">
+	<fieldset>
+		<label for="name">Name</label>
+		<input type="text" name="name" value="">
+		<?php
+		if ($errors && isset($errors["name"])) {
+			foreach ($errors["name"] as $error) {
+		?>
+				<p class="form-error"><?php echo $error; ?></p>
+		<?php
+			}
+		}
+		?>
+	</fieldset>
+	<fieldset>
+		<label for="address">Address</label>
+		<textarea name="address"></textarea>
+		<?php
+ 		if ($errors && isset($errors["address"])) {
+ 			foreach ($errors["address"] as $error) {
+ 		?>
+ 				<p class="form-error"><?php echo $error; ?></p>
+ 		<?php
+ 			}
+ 		}
+ 		?>
+	</fieldset>
+	<fieldset>
+		<label for="description">Description</label>
+		<textarea name="description"></textarea>
+		<?php
+		if ($errors && isset($errors["description"])) {
+			foreach ($errors["description"] as $error) {
+		?>
+				<p class="form-error"><?php echo $error; ?></p>
+		<?php
+			}
+		}
+		?>
+	</fieldset>
+
+	<input type="hidden" name="latitude" value="52.059935">
+	<input type="hidden" name="longitude" value="-9.504427">
+
+	<input type="submit" value="Register">
+</form>
+
+<?php include_once("partials/footer.php"); ?>
