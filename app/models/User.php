@@ -11,7 +11,7 @@ class	User {
 
 	public function __construct ($forename, $surname, $email, $telephone, $password) {
 		$this->setForename($forename);
-		$this->serSurname($surname);
+		$this->setSurname($surname);
 		$this->setEmail($email);
 		$this->setTelephone($telephone);
 		$this->setPassword();

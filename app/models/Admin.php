@@ -10,7 +10,7 @@ class	 Admin {
 
 	public function __construct ($forename, $surname, $email, $password) {
 		$this->setForename($forename);
-		$this->serSurname($surname);
+		$this->setSurname($surname);
 		$this->setEmail($email);
 		$this->setPassword();
 	}
