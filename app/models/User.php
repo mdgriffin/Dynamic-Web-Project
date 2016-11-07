@@ -21,11 +21,16 @@ class	Venue {
 		// hash the password
 	}
 
+	public static function isUser ($username, $password) {
+		// check if this is a registered user
+	}
+
 	public function errors () {
 		$errors = array();
 
 		return $errors;
 	}
+
 
 	private function _save () {
 	}
