@@ -1,5 +1,5 @@
 <?php
-class	Venue {
+class	User {
 	use Model;
 
 	private $id;
