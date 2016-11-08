@@ -9,7 +9,6 @@ CREATE TABLE Admins (
 	surname varchar(30) NOT NULL,
 	email varchar(40) NOT NULL,
 	password char(32) NOT NULL,
-	telephone varchar(20),
 	PRIMARY KEY (admin_id)
 );
 
