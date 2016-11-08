@@ -12,7 +12,7 @@ class	 Admin {
 		$this->setForename($forename);
 		$this->setSurname($surname);
 		$this->setEmail($email);
-		$this->setPassword();
+		$this->setPassword($password);
 	}
 
 	/**
@@ -25,10 +25,6 @@ class	 Admin {
 		$salt = sprintf("$2a$%02d$", $cost) . $salt;
 
 		$this->password = crypt($password, $salt);
-	}
-
-	public static function isAdmin ($username, $password) {
-		// check if this is a registered user
 	}
 
 	public function errors () {
@@ -48,6 +44,22 @@ class	 Admin {
 		));
 
 		$this->id = self::$db->lastInsertId("admin_id");
+	}
+
+	public static function _isAdmin ($email, $password) {
+		$admin_pass_stmt = self::$db->prepare("SELECT password FROM Admins WHERE email=:email");
+
+		$admin_pass_stmt->execute(array(
+			':email' => $email
+		));
+
+		$admin = $admin_pass_stmt->fetch(PDO::FETCH_ASSOC);
+
+		if (hash_equals($admin["password"], crypt($password, $admin["password"]))) {
+				return true;
+		} else {
+			return false;
+		}
 	}
 
 	private function _update () {
