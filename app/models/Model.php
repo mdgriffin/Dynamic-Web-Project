@@ -17,7 +17,7 @@ trait Model {
 			$name = '_' . $name;
 
 			if (method_exists($this, $name)) {
-				return $this->$name(implode(', ', $arguments));
+				return call_user_func_array (array($this, $name) , $arguments);
 			} else {
 				return null;
 			}
@@ -34,7 +34,8 @@ trait Model {
 		$name = '_' . $name;
 
 		if (method_exists(get_class(), $name)) {
-			return self::$name(implode(', ', $arguments));
+			//return self::$name(implode(', ', $arguments));
+			return call_user_func_array (array(self, $name) , $arguments);
 		} else {
 			return null;
 		}
