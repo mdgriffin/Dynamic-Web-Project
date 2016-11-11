@@ -2,7 +2,7 @@ CREATE DATABASE DynamicProject;
 
 USE DynamicProject;
 
-CREATE TABLE Admins (
+CREATE TABLE IF NOT EXISTS Admins (
 	admin_id int NOT NULL AUTO_INCREMENT,
 	title char(30) NOT NULL,
 	forename varchar(30) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE Admins (
 	PRIMARY KEY (admin_id)
 );
 
-CREATE TABLE Users (
+CREATE TABLE IF NOT EXISTS Users (
 	user_id int NOT NULL AUTO_INCREMENT,
 	title char(30) NOT NULL,
 	forename varchar(30) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE Users (
 	PRIMARY KEY (user_id)
 );
 
-CREATE TABLE Manangers (
+CREATE TABLE IF NOT EXISTS Manangers (
 	manager_id int NOT NULL AUTO_INCREMENT,
 	title char(30) NOT NULL,
 	forename varchar(30) NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE Manangers (
 	PRIMARY KEY (manager_id)
 );
 
-CREATE TABLE Venues (
+CREATE TABLE IF NOT EXISTS Venues (
 	venue_id int NOT NULL AUTO_INCREMENT,
 	name varchar(60) NOT NULL,
 	address varchar(120) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE Venues (
 	PRIMARY KEY (venue_id)
 );
 
-CREATE TABLE Venue_Images (
+CREATE TABLE IF NOT EXISTS Venue_Images (
 	image_id int NOT NULL AUTO_INCREMENT,
 	venue_id int NOT NULL,
 	source varchar(64) NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE Venue_Images (
 	FOREIGN KEY (venue_id) REFERENCES Venues (venue_id)
 );
 
-CREATE TABLE Rooms (
+CREATE TABLE IF NOT EXISTS Rooms (
 	room_id int NOT NULL AUTO_INCREMENT,
 	venue_id int NOT NULL,
 	capacity int NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE Rooms (
 	FOREIGN KEY (venue_id) REFERENCES Venues (venue_id)
 );
 
-CREATE TABLE Packages (
+CREATE TABLE IF NOT EXISTS Packages (
 	package_id int NOT NULL AUTO_INCREMENT,
 	room_id int NOT NULL,
 	description varchar(255),
@@ -75,7 +75,7 @@ CREATE TABLE Packages (
 	FOREIGN KEY (room_id) REFERENCES Rooms (room_id)
 );
 
-CREATE TABLE Bookings (
+CREATE TABLE IF NOT EXISTS Bookings (
 	booking_id int NOT NULL AUTO_INCREMENT,
 	user_id int NOT NULL,
 	package_id int NOT NULL,
@@ -84,8 +84,7 @@ CREATE TABLE Bookings (
 	booking_date date NOT NULL,
 	total Decimal(10, 2) NOT NULL,
 	PRIMARY KEY (booking_id),
-	FOREIGN KEY (user_id) REFERENCES Users (user_id)
-	FOREIGN KEY (package_id) REFERENCES Packages (package_id)
+	FOREIGN KEY (user_id) REFERENCES Users (user_id),
+	FOREIGN KEY (package_id) REFERENCES Packages (package_id),
 	FOREIGN KEY (room_id) REFERENCES Rooms (room_id)
-
 );
