@@ -23,17 +23,6 @@ CREATE TABLE IF NOT EXISTS Users (
 	PRIMARY KEY (user_id)
 );
 
-CREATE TABLE IF NOT EXISTS Manangers (
-	manager_id int NOT NULL AUTO_INCREMENT,
-	title char(30) NOT NULL,
-	forename varchar(30) NOT NULL,
-	surname varchar(30) NOT NULL,
-	email varchar(40) NOT NULL,
-	password char(32) NOT NULL,
-	telephone varchar(20),
-	PRIMARY KEY (manager_id)
-);
-
 CREATE TABLE IF NOT EXISTS Venues (
 	venue_id int NOT NULL AUTO_INCREMENT,
 	name varchar(60) NOT NULL,
@@ -53,18 +42,9 @@ CREATE TABLE IF NOT EXISTS Venue_Images (
 	FOREIGN KEY (venue_id) REFERENCES Venues (venue_id)
 );
 
-CREATE TABLE IF NOT EXISTS Rooms (
-	room_id int NOT NULL AUTO_INCREMENT,
-	venue_id int NOT NULL,
-	capacity int NOT NULL,
-	facilites varchar(255) NOT NULL,
-	PRIMARY KEY (room_id),
-	FOREIGN KEY (venue_id) REFERENCES Venues (venue_id)
-);
-
 CREATE TABLE IF NOT EXISTS Packages (
 	package_id int NOT NULL AUTO_INCREMENT,
-	room_id int NOT NULL,
+	venue_id int NOT NULL,
 	description varchar(255),
 	price_per_guest Decimal(10,2) NOT NULL,
 	min_guests int(5) NOT NULL,
@@ -72,19 +52,19 @@ CREATE TABLE IF NOT EXISTS Packages (
 	start_date date NOT NULL,
 	end_date date NOT NULL,
 	PRIMARY KEY (package_id),
-	FOREIGN KEY (room_id) REFERENCES Rooms (room_id)
+	FOREIGN KEY (venue_id) REFERENCES Venues (venue_id)
 );
 
 CREATE TABLE IF NOT EXISTS Bookings (
 	booking_id int NOT NULL AUTO_INCREMENT,
 	user_id int NOT NULL,
 	package_id int NOT NULL,
-	room_id int NOT NULL,
+	venue_id int NOT NULL,
 	num_guests int NOT NULL,
 	booking_date date NOT NULL,
 	total Decimal(10, 2) NOT NULL,
 	PRIMARY KEY (booking_id),
 	FOREIGN KEY (user_id) REFERENCES Users (user_id),
 	FOREIGN KEY (package_id) REFERENCES Packages (package_id),
-	FOREIGN KEY (room_id) REFERENCES Rooms (room_id)
+	FOREIGN KEY (venue_id) REFERENCES Venues (venue_id)
 );
