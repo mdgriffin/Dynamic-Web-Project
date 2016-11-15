@@ -71,7 +71,7 @@ class	Venue {
 		}
 	}
 
-	private static function _getAll ($arg) {
+	private static function _getAll () {
 		$select_stmt = self::$db->prepare("SELECT * FROM Venues");
 		$select_stmt->execute();
 		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
