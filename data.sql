@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS Admins (
 	forename varchar(30) NOT NULL,
 	surname varchar(30) NOT NULL,
 	email varchar(40) NOT NULL,
-	password char(32) NOT NULL,
+	password char(64) NOT NULL,
 	PRIMARY KEY (admin_id)
 );
 
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS Users (
 	forename varchar(30) NOT NULL,
 	surname varchar(30) NOT NULL,
 	email varchar(40) NOT NULL,
-	password char(32) NOT NULL,
+	password char(64) NOT NULL,
 	telephone varchar(20),
 	PRIMARY KEY (user_id)
 );
