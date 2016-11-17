@@ -83,7 +83,7 @@ class	Venue {
 		return $select_stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
-	private function _getRooms () {
+	private function _getPackages () {
 		// get the related room of this venue
 	}
 
