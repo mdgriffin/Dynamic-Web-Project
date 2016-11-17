@@ -4,7 +4,6 @@ USE DynamicProject;
 
 CREATE TABLE IF NOT EXISTS Users (
 	user_id int NOT NULL AUTO_INCREMENT,
-	title char(30) NOT NULL,
 	forename varchar(30) NOT NULL,
 	surname varchar(30) NOT NULL,
 	email varchar(40) NOT NULL,
