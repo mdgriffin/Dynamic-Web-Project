@@ -35,7 +35,7 @@ trait Model {
 
 		if (method_exists(get_class(), $name)) {
 			//return self::$name(implode(', ', $arguments));
-			return call_user_func_array (array(self, $name) , $arguments);
+			return call_user_func_array (array(__class__, $name) , $arguments);
 		} else {
 			return null;
 		}
