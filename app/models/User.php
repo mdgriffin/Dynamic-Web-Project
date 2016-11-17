@@ -6,7 +6,6 @@ class	User {
 	private $forename;
 	private $surname;
 	private $email;
-	private $telephone;
 	private $password;
 	private $admin;
 
@@ -22,16 +21,36 @@ class	User {
 	 * Example of good Password Security found here: https://alias.io/2010/01/store-passwords-safely-with-php-and-mysql/
 	 **/
 
-	public function setPassword ($password) {
+	public function hashPassword () {
 		$cost = 10;
 		$salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
 		$salt = sprintf("$2a$%02d$", $cost) . $salt;
 
-		$this->password = crypt($password, $salt);
+		return crypt($this->password, $salt);
 	}
 
 	public function errors () {
 		$errors = array();
+
+		$forenameValidator = (new Validator($this->forename, array()))->isMinLength(2)->isMaxLength(30);
+		if (!$forenameValidator->isValid()) {
+			$errors["forename"] = $forenameValidator->errors();
+		}
+
+		$surnameValidator = (new Validator($this->surname, array()))->isMinLength(2)->isMaxLength(30);
+		if (!$surnameValidator->isValid()) {
+			$errors["surname"] = $surnameValidator->errors();
+		}
+
+		$emailValidator = (new Validator($this->email, array()))->isEmail();
+		if (!$emailValidator->isValid()) {
+			$errors["email"] = $emailValidator->errors();
+		}
+
+		$passwordValidator = (new Validator($this->password, array()))->isMinLength(7)->isMaxLength(30);
+		if (!$passwordValidator->isValid()) {
+			$errors["password"] = $passwordValidator->errors();
+		}
 
 		return $errors;
 	}
@@ -43,7 +62,7 @@ class	User {
 			':forename' => $this->forename,
 			':surname' => $this->surname,
 			':email' => $this->email,
-			':password' => $this->password,
+			':password' => $this->hashPassword($this->password),
 			':is_admin' => $this->admin
 		));
 

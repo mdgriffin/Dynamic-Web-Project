@@ -29,9 +29,15 @@ if (isset($_POST["login"])) {
 	}
 }
 
+$errors = null;
+
 if (isset($_POST["register"])) {
 	$admin = new User($_POST["forename"], $_POST["surname"], $_POST["email"], $_POST["password"], 1);
-	$admin->save();
+	if (!$admin->errors()) {
+		$admin->save();
+	} else {
+		$errors = $admin->errors();
+	}
 }
 
 
@@ -63,21 +69,57 @@ if (isset($_POST["register"])) {
 	<fieldset>
 		<label for="forename">First Name</label>
 		<input type="text" name="forename" value="">
+		<?php
+		if ($errors && isset($errors["forename"])) {
+			foreach ($errors["forename"] as $error) {
+		?>
+				<p class="form-error"><?php echo $error; ?></p>
+		<?php
+			}
+		}
+		?>
 	</fieldset>
 
 	<fieldset>
 		<label for="surname">Surname</label>
 		<input type="text" name="surname" value="">
+		<?php
+		if ($errors && isset($errors["surname"])) {
+			foreach ($errors["surname"] as $error) {
+		?>
+				<p class="form-error"><?php echo $error; ?></p>
+		<?php
+			}
+		}
+		?>
 	</fieldset>
 
 	<fieldset>
 		<label for="email">Email</label>
 		<input type="text" name="email" value="">
+		<?php
+		if ($errors && isset($errors["email"])) {
+			foreach ($errors["email"] as $error) {
+		?>
+				<p class="form-error"><?php echo $error; ?></p>
+		<?php
+			}
+		}
+		?>
 	</fieldset>
 
 	<fieldset>
 		<label for="password">Password</label>
 		<input type="text" name="password" value="">
+		<?php
+		if ($errors && isset($errors["password"])) {
+			foreach ($errors["password"] as $error) {
+		?>
+				<p class="form-error"><?php echo $error; ?></p>
+		<?php
+			}
+		}
+		?>
 	</fieldset>
 
 	<input type="submit" name="register" value="Register">

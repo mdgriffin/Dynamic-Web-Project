@@ -69,7 +69,7 @@ class Validator {
 	}
 
 	public function isEmail () {
-		if (!filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+		if (!(bool)filter_var($this->value, FILTER_VALIDATE_EMAIL)) {
 			$this->errors["isEmail"] = $this->error_messages["isEmail"];
 		}
 
