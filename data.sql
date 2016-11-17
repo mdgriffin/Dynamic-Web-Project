@@ -2,16 +2,6 @@ CREATE DATABASE DynamicProject;
 
 USE DynamicProject;
 
-CREATE TABLE IF NOT EXISTS Admins (
-	admin_id int NOT NULL AUTO_INCREMENT,
-	title char(30) NOT NULL,
-	forename varchar(30) NOT NULL,
-	surname varchar(30) NOT NULL,
-	email varchar(40) NOT NULL,
-	password char(64) NOT NULL,
-	PRIMARY KEY (admin_id)
-);
-
 CREATE TABLE IF NOT EXISTS Users (
 	user_id int NOT NULL AUTO_INCREMENT,
 	title char(30) NOT NULL,
@@ -20,6 +10,7 @@ CREATE TABLE IF NOT EXISTS Users (
 	email varchar(40) NOT NULL,
 	password char(64) NOT NULL,
 	telephone varchar(20),
+	is_admin tinyint(1) DEFAULT 0
 	PRIMARY KEY (user_id)
 );
 

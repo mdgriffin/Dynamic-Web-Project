@@ -9,20 +9,25 @@ class	User {
 	private $telephone;
 	private $password;
 
-	public function __construct ($forename, $surname, $email, $telephone, $password) {
+	public function __construct ($forename, $surname, $email, $telephone, $password, $isAdmin) {
 		$this->setForename($forename);
 		$this->setSurname($surname);
 		$this->setEmail($email);
 		$this->setTelephone($telephone);
-		$this->setPassword();
+		$this->setPassword($password);
+		$this->setAdmin($isAdmin)
 	}
+
+	/**
+	 * Example of good Password Security found here: https://alias.io/2010/01/store-passwords-safely-with-php-and-mysql/
+	 **/
 
 	public function setPassword ($password) {
-		// hash the password
-	}
+		$cost = 10;
+		$salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
+		$salt = sprintf("$2a$%02d$", $cost) . $salt;
 
-	public static function isUser ($username, $password) {
-		// check if this is a registered user
+		$this->password = crypt($password, $salt);
 	}
 
 	public function errors () {
@@ -31,8 +36,49 @@ class	User {
 		return $errors;
 	}
 
-
 	private function _save () {
+		$insert_stmt = self::$db->prepare("INSERT INTO Admins (forename, surname, email, password) VALUES(:forename, :surname, :email, :password)");
+
+		$insert_stmt->execute(array(
+			':forename' => $this->forename,
+			':surname' => $this->surname,
+			':email' => $this->email,
+			':password' => $this->password
+		));
+
+		$this->id = self::$db->lastInsertId("admin_id");
+	}
+
+	public static function _isUser($email, $password) {
+		$user_pass_stmt = self::$db->prepare("SELECT password FROM Users WHERE email=:email");
+
+		$user_pass_stmt->execute(array(
+			':email' => $email
+		));
+
+		$user = $user_pass_stmt->fetch(PDO::FETCH_ASSOC);
+
+		if (hash_equals($user["password"], crypt($password, $user["password"]))) {
+				return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static function _isAdmin () {
+		$admin_pass_stmt = self::$db->prepare("SELECT password FROM USER WHERE email=:email AND is_admin=1");
+
+		$admin_pass_stmt->execute(array(
+			':email' => $email
+		));
+
+		$admin = $admin_pass_stmt->fetch(PDO::FETCH_ASSOC);
+
+		if (hash_equals($admin["password"], crypt($password, $admin["password"]))) {
+				return true;
+		} else {
+			return false;
+		}
 	}
 
 	private function _update () {
