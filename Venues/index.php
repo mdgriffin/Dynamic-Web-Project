@@ -25,7 +25,7 @@ include_once("../partials/header.php");
 
 ?>
 
-<h2>Hotels</h2>
+<h2>Venues</h2>
 
 <table>
 	<thead>
