@@ -8,13 +8,14 @@ class	User {
 	private $email;
 	private $telephone;
 	private $password;
+	private $admin;
 
 	public function __construct ($forename, $surname, $email, $password, $isAdmin) {
 		$this->setForename($forename);
 		$this->setSurname($surname);
 		$this->setEmail($email);
 		$this->setPassword($password);
-		$this->setAdmin($isAdmin)
+		$this->setAdmin($isAdmin);
 	}
 
 	/**
@@ -36,13 +37,14 @@ class	User {
 	}
 
 	private function _save () {
-		$insert_stmt = self::$db->prepare("INSERT INTO Admins (forename, surname, email, password) VALUES(:forename, :surname, :email, :password)");
+		$insert_stmt = self::$db->prepare("INSERT INTO Users (forename, surname, email, password, is_admin) VALUES(:forename, :surname, :email, :password, :is_admin)");
 
 		$insert_stmt->execute(array(
 			':forename' => $this->forename,
 			':surname' => $this->surname,
 			':email' => $this->email,
-			':password' => $this->password
+			':password' => $this->password,
+			':is_admin' => $this->admin
 		));
 
 		$this->id = self::$db->lastInsertId("admin_id");
@@ -64,8 +66,8 @@ class	User {
 		}
 	}
 
-	public static function _isAdmin () {
-		$admin_pass_stmt = self::$db->prepare("SELECT password FROM USER WHERE email=:email AND is_admin=1");
+	public static function _isAdmin ($email, $password) {
+		$admin_pass_stmt = self::$db->prepare("SELECT password FROM Users WHERE email=:email AND is_admin=1");
 
 		$admin_pass_stmt->execute(array(
 			':email' => $email

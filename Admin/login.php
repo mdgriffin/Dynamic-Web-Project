@@ -11,7 +11,7 @@ require_once "../app/config.php";
 require_once "../app/connection.php";
 require_once "../app/models/Model.php";
 require_once "../app/Validator.php";
-require_once "../app/models/Admin.php";
+require_once "../app/models/User.php";
 
 $pageTitle = "Please Login";
 
@@ -30,7 +30,7 @@ if (isset($_POST["login"])) {
 }
 
 if (isset($_POST["register"])) {
-	$admin = new User($_POST["forename"], $_POST["surname"], $_POST["email"], $_POST["password"]);
+	$admin = new User($_POST["forename"], $_POST["surname"], $_POST["email"], $_POST["password"], 1);
 	$admin->save();
 }
 
