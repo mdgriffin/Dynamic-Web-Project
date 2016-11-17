@@ -21,7 +21,7 @@ include_once("../partials/header.php");
 // if not redirect to login
 
 if (isset($_POST["login"])) {
-	if (Admin::isAdmin($_POST["email"], $_POST["password"])) {
+	if (User::isAdmin($_POST["email"], $_POST["password"])) {
 		$_SESSION["admin_logged_in"] = true;
 		header('Location:index.php');
 	} else {
@@ -30,7 +30,7 @@ if (isset($_POST["login"])) {
 }
 
 if (isset($_POST["register"])) {
-	$admin = new Admin($_POST["forename"], $_POST["surname"], $_POST["email"], $_POST["password"]);
+	$admin = new User($_POST["forename"], $_POST["surname"], $_POST["email"], $_POST["password"]);
 	$admin->save();
 }
 

@@ -9,11 +9,10 @@ class	User {
 	private $telephone;
 	private $password;
 
-	public function __construct ($forename, $surname, $email, $telephone, $password, $isAdmin) {
+	public function __construct ($forename, $surname, $email, $password, $isAdmin) {
 		$this->setForename($forename);
 		$this->setSurname($surname);
 		$this->setEmail($email);
-		$this->setTelephone($telephone);
 		$this->setPassword($password);
 		$this->setAdmin($isAdmin)
 	}
