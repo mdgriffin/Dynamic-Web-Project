@@ -19,13 +19,9 @@ require_once "../app/Validator.php";
 $pageTitle = "Admin Index";
 
 include_once("../partials/header.php");
-
+include_once("../partials/admin-nav.php");
 ?>
 
 <h1>Admin Index: You are now logged in</h1>
 
-<form action="index.php" method="post">
-	<input type="submit" name="logout" value="Logout">
-</form>
-
-<?php include_once("partials/footer.php"); ?>
+<?php include_once("../partials/footer.php"); ?>
