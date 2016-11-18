@@ -6,7 +6,7 @@ if (!isset($_SESSION["admin_logged_in"]) || !$_SESSION["admin_logged_in"]) {
 	die();
 }
 
-if ($_POST["logout"]) {
+if (isset($_POST["logout"])) {
 	session_destroy();
 	header("Location:login.php");
 }
@@ -18,6 +18,20 @@ require_once "../app/Validator.php";
 require_once "../app/models/Venue.php";
 
 $venues = Venue::getAll();
+
+$errors = null;
+
+if (isset($_POST["name"])) {
+	$venue = new Venue($_POST["name"], $_POST["address"], $_POST["description"], $_POST["latitude"], $_POST["longitude"]);
+
+	if (!$venue->errors()) {
+		$venue->save();
+	} else {
+		$errors = $venue->errors();
+	}
+} else {
+	$venue = new Venue("", "", "", "", "", "");
+}
 
 $pageTitle = "Manage Venues";
 
@@ -32,7 +46,7 @@ include_once("../partials/admin-nav.php");
 <form action="venues.php" method="post">
 	<fieldset>
 		<label for="name">Name</label>
-		<input type="text" name="name" value="">
+		<input type="text" name="name" value="<?php echo $venue->getName(); ?>">
 		<?php
 		if ($errors && isset($errors["name"])) {
 			foreach ($errors["name"] as $error) {
@@ -43,9 +57,10 @@ include_once("../partials/admin-nav.php");
 		}
 		?>
 	</fieldset>
+
 	<fieldset>
 		<label for="address">Address</label>
-		<textarea name="address"></textarea>
+		<textarea name="address"><?php echo $venue->getAddress(); ?></textarea>
 		<?php
  		if ($errors && isset($errors["address"])) {
  			foreach ($errors["address"] as $error) {
@@ -56,9 +71,20 @@ include_once("../partials/admin-nav.php");
  		}
  		?>
 	</fieldset>
+
+	<fieldset>
+		<label for="latitude">Latitude</label>
+		<input type="text" name="latitude" value="<?php echo $venue->getLatitude(); ?>">
+	</fieldset>
+
+	<fieldset>
+		<label for="longitude">Longitude</label>
+		<input type="text" name="longitude" value="<?php echo $venue->getLongitude(); ?>">
+	</fieldset>
+
 	<fieldset>
 		<label for="description">Description</label>
-		<textarea name="description"></textarea>
+		<textarea name="description"><?php echo $venue->getDescription(); ?></textarea>
 		<?php
 		if ($errors && isset($errors["description"])) {
 			foreach ($errors["description"] as $error) {
@@ -69,9 +95,6 @@ include_once("../partials/admin-nav.php");
 		}
 		?>
 	</fieldset>
-
-	<input type="hidden" name="latitude" value="52.059935">
-	<input type="hidden" name="longitude" value="-9.504427">
 
 	<input type="submit" value="Register">
 </form>

@@ -5,17 +5,6 @@ require_once "../app/models/Model.php";
 require_once "../app/Validator.php";
 require_once "../app/models/Venue.php";
 
-$errors = null;
-
-if (isset($_POST["name"])) {
-	$venue = new Venue($_POST["name"], $_POST["address"], $_POST["description"], $_POST["latitude"], $_POST["longitude"]);
-
-	if (!$venue->errors()) {
-		$venue->save();
-	} else {
-		$errors = $venue->errors();
-	}
-}
 
 $venues = Venue::getAll();
 

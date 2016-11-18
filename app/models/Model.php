@@ -9,7 +9,10 @@ trait Model {
 			$propName = strtolower(substr($name, 3));
 			$this->$propName = $arguments[0];
 		// otherwise try and call one of the other methods
-		} else {
+	} else if (substr($name, 0,3) == "get" && property_exists($this, strtolower(substr($name, 3)))) {
+		$propName = strtolower(substr($name, 3));
+		return $this->$propName;
+	} else {
 			if (!isset(self::$db)) {
 				self::$db = Connection::get_connection();
 			}

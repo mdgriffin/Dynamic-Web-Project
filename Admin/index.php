@@ -6,7 +6,7 @@ if (!isset($_SESSION["admin_logged_in"]) || !$_SESSION["admin_logged_in"]) {
 	die();
 }
 
-if ($_POST["logout"]) {
+if (isset($_POST["logout"])) {
 	session_destroy();
 	header("Location:login.php");
 }
