@@ -19,7 +19,7 @@ require_once "../app/models/Venue.php";
 
 $errors = null;
 
-// register a venue
+// register venue
 if (isset($_POST["register"])) {
 	$venue = new Venue($_POST["name"], $_POST["address"], $_POST["description"], $_POST["latitude"], $_POST["longitude"]);
 
@@ -30,15 +30,16 @@ if (isset($_POST["register"])) {
 		$errors = $venue->errors();
 		$flash_error = "Form has errors";
 	}
-// delete a venue
+// delete venue
 } else if (isset($_POST["delete"])) {
 	Venue::delete($_POST["venue_id"]);
 	$venue = new Venue("", "", "", "", "", "");
 	$flash_message = "Venue Deleted";
-// updating a venue
+
 } else if (isset($_GET["id"])) {
 	$venue = Venue::get($_GET["id"]);
 
+	// update venue
 	if (isset($_POST["update"])) {
 		$venue->setName($_POST["name"]);
 		$venue->setAddress($_POST["address"]);
