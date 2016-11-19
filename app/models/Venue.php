@@ -96,6 +96,13 @@ class	Venue {
 
 	}
 
+	private static function _delete ($id) {
+		$delete_stmt = self::$db->prepare("DELETE FROM Venues WHERE venue_id=?");
+		$res = $delete_stmt->execute(array($id));
+
+		return $res;
+	}
+
 	private function _getPackages () {
 		// get the related room of this venue
 	}

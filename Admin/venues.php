@@ -28,6 +28,9 @@ if (isset($_POST["register"])) {
 	} else {
 		$errors = $venue->errors();
 	}
+// delete a venue
+} else if (isset($_POST["delete"])) {
+	Venue::delete($_POST["venue_id"]);
 // updating a venue
 } else if (isset($_GET["id"])) {
 	$venue = Venue::get($_GET["id"]);
@@ -45,7 +48,7 @@ if (isset($_POST["register"])) {
 			$errors = $venue->errors();
 		}
 	}
-// get venue details to populate form
+// empty register form
 } else {
 	$venue = new Venue("", "", "", "", "", "");
 }
@@ -59,11 +62,13 @@ include_once("../partials/admin-nav.php");
 
 <h1>Admin: Manage Venues</h1>
 
-<h3>Register Venue</h3>
-
 <?php if (isset($_GET["id"])) { ?>
+	<h3>Update Venue</h3>
+
 	<form action="venues.php?id=<?php echo $_GET["id"]; ?>" method="post">
 <?php } else {?>
+	<h3>Register Venue</h3>
+
 	<form action="venues.php" method="post">
 <?php } ?>
 	<fieldset>
@@ -126,7 +131,6 @@ include_once("../partials/admin-nav.php");
 
 </form>
 
-
 <h2>Venues</h2>
 
 <table>
@@ -152,7 +156,7 @@ include_once("../partials/admin-nav.php");
 				<td>
 					<form action="venues.php" method="post">
 						<input type="hidden" name="venue_id" value="<?php echo $venue["venue_id"]; ?>">
-						<input type="submit" name="submit" value="Delete Venue">
+						<input type="submit" name="delete" value="Delete Venue">
 					</form>
 				</td>
 			</tr>
