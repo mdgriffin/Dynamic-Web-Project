@@ -21,7 +21,8 @@ $venues = Venue::getAll();
 
 $errors = null;
 
-if (isset($_POST["name"])) {
+// register a venue
+if (isset($_POST["register"])) {
 	$venue = new Venue($_POST["name"], $_POST["address"], $_POST["description"], $_POST["latitude"], $_POST["longitude"]);
 
 	if (!$venue->errors()) {
@@ -29,6 +30,24 @@ if (isset($_POST["name"])) {
 	} else {
 		$errors = $venue->errors();
 	}
+// updating a venue
+} else if (isset($_GET["id"])) {
+	$venue = Venue::get($_GET["id"]);
+
+	if (isset($_POST["update"])) {
+		$venue->setName($_POST["name"]);
+		$venue->setAddress($_POST["address"]);
+		$venue->setDescription($_POST["description"]);
+		$venue->setLatitude($_POST["latitude"]);
+		$venue->setLongitude($_POST["longitude"]);
+
+		if (!$venue->errors()) {
+			$venue->update();
+		} else {
+			$errors = $venue->errors();
+		}
+	}
+// get venue details to populate form
 } else {
 	$venue = new Venue("", "", "", "", "", "");
 }
@@ -43,7 +62,11 @@ include_once("../partials/admin-nav.php");
 
 <h3>Register Venue</h3>
 
-<form action="venues.php" method="post">
+<?php if (isset($_GET["id"])) { ?>
+	<form action="venues.php?id=<?php echo $_GET["id"]; ?>" method="post">
+<?php } else {?>
+	<form action="venues.php" method="post">
+<?php } ?>
 	<fieldset>
 		<label for="name">Name</label>
 		<input type="text" name="name" value="<?php echo $venue->getName(); ?>">
@@ -96,7 +119,12 @@ include_once("../partials/admin-nav.php");
 		?>
 	</fieldset>
 
-	<input type="submit" value="Register">
+	<?php if (isset($_GET["id"])) { ?>
+		<input type="submit" name="update" value="Update">
+	<?php } else {?>
+		<input type="submit" name="register" value="Register">
+	<?php } ?>
+
 </form>
 
 
@@ -121,7 +149,7 @@ include_once("../partials/admin-nav.php");
 				<td><?php echo $venue["description"]; ?></td>
 				<td><?php echo $venue["latitude"]; ?></td>
 				<td><?php echo $venue["longitude"]; ?></td>
-				<td><a href="venues.php?venue-id=<?php echo $venue["venue_id"]; ?>"><button>Update</button></a></td>
+				<td><a href="venues.php?id=<?php echo $venue["venue_id"]; ?>"><button>Update</button></a></td>
 				<td>
 					<form action="venues.php" method="post">
 						<input type="hidden" name="venue_id" value="<?php echo $venue["venue_id"]; ?>">

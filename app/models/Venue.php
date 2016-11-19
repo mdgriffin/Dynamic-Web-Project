@@ -80,7 +80,9 @@ class	Venue {
 	private static function _get($id) {
 		$select_stmt = self::$db->prepare("SELECT * FROM Venues WHERE venue_id=?");
 		$select_stmt->execute(array($id));
-		return $select_stmt->fetch(PDO::FETCH_ASSOC);
+		$venue_res = $select_stmt->fetch(PDO::FETCH_ASSOC);
+
+		return new Venue($venue_res["name"], $venue_res["address"], $venue_res["description"], $venue_res["latitude"], $venue_res["longitude"]);
 	}
 
 	private function _getPackages () {
