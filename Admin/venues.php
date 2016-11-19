@@ -31,6 +31,7 @@ if (isset($_POST["register"])) {
 // delete a venue
 } else if (isset($_POST["delete"])) {
 	Venue::delete($_POST["venue_id"]);
+	$venue = new Venue("", "", "", "", "", "");
 // updating a venue
 } else if (isset($_GET["id"])) {
 	$venue = Venue::get($_GET["id"]);
