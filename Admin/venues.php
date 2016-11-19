@@ -1,10 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["admin_logged_in"]) || !$_SESSION["admin_logged_in"]) {
-	header('Location:login.php');
-	die();
-}
+
 
 if (isset($_POST["logout"])) {
 	session_destroy();
@@ -166,6 +163,7 @@ include_once("../partials/admin-nav.php");
 						<input type="submit" name="delete" value="Delete Venue">
 					</form>
 				</td>
+				<td><a href="packages.php?id=<?php echo $venue["venue_id"]; ?>"><button>Manage Packages</button></a></td>
 			</tr>
 		<?php } ?>
 	</tbody>
