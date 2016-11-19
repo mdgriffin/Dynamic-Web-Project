@@ -68,6 +68,8 @@ class	Venue {
 				':longitude' => $this->longitude,
 				':id' => $this->id
 			));
+		} else {
+			return null;
 		}
 	}
 
@@ -82,7 +84,16 @@ class	Venue {
 		$select_stmt->execute(array($id));
 		$venue_res = $select_stmt->fetch(PDO::FETCH_ASSOC);
 
-		return new Venue($venue_res["name"], $venue_res["address"], $venue_res["description"], $venue_res["latitude"], $venue_res["longitude"]);
+		// if there is a venue
+		if ($venue_res) {
+			$venue = new Venue($venue_res["name"], $venue_res["address"], $venue_res["description"], $venue_res["latitude"], $venue_res["longitude"]);
+			$venue->setId($id);
+
+			return $venue;
+		} else {
+			return null;
+		}
+
 	}
 
 	private function _getPackages () {

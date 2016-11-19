@@ -17,8 +17,6 @@ require_once "../app/models/Model.php";
 require_once "../app/Validator.php";
 require_once "../app/models/Venue.php";
 
-$venues = Venue::getAll();
-
 $errors = null;
 
 // register a venue
@@ -52,6 +50,7 @@ if (isset($_POST["register"])) {
 	$venue = new Venue("", "", "", "", "", "");
 }
 
+$venues = Venue::getAll();
 $pageTitle = "Manage Venues";
 
 include_once("../partials/header.php");
