@@ -25,13 +25,16 @@ if (isset($_POST["register"])) {
 
 	if (!$venue->errors()) {
 		$venue->save();
+		$flash_message = "New Venue Created";
 	} else {
 		$errors = $venue->errors();
+		$flash_error = "Form has errors";
 	}
 // delete a venue
 } else if (isset($_POST["delete"])) {
 	Venue::delete($_POST["venue_id"]);
 	$venue = new Venue("", "", "", "", "", "");
+	$flash_message = "Venue Deleted";
 // updating a venue
 } else if (isset($_GET["id"])) {
 	$venue = Venue::get($_GET["id"]);
@@ -45,8 +48,10 @@ if (isset($_POST["register"])) {
 
 		if (!$venue->errors()) {
 			$venue->update();
+			$flash_message = "Venue Updated";
 		} else {
 			$errors = $venue->errors();
+			$flash_error = "Form has errors";
 		}
 	}
 // empty register form

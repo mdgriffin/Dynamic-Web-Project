@@ -1,3 +1,31 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto', sans-serif;
+}
+
+.flashMessage,
+.flashError {
+	text-align: center;
+	padding: 1em;
+}
+
+.flashMessage {
+		background: #84DCC6;
+}
+
+.flashError {
+	background: #EF6461;
+	color: #fff;
+}
+
+.flashMessage h4,
+.flashError h4 {
+	display: inline-block;
+	margin: 0;
+}
+
+
 .form-error {
 	color: red;
 }
