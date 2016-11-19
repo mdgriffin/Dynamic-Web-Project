@@ -7,14 +7,14 @@ class	User {
 	private $surname;
 	private $email;
 	private $password;
-	private $admin;
+	private $is_admin;
 
-	public function __construct ($forename, $surname, $email, $password, $isAdmin) {
+	public function __construct ($forename, $surname, $email, $password, $is_admin) {
 		$this->setForename($forename);
 		$this->setSurname($surname);
 		$this->setEmail($email);
 		$this->setPassword($password);
-		$this->setAdmin($isAdmin);
+		$this->setIs_admin($is_admin);
 	}
 
 	/**
@@ -63,7 +63,7 @@ class	User {
 			':surname' => $this->surname,
 			':email' => $this->email,
 			':password' => $this->hashPassword(),
-			':is_admin' => $this->admin
+			':is_admin' => $this->is_admin
 		));
 
 		$this->id = self::$db->lastInsertId("admin_id");

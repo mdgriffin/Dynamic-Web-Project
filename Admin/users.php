@@ -31,11 +31,11 @@ if (isset($_POST["register"])) {
 		$flash_error = "Register User form has errors";
 	}
 
-	$user = new User("", "", "", "", 1);
+	$user = new User("", "", "", "", 0);
 // delete user
 } else if (isset($_POST["delete"])) {
 	User::delete($_POST["user_id"]);
-	$user = new User("", "", "", "", "", "");
+	$user = new User("", "", "", "", "", 0);
 	$flash_message = "User Deleted";
 // update user
 } else if (isset($_GET["id"])) {
@@ -60,7 +60,7 @@ if (isset($_POST["register"])) {
 	}
 // empty register form
 } else {
-	$user = new User("", "", "", "", 1);
+	$user = new User("", "", "", "", 0);
 }
 
 $users = User::getAll();
@@ -136,6 +136,15 @@ include_once("../partials/admin-nav.php");
 			}
 		}
 		?>
+	</fieldset>
+
+	<fieldset>
+
+		<label for="is_admin">Admin User</label>
+		<label><input type="radio" name="is_admin" value="1" <?php echo ((int)$user->getIs_admin() == 1? "checked" : ""); ?>> Yes</label>
+		<label><input type="radio" name="is_admin" value="0" <?php echo ((int)$user->getIs_admin() == 0? "checked" : ""); ?>> No</label>
+
+
 	</fieldset>
 
 	<?php if (isset($_GET["id"])) { ?>
