@@ -62,7 +62,7 @@ class	User {
 			':forename' => $this->forename,
 			':surname' => $this->surname,
 			':email' => $this->email,
-			':password' => $this->hashPassword($this->password),
+			':password' => $this->hashPassword(),
 			':is_admin' => $this->admin
 		));
 
@@ -102,15 +102,50 @@ class	User {
 	}
 
 	private function _update () {
+		if (isset($this->id)) {
+			$update_stmt = self::$db->prepare("UPDATE Users SET forename=:forename, surname=:surname, email=:email, password=:password, is_admin=:is_admin WHERE user_id=:id");
 
+			$update_stmt->execute(array(
+				':forename' => $this->forename,
+				':surname' => $this->surname,
+				':email' => $this->email,
+				':password' => $this->hashPassword(),
+				':is_admin' => $this->is_admin,
+				':id' => $this->id
+			));
+		} else {
+			return null;
+		}
 	}
 
-	private static function _getAll ($arg) {
-
+	private static function _getAll () {
+		$select_stmt = self::$db->prepare("SELECT * FROM Users");
+		$select_stmt->execute();
+		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	private static function _get($id) {
+		$select_stmt = self::$db->prepare("SELECT * FROM Users WHERE user_id=?");
+		$select_stmt->execute(array($id));
+		$user_res = $select_stmt->fetch(PDO::FETCH_ASSOC);
 
+		// if there is a user
+		if ($user_res) {
+			$user = new User($user_res["forename"], $user_res["surname"], $user_res["email"], $user_res["password"], $user_res["is_admin"]);
+			$user->setId($id);
+
+			return $user;
+		} else {
+			return null;
+		}
+
+	}
+
+	private static function _delete ($id) {
+		$delete_stmt = self::$db->prepare("DELETE FROM Users WHERE user_id=?");
+		$res = $delete_stmt->execute(array($id));
+
+		return $res;
 	}
 
 }
