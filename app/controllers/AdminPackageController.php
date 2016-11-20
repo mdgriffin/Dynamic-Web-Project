@@ -1,6 +1,6 @@
 <?php
 
-class PackageController implements RestfulController {
+class AdminPackageController implements RestfulController {
 
 	public function before () {
 		// check that the user is logged in

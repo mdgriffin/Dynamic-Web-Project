@@ -20,11 +20,11 @@ require_once "app/models/Package.php";
 // Controllers
 
 require_once "app/controllers/AdminVenuesController.php";
-require_once "app/controllers/PackageController.php";
+require_once "app/controllers/AdminPackageController.php";
 
 // Routing
 Router::restful("/^.+admin\/venues(?:.*)?$/", new AdminVenuesController());
-Router::restful("/^.+admin\/packages(?:.*)?$/", new PackageController());
+Router::restful("/^.+admin\/packages(?:.*)?$/", new AdminPackageController());
 
 Router::post("/^.+admin\/login(?:.*)?$/", function () {
 	if (isset($_POST["login"])) {
