@@ -1,7 +1,7 @@
 <?php
 
 class View {
-	public static $template_base = "templates/";
+	public static $template_base = "views/";
 	public static $template_extension = ".php";
 	public $vars = array();
 	public $template_name;

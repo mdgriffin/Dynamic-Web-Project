@@ -1,6 +1,6 @@
 <?php
-include_once("app/templates/partials/header.php");
-include_once("app/templates/partials/admin-nav.php");
+include_once("app/views/partials/header.php");
+include_once("app/views/partials/admin-nav.php");
 ?>
 
 <h1>Admin: Manage Venue Packages for <?php echo $this->venue->getName(); ?></h1>
@@ -136,4 +136,4 @@ include_once("app/templates/partials/admin-nav.php");
 	</tbody>
 </table>
 
-<?php include_once("app/templates/partials/footer.php"); ?>
+<?php include_once("app/views/partials/footer.php"); ?>
