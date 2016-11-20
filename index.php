@@ -23,29 +23,37 @@ require_once "app/controllers/AdminVenuesController.php";
 require_once "app/controllers/PackageController.php";
 
 // Routing
-// Step 1: All traffic (except fro static files should come through the index.php)
-// Step 2:
-
-/*
-Router::get("admin/login.*", function () {
-	AdminController::doSomething();
-});
-
-Router::post("admin/login.*", function () {
-	AdminController::doSomething();
-});
-
-// handle the missing routes
-Router::missing();
-*/
-
-//Router::restful("/^.+admin\/users(?:.*)?$/", new AdminUsersController());
-//Router::restful("/^.+admin\/venues(?:.*)?$/", new AdminVenuesController());
-
 Router::restful("/^.+admin\/venues(?:.*)?$/", new AdminVenuesController());
 Router::restful("/^.+admin\/packages(?:.*)?$/", new PackageController());
 
+Router::post("/^.+admin\/login(?:.*)?$/", function () {
+	if (isset($_POST["login"])) {
+		if (User::isAdmin($_POST["email"], $_POST["password"])) {
+			$_SESSION["admin_logged_in"] = true;
+			header('Location:index.php');
+		} else {
+			echo "<h1>Not an admin</h1>";
+		}
+	}
+});
 
+Router::post("/^.+admin\/logout(?:.*)?$/", function () {
+	if (isset($_POST["logout"])) {
+		session_destroy();
+		header("Location:login.php");
+	}
+});
+
+Router::get("/^.+admin\/login(?:.*)?$/", function () {
+	die("show the admin login");
+});
+
+Router::get("/^" . $config["base_url"] . "(?:index.php)?$/", function () {
+	View::create("home")->with(array("pageTitle" => "Home Page"));
+});
+
+// handle the missing routes
+//Router::missing();
 
 
 ?>
