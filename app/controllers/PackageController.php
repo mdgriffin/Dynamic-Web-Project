@@ -13,27 +13,29 @@ class PackageController {
 
 	// display the index view
 	public static function index () {
-		//$venue = Venue::get($_GET["id"]);
-		$package = new Package("", "", "", "", "", "", "");
-		$pageTitle = "Manage Packages";
-		$errors = array();
-
-		// 1. The method should
-
-		//include_once("../app/templates/admin/packages.php");
-		//return "<h1>This is some html being echoed from the index method</h1>";
-		return View::create("admin/packages")->with(array("pageTitle" => $pageTitle, "package" => $package, "errors" => $errors));
+		die("index package view");
+		//header("location:admin/venues");
 	}
 
 	public static function view($venue_id) {
+		$pageTitle = "Manage Packages";
+		$errors = array();
 		$venue = Venue::get($venue_id);
 		$package = new Package("", "", "", "", "", "", "");
 		$packages = Package::getAll();
 
-		include_once("../app/templates/admin/packages.php");
+		return View::create("admin/packages")->with(array(
+			"pageTitle" => $pageTitle,
+			"errors" => $errors,
+			"venue" => $venue,
+			"venue_id" => $venue_id,
+			"package" => $package,
+			"packages" => $packages
+		));
 	}
 
 	public static function create($data) {
+		/*
 		$venue_id = $data["venue_id"];
 		$package = new Package($data["venue_id"], $data["description"], $data["price_per_guest"], $data["min_guests"], $data["max_guests"], $data["start_date"], $data["end_date"]);
 		$venue = Venue::get($venue_id);
@@ -48,9 +50,11 @@ class PackageController {
 		}
 
 		include_once("../app/templates/admin/packages.php");
+		*/
 	}
 
 	public static function update($venue_id, $data) {
+		/*
 		$venue = Venue::get($venue_id);
 		$packages = Package::getAll();
 
@@ -70,10 +74,19 @@ class PackageController {
 			$flash_error = "Form has errors";
 		}
 
-		include_once("../app/templates/admin/packages.php");
+		return View::create("admin/packages")->with(array(
+			"pageTitle" => $pageTitle,
+			"errors" => $errors,
+			"venue" => $venue,
+			"venue_id" => $venue_id,
+			"package" => $package,
+			"packages" => $packages
+		));
+		*/
 	}
 
 	public static function delete($id) {
+		/*
 		$venue_id = Package::get($id)->getVenue_id;
 		$venue = Venue::get($venue_id);
 		$packages = Package::getAll();
@@ -83,6 +96,7 @@ class PackageController {
 		$flash_message = "Package Deleted";
 
 		include_once("../app/templates/admin/packages.php");
+		*/
 	}
 }
 

@@ -3,7 +3,7 @@ include_once("app/partials/header.php");
 include_once("app/partials/admin-nav.php");
 ?>
 
-<h1>Admin: Manage Venue Packages for <?php /* echo $venue->getName(); */ ?></h1>
+<h1>Admin: Manage Venue Packages for <?php echo $this->venue->getName(); ?></h1>
 
 <?php if (isset($this->package_id)) { ?>
 	<h3>Update Packages</h3>
@@ -116,7 +116,7 @@ include_once("app/partials/admin-nav.php");
 			<th>description</th>
 			<th>Price Per Guest</th>
 			<th>Min Guests</th>
-			<th>Max Guests§</th>
+			<th>Max Guests</th>
 			<th>Start Date</th>
 			<th>End Date</th>
 		</tr>
@@ -124,13 +124,13 @@ include_once("app/partials/admin-nav.php");
 	<tbody>
 		<?php foreach ($this->packages as $package) { ?>
 				<tr>
-					<td><?php echo $this->package["package_id"]; ?></td>
-					<td><?php echo $this->package["description"]; ?></td>
-					<td><?php echo $this->package["price_per_guest"]; ?></td>
-					<td><?php echo $this->package["min_guests"]; ?></td>
-					<td><?php echo $this->package["max_guests"]; ?></td>
-					<td><?php echo $this->package["start_date"]; ?></td>
-					<td><?php echo $this->package["end_date"]; ?></td>
+					<td><?php echo $package["package_id"]; ?></td>
+					<td><?php echo $package["description"]; ?></td>
+					<td><?php echo $package["price_per_guest"]; ?></td>
+					<td><?php echo $package["min_guests"]; ?></td>
+					<td><?php echo $package["max_guests"]; ?></td>
+					<td><?php echo $package["start_date"]; ?></td>
+					<td><?php echo $package["end_date"]; ?></td>
 				</tr>
 		<?php } ?>
 	</tbody>

@@ -18,16 +18,23 @@ require_once "app/controllers/PackageController.php";
 // Step 2:
 
 /*
-Router::match("admin/login.*", function () {
+Router::get("admin/login.*", function () {
 	AdminController::doSomething();
 });
-*/
 
-Router::restful("/^.+admin\/packages(?:.*)?$/", new PackageController());
+Router::post("admin/login.*", function () {
+	AdminController::doSomething();
+});
 
 // handle the missing routes
-// Router::missing();
+Router::missing();
+*/
+
+//Router::restful("/^.+admin\/users(?:.*)?$/", new AdminUsersController());
+//Router::restful("/^.+admin\/venues(?:.*)?$/", new AdminVenuesController());
+Router::restful("/^.+admin\/packages(?:.*)?$/", new PackageController());
+
+
+
 
 ?>
-
-<h1>This is the index file: <?php echo $_SERVER["REQUEST_URI"];?></h1>

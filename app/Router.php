@@ -36,6 +36,8 @@ class Router {
 
 			if (isset($_POST["register"])) {
 				$output .+ $controller::create($_POST);
+			} else if (isset($_GET["id"]) && $_POST["update"]) {
+				$output .+ $controller::update($_GET["id"], $_POST);
 			} else if (isset($_POST["delete"])) {
 				$output .+ $controller::delete($_POST["id"]);
 			} else if (isset($_GET["id"])) {
