@@ -3,26 +3,13 @@
 class Router {
 	private $controller;
 
-	public function __construct ($controller) {
-		$this->controller = $controller;
+	public static function get ($regMatchStr, $callback_fn) {
+		if (preg_match($regMatchStr, $_SERVER["REQUEST_URI"])) {
 
-		$this->controller::before();
-
-		if (isset($_POST["register"])) {
-			$this->controller::save($_POST);
-		} else if (isset($_POST["delete"])) {
-			$this->controller::delete($_POST["id"]);
-		} else if (isset($_GET["id"])) {
-				$this->controller::view($_GET["id"]);
-		} else {
-			$this->controller::index();
 		}
-
-		$this->controller::after();
 	}
 
-
-	public static function match ($regMatchStr, $callback_fn) {
+	public static function post ($regMatchStr, $callback_fn) {
 		if (preg_match($regMatchStr, $_SERVER["REQUEST_URI"])) {
 
 		}
