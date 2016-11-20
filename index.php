@@ -26,13 +26,17 @@ require_once "app/controllers/AdminPackageController.php";
 Router::restful("/^.+admin\/venues(?:.*)?$/", new AdminVenuesController());
 Router::restful("/^.+admin\/packages(?:.*)?$/", new AdminPackageController());
 
+Router::get("/^.+admin\/?(?:index\.php)?$/", function () {
+	View::create("admin/index")->with(array("pageTitle" => "Home Page"));
+});
+
 Router::post("/^.+admin\/login(?:.*)?$/", function () {
 	if (isset($_POST["login"])) {
 		if (User::isAdmin($_POST["email"], $_POST["password"])) {
 			$_SESSION["admin_logged_in"] = true;
-			header('Location:index.php');
+			header('Location:/index.php');
 		} else {
-			echo "<h1>Not an admin</h1>";
+			die("<h1>Not an admin</h1>");
 		}
 	}
 });
@@ -40,12 +44,12 @@ Router::post("/^.+admin\/login(?:.*)?$/", function () {
 Router::post("/^.+admin\/logout(?:.*)?$/", function () {
 	if (isset($_POST["logout"])) {
 		session_destroy();
-		header("Location:login.php");
+		header('Location:login.php');
 	}
 });
 
 Router::get("/^.+admin\/login(?:.*)?$/", function () {
-	die("show the admin login");
+	View::create("admin/login")->with(array("pageTitle" => "Admin Login"));
 });
 
 Router::get("/^" . $config["base_url"] . "(?:index.php)?$/", function () {
