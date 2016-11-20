@@ -26,6 +26,7 @@
 
 # Block access to all files in app folder
 RedirectMatch 403 ^.*/app/.*
+RedirectMatch 403 ^.*/lib/.*
 
 # Enable Rewrite engine
 RewriteEngine on
