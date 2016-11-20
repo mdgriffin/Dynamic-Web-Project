@@ -26,3 +26,10 @@
 
 # Block access to all files in app folder
 RedirectMatch 403 ^.*/app/.*
+
+# Enable Rewrite engine
+RewriteEngine on
+# Check for existing files and folders
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule . index.php [L]

@@ -1,22 +1,33 @@
 <?php
+session_start();
+
 require_once "app/config.php";
 require_once "app/connection.php";
-require_once "app/models/Model.php";
 require_once "app/Validator.php";
+require_once "app/Router.php";
 
-$pageTitle = "Find the Perfect Venue";
+require_once "app/models/Model.php";
+require_once "app/models/User.php";
+require_once "app/models/Venue.php";
+require_once "app/models/Package.php";
 
-include_once("partials/header.php");
+require_once "app/View.php";
+require_once "app/controllers/PackageController.php";
+
+// Step 1: All traffic (except fro static files should come through the index.php)
+// Step 2:
+
+/*
+Router::match("admin/login.*", function () {
+	AdminController::doSomething();
+});
+*/
+
+Router::restful("/^.+admin\/packages(?:.*)?$/", new PackageController());
+
+// handle the missing routes
+// Router::missing();
 
 ?>
 
-<nav>
-	<a href="venues">Venues</a>
-	<a href="admin">Admin</a>
-</nav>
-
-<h1>Home Page</h1>
-
-
-
-<?php include_once("partials/footer.php"); ?>
+<h1>This is the index file: <?php echo $_SERVER["REQUEST_URI"];?></h1>
