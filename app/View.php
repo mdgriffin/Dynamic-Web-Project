@@ -19,8 +19,12 @@ class View {
 		include self::$template_base . $this->template_name . self::$template_extension;
 	}
 
-	public function __get($name) {
-		return $this->vars[$name];
+	public function __get($key) {
+		if (array_key_exists($key, $this->vars)) {
+			return $this->vars[$key];
+		} else {
+			return null;
+		}
 	}
 
 }
