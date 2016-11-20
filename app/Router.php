@@ -21,15 +21,15 @@ class Router {
 
 			$controller->before();
 
-			if ($_SERVER["REQUEST_METHOD"] == "POST") {
-				$output = $controller->create($_POST);
-			} else if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
+			if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
 				$output = $controller->read($_GET["id"]);
-			} else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET["id"])) {
-				$output = $controller->update($_GET["id"], $_POST);
 			} else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["METHOD"]) && $_POST["METHOD"] == "DELETE") {
 				$output = $controller->delete($_POST["id"]);
-			}  else {
+			}  else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET["id"])) {
+				$output = $controller->update($_GET["id"], $_POST);
+			} else if ($_SERVER["REQUEST_METHOD"] == "POST") {
+				$output = $controller->create($_POST);
+			} else {
 				$output = $controller->index();
 			}
 

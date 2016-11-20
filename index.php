@@ -12,6 +12,9 @@ require_once "app/models/Venue.php";
 require_once "app/models/Package.php";
 
 require_once "app/View.php";
+
+require_once "app/RestfulController.php";
+require_once "app/controllers/AdminVenuesController.php";
 require_once "app/controllers/PackageController.php";
 
 // Step 1: All traffic (except fro static files should come through the index.php)
@@ -32,6 +35,8 @@ Router::missing();
 
 //Router::restful("/^.+admin\/users(?:.*)?$/", new AdminUsersController());
 //Router::restful("/^.+admin\/venues(?:.*)?$/", new AdminVenuesController());
+
+Router::restful("/^.+admin\/venues(?:.*)?$/", new AdminVenuesController());
 Router::restful("/^.+admin\/packages(?:.*)?$/", new PackageController());
 
 

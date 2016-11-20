@@ -1,40 +1,23 @@
 <?php
 
-class PackageController {
+class PackageController implements RestfulController {
 
-	public static function before () {
+	public function before () {
 		// check that the user is logged in
 		if (!isset($_SESSION["admin_logged_in"]) || !$_SESSION["admin_logged_in"]) {
 			header('Location:login.php');
 		}
 	}
 
-	public static function after () {}
+	public function after () {}
 
 	// display the index view
-	public static function index () {
+	public function index () {
 		die("index package view");
 		//header("location:admin/venues");
 	}
 
-	public static function view($venue_id) {
-		$pageTitle = "Manage Packages";
-		$errors = array();
-		$venue = Venue::get($venue_id);
-		$package = new Package("", "", "", "", "", "", "");
-		$packages = Package::getAll();
-
-		return View::create("admin/packages")->with(array(
-			"pageTitle" => $pageTitle,
-			"errors" => $errors,
-			"venue" => $venue,
-			"venue_id" => $venue_id,
-			"package" => $package,
-			"packages" => $packages
-		));
-	}
-
-	public static function create($data) {
+	public function create($data) {
 		/*
 		$venue_id = $data["venue_id"];
 		$package = new Package($data["venue_id"], $data["description"], $data["price_per_guest"], $data["min_guests"], $data["max_guests"], $data["start_date"], $data["end_date"]);
@@ -53,7 +36,24 @@ class PackageController {
 		*/
 	}
 
-	public static function update($venue_id, $data) {
+	public function read($venue_id) {
+		$pageTitle = "Manage Packages";
+		$errors = array();
+		$venue = Venue::get($venue_id);
+		$package = new Package("", "", "", "", "", "", "");
+		$packages = Package::getAll();
+
+		return View::create("admin/packages")->with(array(
+			"pageTitle" => $pageTitle,
+			"errors" => $errors,
+			"venue" => $venue,
+			"venue_id" => $venue_id,
+			"package" => $package,
+			"packages" => $packages
+		));
+	}
+
+	public function update($venue_id, $data) {
 		/*
 		$venue = Venue::get($venue_id);
 		$packages = Package::getAll();
@@ -85,7 +85,7 @@ class PackageController {
 		*/
 	}
 
-	public static function delete($id) {
+	public function delete($id) {
 		/*
 		$venue_id = Package::get($id)->getVenue_id;
 		$venue = Venue::get($venue_id);

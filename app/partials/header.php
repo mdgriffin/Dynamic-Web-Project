@@ -9,10 +9,10 @@
 	</head>
 	<body>
 
-		<?php if (isset($this->flash_message)) { ?>
+		<?php if ($this->flash_message) { ?>
 			<div class="flashMessage"><h4><?php echo $this->flash_message; ?></div>
 		<?php } ?>
 
-		<?php if (isset($this->flash_error)) { ?>
+		<?php if ($this->flash_error) { ?>
 			<div class="flashError"><h4><?php echo $this->flash_error; ?></div>
 		<?php } ?>
