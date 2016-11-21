@@ -33,13 +33,11 @@ Router::get("/^.+admin\/?(?:index\.php)?$/", function () {
 });
 
 Router::post("/^.+admin\/login(?:.*)?$/", function () {
-	if (isset($_POST["login"])) {
-		if (User::isAdmin($_POST["email"], $_POST["password"])) {
-			$_SESSION["admin_logged_in"] = true;
-			header('Location:/index.php');
-		} else {
-			die("<h1>Not an admin</h1>");
-		}
+	if (User::isAdmin($_POST["email"], $_POST["password"])) {
+		$_SESSION["admin_logged_in"] = true;
+		header('Location:/index.php');
+	} else {
+		die("<h1>Not an admin</h1>");
 	}
 });
 
