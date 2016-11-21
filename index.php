@@ -21,10 +21,12 @@ require_once "app/models/Package.php";
 
 require_once "app/controllers/AdminVenuesController.php";
 require_once "app/controllers/AdminPackageController.php";
+require_once "app/controllers/AdminUsersController.php";
 
 // Routing
 Router::restful("/^.+admin\/venues(?:.*)?$/", new AdminVenuesController());
 Router::restful("/^.+admin\/packages(?:.*)?$/", new AdminPackageController());
+Router::restful("/^.+admin\/users(?:.*)?$/", new AdminUsersController());
 
 Router::get("/^.+admin\/?(?:index\.php)?$/", function () {
 	View::create("admin/index")->with(array("pageTitle" => "Home Page"));
