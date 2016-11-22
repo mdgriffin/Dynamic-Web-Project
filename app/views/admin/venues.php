@@ -9,11 +9,11 @@ include_once("app/views/partials/admin-nav.php");
 <?php if ($this->id) { ?>
 	<h3>Update Venue</h3>
 
-	<form action="venues.php?id=<?php echo $this->id; ?>" method="post">
+	<form action="admin/venues.php?id=<?php echo $this->id; ?>" method="post">
 <?php } else {?>
 	<h3>Register Venue</h3>
 
-	<form action="venues.php" method="post">
+	<form action="admin/venues.php" method="post">
 <?php } ?>
 	<fieldset>
 		<label for="name">Name</label>
@@ -85,7 +85,7 @@ include_once("app/views/partials/admin-nav.php");
 		<th>Description</th>
 		<th>Latitude</th>
 		<th>longitude</th>
-		<th colspan="2">Actions</th>
+		<th colspan="3">Actions</th>
 	</thead>
 	<tbody>
 		<?php foreach ($this->venues as $venue) { ?>
@@ -96,15 +96,16 @@ include_once("app/views/partials/admin-nav.php");
 				<td><?php echo $venue["description"]; ?></td>
 				<td><?php echo $venue["latitude"]; ?></td>
 				<td><?php echo $venue["longitude"]; ?></td>
-				<td><a href="venues.php?id=<?php echo $venue["venue_id"]; ?>"><button>Update</button></a></td>
+				<td><a href="admin/venues.php?id=<?php echo $venue["venue_id"]; ?>"><button>Update</button></a></td>
 				<td>
-					<form action="venues.php" method="post">
+					<form action="admin/venues.php" method="post">
 						<input type="hidden" name="METHOD" value="DELETE">
 						<input type="hidden" name="id" value="<?php echo $venue["venue_id"]; ?>">
 						<input type="submit" name="delete" value="Delete Venue">
 					</form>
 				</td>
-				<td><a href="packages.php?id=<?php echo $venue["venue_id"]; ?>"><button>Manage Packages</button></a></td>
+				<td><a href="admin/packages.php?id=<?php echo $venue["venue_id"]; ?>"><button>Manage Packages</button></a></td>
+				<td><a href="admin/venues/<?php echo $venue["venue_id"]; ?>/images"><button>Manage Venue Images</button></a></td>
 			</tr>
 		<?php } ?>
 	</tbody>

@@ -32,7 +32,7 @@ class	Venue {
 			$errors["address"] = $addressValidator->errors();
 		}
 
-		$descriptionValidator = (new Validator($this->description))->isMinLength(30)->isMaxLength(150);
+		$descriptionValidator = (new Validator($this->description))->isMinLength(30)->isMaxLength(1000);
 
 		if (!$descriptionValidator->isValid()) {
 			$errors["description"] = $descriptionValidator->errors();

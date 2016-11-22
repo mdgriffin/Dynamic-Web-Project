@@ -22,29 +22,30 @@ require_once "app/models/Package.php";
 require_once "app/controllers/AdminVenuesController.php";
 require_once "app/controllers/AdminPackageController.php";
 require_once "app/controllers/AdminUsersController.php";
+require_once "app/controllers/AdminImagesController.php";
 
 // Routing
-Router::restful("/^.+admin\/venues(?:.*)?$/", new AdminVenuesController());
-Router::restful("/^.+admin\/packages(?:.*)?$/", new AdminPackageController());
-Router::restful("/^.+admin\/users(?:.*)?$/", new AdminUsersController());
+Router::restful("/^.+admin\/venues(?:\.php)?(?:\?id=[0-9]{1,9})?$/", new AdminVenuesController());
+Router::restful("/^.+admin\/packages(?:\.php)?(?:\?id=[0-9]{1,9})?$/", new AdminPackageController());
+Router::restful("/^.+admin\/users(?:.*)?(?:\?id=[0-9]{1,9})?$/", new AdminUsersController());
 
 Router::get("/^.+admin\/?(?:index\.php)?$/", function () {
 	View::create("admin/index")->with(array("pageTitle" => "Home Page"));
 });
 
-Router::post("/^.+admin\/login(?:.*)?$/", function () {
+Router::post("/^.+admin\/login(?:\.php)?$/", function () {
 	if (User::isAdmin($_POST["email"], $_POST["password"])) {
 		$_SESSION["admin_logged_in"] = true;
-		header('Location:/index.php');
+		header('Location:admin');
 	} else {
 		die("<h1>Not an admin</h1>");
 	}
 });
 
-Router::post("/^.+admin\/logout(?:.*)?$/", function () {
+Router::post("/^.+admin\/logout(?:\.php)?$/", function () {
 	if (isset($_POST["logout"])) {
 		session_destroy();
-		header('Location:login.php');
+		header('Location:login');
 	}
 });
 
@@ -55,6 +56,13 @@ Router::get("/^.+admin\/login(?:.*)?$/", function () {
 Router::get("/^" . $config["base_url"] . "(?:index.php)?$/", function () {
 	View::create("home")->with(array("pageTitle" => "Home Page"));
 });
+
+/**
+ * Admin Images
+ */
+ Router::get("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
+	 AdminImagesController::index($matches[1]);
+ });
 
 // handle the missing routes
 //Router::missing();
