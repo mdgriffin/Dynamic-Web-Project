@@ -16,6 +16,7 @@ require_once "lib/RestfulController.php";
 require_once "app/models/User.php";
 require_once "app/models/Venue.php";
 require_once "app/models/Package.php";
+require_once "app/models/VenueImage.php";
 
 // Controllers
 
