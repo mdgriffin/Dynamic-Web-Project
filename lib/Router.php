@@ -4,14 +4,14 @@ class Router {
 	private $controller;
 
 	public static function get ($regMatchStr, $callback_fn) {
-		if (preg_match($regMatchStr, $_SERVER["REQUEST_URI"]) && $_SERVER["REQUEST_METHOD"] == "GET") {
-			$callback_fn();
+		if (preg_match($regMatchStr, $_SERVER["REQUEST_URI"], $matches) && $_SERVER["REQUEST_METHOD"] == "GET") {
+			$callback_fn($matches);
 		}
 	}
 
 	public static function post ($regMatchStr, $callback_fn) {
-		if (preg_match($regMatchStr, $_SERVER["REQUEST_URI"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
-			$callback_fn();
+		if (preg_match($regMatchStr, $_SERVER["REQUEST_URI"], $matches) && $_SERVER["REQUEST_METHOD"] == "POST") {
+			$callback_fn($matches);
 		}
 	}
 
