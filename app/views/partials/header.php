@@ -3,13 +3,10 @@
 	<head>
 		<meta charset="utf-8">
 		<title><?php echo $this->pageTitle; ?></title>
-
-
+		<base href="/Dynamic-Web-Project/">
 
 		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-		<link rel="stylesheet" href="../assets/style.css">
-
-		<base href="/Dynamic-Web-Project/">
+		<link rel="stylesheet" href="assets/style.css">
 	</head>
 	<body>
 

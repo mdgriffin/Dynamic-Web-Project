@@ -3,7 +3,7 @@
 class VenueImage {
 	use Model;
 
-	private $id
+	private $id;
 	private $venue_id;
 	private $source;
 	private $title;
