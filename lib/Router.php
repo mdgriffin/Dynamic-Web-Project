@@ -17,25 +17,22 @@ class Router {
 
 	public static function restful ($regMatchStr, $controller ) {
 		if (preg_match($regMatchStr, $_SERVER["REQUEST_URI"])) {
-			$output;
 
 			$controller->before();
 
 			if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
-				$output = $controller->read($_GET["id"]);
+				$controller->read($_GET["id"]);
 			} else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["METHOD"]) && $_POST["METHOD"] == "DELETE") {
-				$output = $controller->delete($_POST["id"]);
+				$controller->delete($_POST["id"]);
 			}  else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET["id"])) {
-				$output = $controller->update($_GET["id"], $_POST);
+				$controller->update($_GET["id"], $_POST);
 			} else if ($_SERVER["REQUEST_METHOD"] == "POST") {
-				$output = $controller->create($_POST);
+				$controller->create($_POST);
 			} else {
-				$output = $controller->index();
+				$controller->index();
 			}
 
 			$controller->after();
-
-			echo $output;
 		}
 	}
 
