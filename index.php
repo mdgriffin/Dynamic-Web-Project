@@ -29,16 +29,33 @@ Router::restful("/^.+admin\/venues(?:\.php)?(?:\?id=[0-9]{1,9})?$/", new AdminVe
 Router::restful("/^.+admin\/packages(?:\.php)?(?:\?id=[0-9]{1,9})?$/", new AdminPackageController());
 Router::restful("/^.+admin\/users(?:.*)?(?:\?id=[0-9]{1,9})?$/", new AdminUsersController());
 
-Router::get("/^.+admin\/?(?:index\.php)?$/", function () {
+/**
+ * Home Page
+ */
+
+Router::get("/^.+admin\/?(?:home)?$/", function () {
 	View::create("admin/index")->with(array("pageTitle" => "Home Page"));
+});
+
+/**
+ * Admin Login
+ */
+
+Router::get("/^.+admin\/login(?:.*)?$/", function () {
+	if (!$_SESSION["admin_logged_in"]) {
+		View::create("admin/login")->with(array("pageTitle" => "Admin Login"));
+	} else {
+		header('Location:home');
+	}
+
 });
 
 Router::post("/^.+admin\/login(?:\.php)?$/", function () {
 	if (User::isAdmin($_POST["email"], $_POST["password"])) {
 		$_SESSION["admin_logged_in"] = true;
-		header('Location:admin');
+		header('Location:home');
 	} else {
-		die("<h1>Not an admin</h1>");
+		View::create("admin/login")->with(array("pageTitle" => "Admin Login", "flash_error" => "Username and/or password is incorrect"));
 	}
 });
 
@@ -49,9 +66,7 @@ Router::post("/^.+admin\/logout(?:\.php)?$/", function () {
 	}
 });
 
-Router::get("/^.+admin\/login(?:.*)?$/", function () {
-	View::create("admin/login")->with(array("pageTitle" => "Admin Login"));
-});
+
 
 Router::get("/^" . $config["base_url"] . "(?:index.php)?$/", function () {
 	View::create("home")->with(array("pageTitle" => "Home Page"));
