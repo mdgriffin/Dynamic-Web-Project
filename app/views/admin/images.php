@@ -41,7 +41,11 @@ include_once("app/views/partials/admin-nav.php");
     <?php foreach($this->venue_images as $venue_image)  { ?>
       <tr>
           <td><?php echo $venue_image["image_id"]; ?></td>
-          <td><a href="<?php echo $venue_image["source"]; ?>"><?php echo $venue_image["title"]; ?><a/></td>
+          <td>
+            <a href="<?php echo $venue_image["source"]; ?>">
+              <img src="<?php echo ImageResizer::getImage($venue_image['source'], 'thumbnail'); ?>" alt="<?php echo $venue_image["title"]; ?>" title="<?php echo $venue_image["title"]; ?>">
+            <a/>
+        </td>
       </tr>
     <?php } ?>
   </tbody>
