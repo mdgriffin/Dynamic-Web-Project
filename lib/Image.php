@@ -1,6 +1,6 @@
 <?php
 
-class ImageResizer {
+class Image {
 
 	private static $target_dir = "Assets/temp_images/";
 	private static $sizes = array(
@@ -10,7 +10,7 @@ class ImageResizer {
 		"thumbnail" => array(150, 150)
 	);
 
-	public static function getImage ($imageSrc, $sizeKey) {
+	public static function getSize($imageSrc, $sizeKey) {
 
 		$imageSrc_parts = pathinfo($imageSrc);
 		$imageSrcName = $imageSrc_parts["filename"];
