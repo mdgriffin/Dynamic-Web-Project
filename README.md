@@ -4,6 +4,4 @@
 
 ### To-Do
 
-- Create authentications
 - Class Autoloading
-- Create models for Admin, User, Manager, Room etc.
