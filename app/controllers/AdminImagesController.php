@@ -13,28 +13,22 @@ class AdminImagesController {
 	public static function index ($venue_id) {
 		return View::create("admin/images")->with(array(
 			"venue" => Venue::get($venue_id),
+			"image" => new VenueImage($venue_id, "", ""),
 			"venue_id" => $venue_id
 		));
 	}
 
 	public static function create($venue_id, $data, $files) {
 		$viewData = array();
+		$viewData["errors"] = array();
+		$viewData["venue"] = Venue::get($venue_id);
 		$target_dir = "Assets/uploads/";
-		$target_file = $target_dir . basename($files["image_file"]["name"]);
+		$imageFileType = pathinfo($_FILES['image_file']['name'], PATHINFO_EXTENSION);
+		$target_file = $target_dir . round(microtime(true) * 10000) . "." . $imageFileType;
 		$uploaded = true;
-		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
-		if(isset($_POST["submit"])) {
-			$check = getimagesize($files["image_file"]["tmp_name"]);
-			if($check !== false) {
-				$uploaded = true;
-			} else {
-				$uploaded = false;
-			}
-		}
-		if (file_exists($target_file)) {
-			$uploaded = false;
-		}
+		$uploaded = (getimagesize($files["image_file"]["tmp_name"]) !== false? true:false);
+
 		if ($files["image_file"]["size"] > 500000) {
 			$uploaded = false;
 		}
@@ -47,7 +41,14 @@ class AdminImagesController {
 			$viewData["flash_error"] = "Sorry, your file was not uploaded.";
 		} else {
 			if (move_uploaded_file($files["image_file"]["tmp_name"], $target_file)) {
-				$viewData["flash_message"] = "The file ". basename( $files["image_file"]["name"]). " has been uploaded.";
+				$viewData["image"] = new VenueImage($venue_id, $target_file, $data["title"]);
+
+				if (!$viewData["image"]->errors()) {
+					$viewData["image"]->save();
+						$viewData["flash_message"] = "Successfully created a new venue image.";
+				} else {
+					$viewData["errors"] = $viewData["image"]->errors();
+				}
 			} else {
 				$viewData["flash_error"] = "Sorry, there was an error uploading your file.";
 			}

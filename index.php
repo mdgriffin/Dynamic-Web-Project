@@ -43,7 +43,7 @@ Router::get("/^.+admin\/?(?:home)?$/", function () {
  */
 
 Router::get("/^.+admin\/login(?:.*)?$/", function () {
-	if (!$_SESSION["admin_logged_in"]) {
+	if (!isset($_SESSION["admin_logged_in"]) || !$_SESSION["admin_logged_in"]) {
 		View::create("admin/login")->with(array("pageTitle" => "Admin Login"));
 	} else {
 		header('Location:home');
