@@ -39,13 +39,33 @@ class VenueImage {
 	}
 
 	private static function _delete ($id) {
-		$delete_stmt = self::$db->prepare("DELETE FROM Venue_Images WHERE venue_id=?");
+		$delete_stmt = self::$db->prepare("DELETE FROM Venue_Images WHERE image_id=?");
 		$res = $delete_stmt->execute(array($id));
 
 		return $res;
 	}
 
-}
+	private static function _get ($image_id) {
+		$select_stmt = self::$db->prepare("SELECT * FROM Venue_Images WHERE image_id=?");
+		$select_stmt->execute(array($id));
+		$image_res = $select_stmt->fetch(PDO::FETCH_ASSOC);
 
+		if ($image_res) {
+			$image = new VenueImage($image_res["name"], $image_res["address"], $image_res["description"], $image_res["latitude"], $image_res["longitude"]);
+			$image->setId($id);
+
+			return $image;
+		} else {
+			return null;
+		}
+	}
+
+	private static function _getAll ($venue_id) {
+		$select_stmt = self::$db->prepare("SELECT * FROM Venue_Images WHERE venue_id=?");
+		$select_stmt->execute(array($venue_id));
+		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+}
 
 ?>

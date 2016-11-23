@@ -30,5 +30,22 @@ include_once("app/views/partials/admin-nav.php");
 
 </form>
 
+<table>
+  <thead>
+    <tr>
+      <th>Image ID</td>
+      <th>Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach($this->venue_images as $venue_image)  { ?>
+      <tr>
+          <td><?php echo $venue_image["image_id"]; ?></td>
+          <td><a href="<?php echo $venue_image["source"]; ?>"><?php echo $venue_image["title"]; ?><a/></td>
+      </tr>
+    <?php } ?>
+  </tbody>
+</table>
+
 
 <?php include_once("app/views/partials/footer.php"); ?>

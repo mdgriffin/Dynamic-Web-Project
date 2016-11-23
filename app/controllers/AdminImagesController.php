@@ -14,7 +14,8 @@ class AdminImagesController {
 		return View::create("admin/images")->with(array(
 			"venue" => Venue::get($venue_id),
 			"image" => new VenueImage($venue_id, "", ""),
-			"venue_id" => $venue_id
+			"venue_images"=> VenueImage::getAll($venue_id),
+			"venue_id" => $venue_id,
 		));
 	}
 
@@ -22,6 +23,7 @@ class AdminImagesController {
 		$viewData = array();
 		$viewData["errors"] = array();
 		$viewData["venue"] = Venue::get($venue_id);
+		$viewData["venue_images"] = VenueImage::getAll($venue_id);
 		$target_dir = "Assets/uploads/";
 		$imageFileType = pathinfo($_FILES['image_file']['name'], PATHINFO_EXTENSION);
 		$target_file = $target_dir . round(microtime(true) * 10000) . "." . $imageFileType;

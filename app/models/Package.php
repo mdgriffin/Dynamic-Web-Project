@@ -85,7 +85,7 @@ class	Package {
 	}
 
 	private static function _delete ($id) {
-		$delete_stmt = self::$db->prepare("DELETE FROM Packages WHERE packages_id=?");
+		$delete_stmt = self::$db->prepare("DELETE FROM Packages WHERE package_id=?");
 		$res = $delete_stmt->execute(array($id));
 
 		return $res;
