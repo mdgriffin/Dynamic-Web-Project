@@ -11,6 +11,7 @@ require_once "lib/Router.php";
 require_once "lib/View.php";
 require_once "lib/Model.php";
 require_once "lib/RestfulController.php";
+require_once "lib/ImageResizer.php";
 
 // Models
 require_once "app/models/User.php";
