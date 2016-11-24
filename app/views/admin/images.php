@@ -42,9 +42,9 @@ include_once("app/views/partials/admin-nav.php");
       <tr>
           <td><?php echo $venue_image["image_id"]; ?></td>
           <td>
-						<h1><?php echo Image::getSize($venue_image['source'], 'large_square'); ?>"</h1>
+						<h1><?php echo Image::getSize($venue_image['source'], 'thumbnail'); ?>"</h1>
             <a href="<?php echo $venue_image["source"]; ?>">
-              <img src="<?php echo Image::getSize($venue_image['source'], 'large_square'); ?>" alt="<?php echo $venue_image["title"]; ?>" title="<?php echo $venue_image["title"]; ?>">
+              <img src="<?php echo Image::getSize($venue_image['source'], 'thumbnail'); ?>" alt="<?php echo $venue_image["title"]; ?>" title="<?php echo $venue_image["title"]; ?>">
             <a/>
         </td>
       </tr>
