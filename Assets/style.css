@@ -41,6 +41,7 @@ header h1 {
 	margin: 0;
 	vertical-align: middle;
 	line-height: 1.2em;
+	margin-right: 20px;
 }
 
 header form {
@@ -52,9 +53,7 @@ header label {
 }
 
 header input[type="text"] {
-	margin-left: 20px;
 	height: 35px;
-	width: 400px;
 	border-radius: 2px;
 	border: none;
 	vertical-align: middle;
@@ -64,4 +63,144 @@ header input[type="text"] {
 header input[type="text"]:focus {
 	outline: none;
 	border: 1px solid #247F68;
+}
+
+#searchInput {
+	width: 400px;
+}
+
+.datePicker-container {
+	display: inline-block;
+	position: relative;
+}
+
+.datePicker-dropdown {
+	position: absolute;
+	width: 350px;
+	top: 100%;
+	left: 0;
+	background: #fff;
+	border: 1px solid #13142d;
+	display: none;
+}
+
+.datePicker-dropdown-focus {
+	display: block;
+}
+
+.datePicker thead tr:first-child th {
+	background: #13142d;
+	color: #fff;
+	padding-top: 15px;
+}
+
+.datePicker-btn {
+	position: absolute;
+	top: 16px;
+}
+
+#datePicker-prev {
+	left: 16px;
+}
+
+#datePicker-next {
+	right: 16px;
+}
+
+.cal {
+	width: 100%;
+}
+
+.cal table {
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+.cal th {
+	padding-bottom: 15px
+}
+
+.cal th, td {
+	text-align: center;
+}
+
+.cal-days th {
+	color: #9696a3;
+}
+
+.cal td {
+	height: 58px;
+	position: relative;
+}
+
+.cal-prevMonth,
+.cal-nextMonth,
+.cal-disabled {
+	color: #e1e1e1
+}
+
+.cal button {
+	top: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 3px solid #fff;
+	background: none;
+	outline: none;
+	font-size: 1em;
+}
+
+.cal-currentMonth:hover button {
+	background: #f4f4f4;
+	border: 3px solid #f4f4f4;
+}
+.cal-today button {
+	border: 3px solid #f4f4f4;
+}
+
+.cal-withinDateRange button {
+	border: none;
+	background: #f4f4f4;
+	border-radius: 0;
+}
+
+.cal-dateRangeStart button,
+.cal-dateRangeEnd button {
+	background: #5F3262;
+	border: 3px solid #5F3262;
+	color: #fff;
+}
+
+.cal-dateRangeStart:hover button,
+.cal-dateRangeEnd:hover button {
+	background: #512b54;
+	border: 3px solid #512b54;
+}
+
+.cal-dateRangeStart button {
+	border-radius: 50% 0 0 50%;
+}
+
+.cal-dateRangeEnd button {
+	border-radius: 0 50% 50% 0;
+}
+
+@media screen and (max-width: 1020px) {
+	.cal td {
+		height: 80px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.cal td {
+		height: 51px;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.cal td {
+		height: 37px;
+	}
 }

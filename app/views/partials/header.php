@@ -22,7 +22,7 @@
 				<h1>VenYou</h1>
 
 				<form action="search" method="get">
-					<input type="text" name="" value="" placeholder="location">
+					<input type="text" name="location" value="" id="searchInput" placeholder="location">
 
 					<label for="num_guests">Number of guests</label>
 					<select class="" name="num_guests">
@@ -37,6 +37,20 @@
 						<option value="500-1000">More than500</option>
 					</select>
 			</form>
+
+			<div class="datePicker-container">
+
+				<label for="date">Date</label>
+				<input type="text" name="date" value="" id="dateInput" readonly>
+
+				<div class="datePicker-dropdown" id="datePicker-dropdown">
+					<div class="datePicker" id="datePicker-header"></div>
+
+					<button type="button" class="datePicker-btn" id="datePicker-prev">Prev</button>
+					<button type="button" class="datePicker-btn" id="datePicker-next">Next</button>
+				</div>
+
+			</div>
 
 
 				<nav>
