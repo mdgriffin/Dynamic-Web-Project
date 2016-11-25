@@ -25,7 +25,43 @@ body {
 	margin: 0;
 }
 
-
 .form-error {
 	color: red;
+}
+
+header {
+	background: #84DCC6;
+	padding: 10px 20px;
+
+}
+
+header h1 {
+	display: inline;
+	color: #fff;
+	margin: 0;
+	vertical-align: middle;
+	line-height: 1.2em;
+}
+
+header form {
+	display: inline;
+}
+
+header label {
+	color: #fff;
+}
+
+header input[type="text"] {
+	margin-left: 20px;
+	height: 35px;
+	width: 400px;
+	border-radius: 2px;
+	border: none;
+	vertical-align: middle;
+	border: 1px solid #60D2B6;
+}
+
+header input[type="text"]:focus {
+	outline: none;
+	border: 1px solid #247F68;
 }
