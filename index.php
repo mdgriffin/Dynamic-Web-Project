@@ -85,8 +85,13 @@ Router::get("/^" . $config["base_url"] . "(?:index.php)?$/", function () {
 	 AdminImagesController::index($matches[1]);
  });
 
- Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
-	AdminImagesController::create($matches[1], $_POST, $_FILES);
+
+Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
+	 if (isset($_POST["METHOD"]) && $_POST["METHOD"] == "DELETE") {
+		 AdminImagesController::delete($matches[1], $_POST);
+	 } else {
+		 AdminImagesController::create($matches[1], $_POST, $_FILES);
+	 }
  });
 
 // handle the missing routes

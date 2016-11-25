@@ -35,6 +35,7 @@ include_once("app/views/partials/admin-nav.php");
     <tr>
       <th>Image ID</td>
       <th>Image</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -42,10 +43,17 @@ include_once("app/views/partials/admin-nav.php");
       <tr>
           <td><?php echo $venue_image["image_id"]; ?></td>
           <td>
-						<h1><?php echo Image::getSize($venue_image['source'], 'thumbnail'); ?>"</h1>
             <a href="<?php echo $venue_image["source"]; ?>">
               <img src="<?php echo Image::getSize($venue_image['source'], 'thumbnail'); ?>" alt="<?php echo $venue_image["title"]; ?>" title="<?php echo $venue_image["title"]; ?>">
             <a/>
+        </td>
+        <td>
+          <form action="admin/venues/<?php echo $this->venue_id; ?>/images"  method="post">
+						<input type="hidden" name="METHOD" value="DELETE">
+            <input type="hidden" name="source" value="<?php echo $venue_image['source']; ?>">
+						<input type="hidden" name="image_id" value="<?php echo $venue_image["image_id"];; ?>">
+						<input type="submit" name="delete" value="Delete Image">
+					</form>
         </td>
       </tr>
     <?php } ?>
