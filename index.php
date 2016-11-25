@@ -36,7 +36,11 @@ Router::restful("/^.+admin\/users(?:.*)?(?:\?id=[0-9]{1,9})?$/", new AdminUsersC
  */
 
 Router::get("/^.+admin\/?(?:home)?$/", function () {
-	View::create("admin/index")->with(array("pageTitle" => "Home Page"));
+	if (isset($_SESSION["admin_logged_in"]) && $_SESSION["admin_logged_in"]) {
+		View::create("admin/index")->with(array("pageTitle" => "Home Page"));
+	} else {
+		header('Location:admin/login');
+	}
 });
 
 /**
