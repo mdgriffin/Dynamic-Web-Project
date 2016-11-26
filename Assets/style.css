@@ -49,7 +49,22 @@
 	content: "\62";
 }
 .icon-calendar:before {
-  content: "\65";
+	content: "\65";
+}
+.icon-map-marker:before {
+	content: "\66";
+}
+.icon-email:before {
+	content: "\69";
+}
+.icon-news:before {
+	content: "\6a";
+}
+.icon-building:before {
+	content: "\6b";
+}
+.icon-gift:before {
+	content: "\67";
 }
 
 body {
@@ -91,8 +106,10 @@ button {
 .header-topBar {
 	background: #13142d;
 	padding: 10px 20px;
-
+	box-shadow: inset 0 -1px 5px 1px rgba(0, 0, 0, 0.5);
 }
+
+
 
 .header-topBar h1 {
 	font-family: 'Nunito', sans-serif;
@@ -114,10 +131,8 @@ button {
 }
 
 .header-topBar input[type="text"] {
-	border-radius: 2px;
 	border: none;
 	vertical-align: middle;
-	transition: all 0.2s;
 	font-size: 1em;
 	padding: 10px 30px 10px 10px;
 	color: #13142D
@@ -129,7 +144,6 @@ button {
 
 .header-topBar input[type="text"]:focus {
 	outline: none;
-	box-shadow: 1px 1px 0  3px rgba(255, 255, 255, 0.1);
 }
 
 .header-topBar input[type="text"]:focus::-webkit-input-placeholder {
@@ -140,10 +154,69 @@ button {
 	width: 400px;
 }
 
+.headerNavBar {
+	background: #f4f4f4;
+	-webkit-box-shadow: inset hoff voff blur color;
+	box-shadow: 0px 1px 3px 3px rgba(0,0,0,0.1);
+	padding: 0 20px;
+}
+
+/**
+ * Main Menu Bar
+ */
+
+.headerNavBar nav {
+	display: inline-block;
+}
+
+.headerNavBar nav a {
+	display: inline-block;
+	padding: 16px 5px;
+	text-decoration: none;
+	color: #303030;
+	border-bottom: 3px solid transparent;
+	margin-right: 10px;
+	cursor: pointer;
+}
+
+.headerNavBar nav a span {
+	margin-right: 10px;
+}
+
+.headerNavBar nav a:hover {
+	border-bottom: 3px solid #2266BF;
+	color: #2266BF;
+}
+
+.headerNavBar-account {
+	float: right;
+	padding: 10px 0;
+}
+
+.headerNavBar-account button {
+	background: #2266BF;
+	border-radius: 3px;
+	border: none;
+	color: #fff;
+	font-size: 1em;
+	padding: 10px;
+	margin-left: 10px;
+}
+
+.headerNavBar-account button:hover {
+	background: #1B5299;
+}
+
+.container {
+	width: 90%;
+	margin: 0 auto;
+}
+
 .inputWrapper {
 	display: inline-block;
 	position: relative;
 	background: #fff;
+	border-radius: 3px;
 }
 
 .inputWrapper:after {
@@ -243,6 +316,10 @@ button {
 	color: #fff;
 	font-weight: bold;
 	font-size: 14px;
+}
+
+.datePicker-btn:focus {
+	outline: none;
 }
 
 #datePicker-prev {
@@ -351,16 +428,4 @@ button {
 	.cal td {
 		height: 37px;
 	}
-}
-
-.headerNavBar {
-	background: #f4f4f4;
-	height: 60px;
-	-webkit-box-shadow: inset hoff voff blur color;
-	box-shadow: 0px 1px 3px 3px rgba(0,0,0,0.1);
-}
-
-.container {
-	width: 90%;
-	margin: 0 auto;
 }
