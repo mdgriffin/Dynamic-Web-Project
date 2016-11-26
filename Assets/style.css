@@ -1,7 +1,66 @@
+@font-face {
+	font-family: "icon-font";
+	src:url("fonts/icon-font.eot");
+	src:url("fonts/icon-font.eot?#iefix") format("embedded-opentype"),
+		url("fonts/icon-font.woff") format("woff"),
+		url("fonts/icon-font.ttf") format("truetype"),
+		url("fonts/icon-font.svg#icon-font") format("svg");
+	font-weight: normal;
+	font-style: normal;
+
+}
+
+[data-icon]:before {
+	font-family: "icon-font" !important;
+	content: attr(data-icon);
+	font-style: normal !important;
+	font-weight: normal !important;
+	font-variant: normal !important;
+	text-transform: none !important;
+	speak: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+	font-family: "icon-font" !important;
+	font-style: normal !important;
+	font-weight: normal !important;
+	font-variant: normal !important;
+	text-transform: none !important;
+	speak: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-down-open-big:before {
+	content: "\63";
+}
+.icon-search:before {
+	content: "\64";
+}
+.icon-right-open-big:before {
+	content: "\61";
+}
+.icon-left-open-big:before {
+	content: "\62";
+}
+.icon-calendar:before {
+  content: "\65";
+}
+
 body {
 	margin: 0;
 	padding: 0;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Open Sans', sans-serif;
+	background: #f4f4f4;
+}
+
+button {
+	cursor: pointer;
 }
 
 .flashMessage,
@@ -29,13 +88,14 @@ body {
 	color: red;
 }
 
-header {
-	background: #84DCC6;
+.header-topBar {
+	background: #13142d;
 	padding: 10px 20px;
 
 }
 
-header h1 {
+.header-topBar h1 {
+	font-family: 'Nunito', sans-serif;
 	display: inline;
 	color: #fff;
 	margin: 0;
@@ -44,29 +104,93 @@ header h1 {
 	margin-right: 20px;
 }
 
-header form {
+.header-topBar form {
 	display: inline;
 }
 
-header label {
+.header-topBar label {
 	color: #fff;
+	margin: 0 10px 0 20px;
 }
 
-header input[type="text"] {
-	height: 35px;
+.header-topBar input[type="text"] {
 	border-radius: 2px;
 	border: none;
 	vertical-align: middle;
-	border: 1px solid #60D2B6;
+	transition: all 0.2s;
+	font-size: 1em;
+	padding: 10px 30px 10px 10px;
+	color: #13142D
 }
 
-header input[type="text"]:focus {
+.header-topBar input[type="text"]::-webkit-input-placeholder {
+	color: #13142D;
+}
+
+.header-topBar input[type="text"]:focus {
 	outline: none;
-	border: 1px solid #247F68;
+	box-shadow: 1px 1px 0  3px rgba(255, 255, 255, 0.1);
 }
 
-#searchInput {
+.header-topBar input[type="text"]:focus::-webkit-input-placeholder {
+	color: #13142D;
+}
+
+.header-topBar .searchInput {
 	width: 400px;
+}
+
+.inputWrapper {
+	display: inline-block;
+	position: relative;
+	background: #fff;
+}
+
+.inputWrapper:after {
+	font-family: "icon-font";
+	position: absolute;
+	top: 12px;
+	right: 10px;
+	color: #ccc;
+}
+
+.searchInput {
+	padding-right: 20px;
+	background: transparent;
+	position: relative;
+	z-index: 1;
+}
+
+.dateInput {
+	background: transparent;
+}
+
+.searchWrapper:after {
+	content: "\64";
+}
+.selectWrapper:after {
+	content: "\63";
+}
+
+.dateWrapper:after {
+	content: "\65";
+}
+
+.header-topBar select {
+	background: transparent;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border: none;
+	font-size: 1em;
+	color: #13142D;
+	border-radius: 2px;
+	padding: 10px 30px 10px 10px;
+	position: relative;
+	z-index: 1;
+}
+
+.header-topBar select:focus {
+	outline: none;
 }
 
 .datePicker-container {
@@ -76,12 +200,27 @@ header input[type="text"]:focus {
 
 .datePicker-dropdown {
 	position: absolute;
-	width: 350px;
+	width: 300px;
 	top: 100%;
-	left: 0;
+	margin-top: 10px;
+	right: 0;
 	background: #fff;
-	border: 1px solid #13142d;
+	border: 1px solid #1B5299;
 	display: none;
+}
+
+.datePicker-dropdown:after {
+	content: "";
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;  /* left arrow slant */
+	border-right: 10px solid transparent; /* right arrow slant */
+	border-bottom: 10px solid #1B5299; /* bottom, add background color here */
+	font-size: 0;
+	line-height: 0;
+	position: absolute;
+	top: -10px;
+	right: 10px;
 }
 
 .datePicker-dropdown-focus {
@@ -89,14 +228,21 @@ header input[type="text"]:focus {
 }
 
 .datePicker thead tr:first-child th {
-	background: #13142d;
+	background: #1B5299;
 	color: #fff;
 	padding-top: 15px;
 }
 
 .datePicker-btn {
 	position: absolute;
-	top: 16px;
+	top: 12px;
+	border-radius: 0;
+	padding: 5px;
+	background: none;
+	border: 1px solid #fff;
+	color: #fff;
+	font-weight: bold;
+	font-size: 14px;
 }
 
 #datePicker-prev {
@@ -126,12 +272,14 @@ header input[type="text"]:focus {
 }
 
 .cal-days th {
-	color: #9696a3;
+	color: #555562;
+	font-size: 0.9em;
 }
 
 .cal td {
-	height: 58px;
+	height: 50px;
 	position: relative;
+	font-size: 0.9em;
 }
 
 .cal-prevMonth,
@@ -203,4 +351,16 @@ header input[type="text"]:focus {
 	.cal td {
 		height: 37px;
 	}
+}
+
+.headerNavBar {
+	background: #f4f4f4;
+	height: 60px;
+	-webkit-box-shadow: inset hoff voff blur color;
+	box-shadow: 0px 1px 3px 3px rgba(0,0,0,0.1);
+}
+
+.container {
+	width: 90%;
+	margin: 0 auto;
 }
