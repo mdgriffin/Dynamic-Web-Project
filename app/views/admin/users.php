@@ -119,9 +119,9 @@ include_once("app/views/partials/admin-nav.php");
 							<td><?php echo $user["surname"]; ?></td>
 							<td><?php echo $user["email"]; ?></td>
 							<td><?php echo ((int)$user["is_admin"] == 1? "Yes": "No "); ?></td>
-							<td><a href="users.php?id=<?php echo $user["user_id"]; ?>"><button class="btn btn-small btn-secondary">Update</button></a></td>
+							<td><a href="admin/users?id=<?php echo $user["user_id"]; ?>"><button class="btn btn-small btn-secondary">Update</button></a></td>
 							<td>
-								<form action="users.php" method="post">
+								<form action="admin/users.php" method="post">
 									<input type="hidden" name="METHOD" value="DELETE">
 									<input type="hidden" name="id" value="<?php echo $user["user_id"]; ?>">
 									<input type="submit" name="delete" value="Delete User" class="btn btn-small btn-secondary">
