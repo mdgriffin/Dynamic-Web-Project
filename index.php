@@ -12,6 +12,7 @@ require_once "lib/View.php";
 require_once "lib/Model.php";
 require_once "lib/RestfulController.php";
 require_once "lib/Image.php";
+require_once "lib/Auth.php";
 
 // Models
 require_once "app/models/User.php";
@@ -36,10 +37,10 @@ Router::restful("/^.+admin\/users(?:.*)?(?:\?id=[0-9]{1,9})?$/", new AdminUsersC
  */
 
 Router::get("/^.+admin\/?(?:home)?$/", function () {
-	if (isset($_SESSION["admin_logged_in"]) && $_SESSION["admin_logged_in"]) {
+	if (Auth::admin()) {
 		View::create("admin/index")->with(array("pageTitle" => "Home Page"));
 	} else {
-		header('Location:admin/login');
+		header('Location:login');
 	}
 });
 
@@ -48,7 +49,7 @@ Router::get("/^.+admin\/?(?:home)?$/", function () {
  */
 
 Router::get("/^.+admin\/login(?:.*)?$/", function () {
-	if (!isset($_SESSION["admin_logged_in"]) || !$_SESSION["admin_logged_in"]) {
+	if (!Auth::admin()) {
 		View::create("admin/login")->with(array("pageTitle" => "Admin Login"));
 	} else {
 		header('Location:home');
@@ -72,27 +73,37 @@ Router::post("/^.+admin\/logout(?:\.php)?$/", function () {
 	}
 });
 
-
-
-Router::get("/^" . $config["base_url"] . "(?:index.php)?$/", function () {
-	View::create("home")->with(array("pageTitle" => "Home Page"));
-});
-
 /**
  * Admin Images
  */
  Router::get("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
-	 AdminImagesController::index($matches[1]);
+	 if (Auth::user()) {
+		 AdminImagesController::index($matches[1]);
+	 } else {
+		 header('Location:login');
+	 }
+
  });
 
 
 Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
-	 if (isset($_POST["METHOD"]) && $_POST["METHOD"] == "DELETE") {
+	 if (Auth::user() && isset($_POST["METHOD"]) && $_POST["METHOD"] == "DELETE") {
 		 AdminImagesController::delete($matches[1], $_POST);
-	 } else {
+	 } else if (Auth::user()) {
 		 AdminImagesController::create($matches[1], $_POST, $_FILES);
+	 } else {
+		 header('Location:login');
 	 }
  });
+
+/**
+ * Home Page
+ */
+
+ Router::get("/^" . $config["base_url"] . "(?:index.php)?$/", function () {
+ 	View::create("home")->with(array("pageTitle" => "Home Page"));
+ });
+
 
 // handle the missing routes
 //Router::missing();

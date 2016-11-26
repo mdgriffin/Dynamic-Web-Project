@@ -4,7 +4,7 @@ class AdminUsersController implements RestfulController {
 
 	public function before () {
 		// check that the user is logged in
-		if (!isset($_SESSION["admin_logged_in"]) || !$_SESSION["admin_logged_in"]) {
+		if (!Auth::admin()) {
 			header('Location:login.php');
 		}
 	}
@@ -82,7 +82,7 @@ class AdminUsersController implements RestfulController {
 	public function delete($user_id) {
 		$viewData = array();
 		$viewData["user_id"] = $user_id;
-		
+
 		$viewData["pageTitle"] = "Manage Users";
 
 		User::delete($user_id);

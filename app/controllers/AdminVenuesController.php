@@ -4,7 +4,7 @@ class AdminVenuesController implements RestfulController {
 
 	public function before () {
 		// check that the user is logged in
-		if (!isset($_SESSION["admin_logged_in"]) || !$_SESSION["admin_logged_in"]) {
+		if (!Auth::admin()) {
 			header('Location:login.php');
 		}
 	}
