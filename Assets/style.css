@@ -535,10 +535,20 @@ textarea:focus + .form-mainLabel {
 }
 
 .form textarea {
-	width: 66.6666%;
+	width: 100%;
 	display: inline-block;
 	min-height: 150px;
 	border: 2px solid #e5e5e5;
+	padding: 5px;
+	font-size: 1em;
+}
+
+.form textarea::-webkit-input-placeholder {
+	color: grey;
+}
+
+.form textarea:focus::-webkit-input-placeholder {
+	color: #2266BF;
 }
 
 .form textarea:focus {

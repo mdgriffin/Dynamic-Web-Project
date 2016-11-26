@@ -38,8 +38,7 @@ include_once("app/views/partials/admin-nav.php");
 				</fieldset>
 
 				<fieldset>
-					<textarea name="address"><?php echo $this->venue->getAddress(); ?></textarea><!--
-					--><label for="address" class="form-mainLabel">Address</label>
+					<textarea name="address" placeholder="ADDRESS"><?php echo $this->venue->getAddress(); ?></textarea>
 					<?php
 			 		if ($this->errors && isset($this->errors["address"])) {
 			 			foreach ($this->errors["address"] as $this->error) {
@@ -65,8 +64,7 @@ include_once("app/views/partials/admin-nav.php");
 
 				<fieldset>
 
-					<textarea name="description"><?php echo $this->venue->getDescription(); ?></textarea><!--
-					--><label for="description" class="form-mainLabel">Description</label>
+					<textarea name="description" placeholder="DESCRIPTION"><?php echo $this->venue->getDescription(); ?></textarea>
 					<?php
 					if ($this->errors && isset($this->errors["description"])) {
 						foreach ($this->errors["description"] as $this->error) {
