@@ -52,7 +52,7 @@ include_once("app/views/partials/admin-nav.php");
 
 				<fieldset>
 					<input type="text" name="email" autocomplete="off" value="<?php echo $this->user->getEmail(); ?>"><!--
-					-><label for="email" class="form-mainLabel">Email</label>
+					--><label for="email" class="form-mainLabel">Email</label>
 					<?php
 					if ($this->errors && isset($this->errors["email"])) {
 						foreach ($this->errors["email"] as $this->error) {
