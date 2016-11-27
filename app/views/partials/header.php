@@ -24,7 +24,7 @@
 
 					<div class="container">
 
-						<h1>VenYou</h1>
+						<a href="" class="header-topBar-logo"><h1>VenYou</h1></a>
 
 						<form action="search" method="get">
 

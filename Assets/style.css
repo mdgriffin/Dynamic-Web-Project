@@ -77,6 +77,8 @@ html {
 	box-sizing: inherit;
 }
 
+
+
 /**
  * Micro Clearfix
  * Source: http://nicolasgallagher.com/micro-clearfix-hack/
@@ -445,6 +447,16 @@ html {
 
 }
 
+.fullWidth,
+.fullWidth-top {
+	margin-left: -20px;
+	margin-right: -20px;
+}
+
+.fullWidth-top {
+	margin-top: -20px;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -462,6 +474,14 @@ body {
 	padding: 20px;
 	border-radius: 3px;
 	box-shadow: 0px 8px 15px -6px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+	max-width: 100%;
+}
+
+.cardBannerImage {
+	border-radius: 3px 3px 0 0;
 }
 
 /**
@@ -656,13 +676,21 @@ button {
 	margin: 0;
 }
 
+header {
+	margin-bottom: 40px;
+}
+
 .header-topBar {
 	background: #13142d;
 	padding: 10px 20px;
 	box-shadow: inset 0 -1px 5px 1px rgba(0, 0, 0, 0.5);
 }
 
-.header-topBar h1 {
+.header-topBar-logo {
+	text-decoration: none;
+}
+
+.header-topBar-logo h1 {
 	font-family: 'Nunito', sans-serif;
 	display: inline;
 	color: #fff;
