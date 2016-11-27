@@ -10,6 +10,22 @@ class HomeController {
 		} else if (Auth::user()) {
 			$this->viewData["auth_user"] = User::get(Auth::user());
 		}
+
+		if (isset($_SESSION["flash_message"])) {
+			$this->viewData["flash_message"] = $_SESSION["flash_message"];
+			// TODO Uncomment
+			// unset($_SESSION["flash_message"])
+
+		} else {
+			die("flash message not set");
+		}
+	}
+
+	public function getIndex () {
+		$this->viewData["pageTitle"] = "VenYou - Find the Perfect Venue";
+
+		// TODO viewData not getting passed to header
+		View::create("home")->with(array($this->viewData));
 	}
 
 	public function getLogin () {
@@ -32,19 +48,22 @@ class HomeController {
 		}
 	}
 
-	public function postRegister () {
+	public function postRegister ($data) {
+		// TODO Log the User in
 		$user = new User($data["forename"], $data["surname"], $data["email"], $data["password"], 0);
 
 		if (!$user->errors()) {
 			$user->save();
 			$_SESSION["flash_message"] = "Account Successfully Registered";
+
+			header('Location:home');
 		} else {
 			$this->viewData["errors"] = $user->errors();
-			$this->viewData["flash_error"] = "Register form has errors";
+			$this->viewData["flash_error"] = "Register form has errormnmns";
 			$this->viewData["user"] = $user;
-		}
 
-		header('Location:home');
+			View::create("register")->with($this->viewData);
+		}
 	}
 
 	public function getVenueIndex () {

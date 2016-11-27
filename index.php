@@ -90,8 +90,8 @@ Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
 
 
 	// Home Page
-	Router::get("/^" . $config["base_url"] . "(?:index.php)?$/", function () {
-		View::create("home")->with(array("pageTitle" => "Home Page"));
+	Router::get("/^" . $config["base_url"] . "(?:home)?$/", function () {
+		(new HomeController)->getIndex();
 	});
 
 	Router::get("/^" . $config["base_url"] . "login$/", function () {
@@ -103,7 +103,7 @@ Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
 	});
 
 	Router::post("/^" . $config["base_url"] . "register$/", function () {
-		(new HomeController)->postRegister();
+		(new HomeController)->postRegister($_POST);
 	});
 
 	Router::get("/^" . $config["base_url"] . "venues$/", function () {
