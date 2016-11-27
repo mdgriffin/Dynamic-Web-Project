@@ -22,7 +22,7 @@ include_once("app/views/partials/admin-nav.php");
 			<?php } ?>
 
 				<fieldset>
-					<input type="text" name="forename" value="<?php echo $this->user->getForename(); ?>"><!--
+					<input type="text" name="forename" id="forename" value="<?php echo $this->user->getForename(); ?>"><!--
 					--><label for="forename" class="form-mainLabel">First Name</label>
 					<?php
 					if ($this->errors && isset($this->errors["forename"])) {
@@ -36,7 +36,7 @@ include_once("app/views/partials/admin-nav.php");
 				</fieldset>
 
 				<fieldset>
-					<input type="text" name="surname" value="<?php echo $this->user->getSurname(); ?>"><!--
+					<input type="text" name="surname" id="surname" value="<?php echo $this->user->getSurname(); ?>"><!--
 					--><label for="surname" class="form-mainLabel">Surname</label>
 
 					<?php
@@ -51,7 +51,7 @@ include_once("app/views/partials/admin-nav.php");
 				</fieldset>
 
 				<fieldset>
-					<input type="text" name="email" autocomplete="off" value="<?php echo $this->user->getEmail(); ?>"><!--
+					<input type="text" name="email" id="email" autocomplete="off" value="<?php echo $this->user->getEmail(); ?>"><!--
 					--><label for="email" class="form-mainLabel">Email</label>
 					<?php
 					if ($this->errors && isset($this->errors["email"])) {
@@ -65,7 +65,7 @@ include_once("app/views/partials/admin-nav.php");
 				</fieldset>
 
 				<fieldset>
-					<input type="password" name="password" autocomplete="off" value="<?php echo $this->user->getPassword(); ?>"><!--
+					<input type="password" name="password" id="password" autocomplete="off" value="<?php echo $this->user->getPassword(); ?>"><!--
 					--><label for="password" class="form-mainLabel">Password</label>
 					<?php
 					if ($this->errors && isset($this->errors["password"])) {

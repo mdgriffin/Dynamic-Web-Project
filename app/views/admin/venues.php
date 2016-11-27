@@ -11,7 +11,7 @@ include_once("app/views/partials/admin-nav.php");
 
 	<div class="gs">
 
-		<div class="gs-col gs6 gs6-after">
+		<div class="gs-col gs6">
 
 			<?php if ($this->id) { ?>
 				<h2>Update Venue</h2>
@@ -24,7 +24,7 @@ include_once("app/views/partials/admin-nav.php");
 			<?php } ?>
 				<fieldset>
 
-					<input type="text" name="name" value="<?php echo $this->venue->getName(); ?>"><!--
+					<input type="text" name="name" id="name" value="<?php echo $this->venue->getName(); ?>"><!--
 					--><label for="name" class="form-mainLabel">Name</label>
 					<?php
 					if ($this->errors && isset($this->errors["name"])) {
@@ -52,13 +52,13 @@ include_once("app/views/partials/admin-nav.php");
 
 				<fieldset>
 
-					<input type="text" name="latitude" value="<?php echo $this->venue->getLatitude(); ?>"><!--
+					<input type="text" name="latitude" id="latitude" value="<?php echo $this->venue->getLatitude(); ?>"><!--
 					--><label for="latitude" class="form-mainLabel">Latitude</label>
 				</fieldset>
 
 				<fieldset>
 
-					<input type="text" name="longitude" value="<?php echo $this->venue->getLongitude(); ?>"><!--
+					<input type="text" name="longitude" id="longitude" value="<?php echo $this->venue->getLongitude(); ?>"><!--
 					--><label for="longitude" class="form-mainLabel">Longitude</label>
 				</fieldset>
 
@@ -86,7 +86,7 @@ include_once("app/views/partials/admin-nav.php");
 
 		</div><!-- gs-col -->
 
-		<div class="gs-col gs12">
+		<div class="gs-col gs6">
 
 			<h2>Venues</h2>
 
@@ -94,31 +94,29 @@ include_once("app/views/partials/admin-nav.php");
 				<thead>
 					<th>ID</th>
 					<th>Name</th>
-					<th>Address</th>
-					<th>Description</th>
-					<th>Latitude</th>
-					<th>longitude</th>
-					<th>Actions</th>
+					<th colspan="4">Actions</th>
 				</thead>
 				<tbody>
 					<?php foreach ($this->venues as $venue) { ?>
 						<tr>
 							<td><?php echo $venue["venue_id"]; ?></td>
 							<td><?php echo $venue["name"]; ?></td>
-							<td><?php echo $venue["address"]; ?></td>
-							<td><?php echo $venue["description"]; ?></td>
-							<td><?php echo $venue["latitude"]; ?></td>
-							<td><?php echo $venue["longitude"]; ?></td>
 							<td>
-								<a href="admin/venues.php?id=<?php echo $venue["venue_id"]; ?>" class="btn btn-small btn-secondary btn-fullWidth">Update</a>
+								<a href="admin/venues.php?id=<?php echo $venue["venue_id"]; ?>" class="btn btn-small btn-secondary">Update</a>
+							</td>
+							<td>
 								<form action="admin/venues.php" method="post">
 									<input type="hidden" name="METHOD" value="DELETE">
 									<input type="hidden" name="id" value="<?php echo $venue["venue_id"]; ?>">
-									<input type="submit" name="delete" value="Delete Venue" class="btn btn-small btn-secondary btn-fullWidth">
+									<input type="submit" name="delete" value="Delete Venue" class="btn btn-small btn-secondary">
 								</form>
-								<a href="admin/packages.php?id=<?php echo $venue["venue_id"]; ?>" class="btn btn-small btn-secondary btn-fullWidth">Manage Packages</a>
-								<a href="admin/venues/<?php echo $venue["venue_id"]; ?>/images" class="btn btn-small btn-secondary btn-fullWidth">Manage Venue Images</a>
+							</td>
 							<td>
+								<a href="admin/packages.php?id=<?php echo $venue["venue_id"]; ?>" class="btn btn-small btn-secondary">Manage Packages</a>
+							</td>
+							<td>
+								<a href="admin/venues/<?php echo $venue["venue_id"]; ?>/images" class="btn btn-small btn-secondary">Manage Venue Images</a>
+							</td>
 						</tr>
 					<?php } ?>
 				</tbody>

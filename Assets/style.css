@@ -528,6 +528,7 @@ body {
 }
 
 input[type=text]:focus + .form-mainLabel,
+input[type=password]:focus + .form-mainLabel,
 textarea:focus + .form-mainLabel {
 	border: 2px solid #2266BF;
 	border-left: none;
