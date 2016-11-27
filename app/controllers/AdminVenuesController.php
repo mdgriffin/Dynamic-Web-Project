@@ -1,85 +1,88 @@
 <?php
 
-class AdminVenuesController implements RestfulController {
+class AdminVenuesController implements RestfulControllerInterface {
+	use Controller;
+
+	private $viewData = array();
 
 	public function before () {
 		// check that the user is logged in
 		if (!Auth::admin()) {
 			header('Location:login.php');
 		}
-	}
 
-	public function after () {}
+		if (Auth::admin()) {
+			$this->viewData["auth_admin"] = User::get(Auth::admin());
+		} else if (Auth::user()) {
+			$this->viewData["auth_user"] = User::get(Auth::user());
+		}
+	}
 
 	// display the index view
 	public function index () {
-		return View::create("admin/venues")->with(array(
-			"pageTitle" => "Manage Venues",
-			"errors" => array(),
-			"venue" => new Venue("", "", "", "", "", ""),
-			"venues" => Venue::getAll(),
-		));
+		$this->viewData["pageTitle"] = "Manage Venues";
+		$this->viewData["errors"] = array();
+		$this->viewData["venue"] = new Venue("", "", "", "", "", "");
+		$this->viewData["venues"] = Venue::getAll();
+
+		return View::create("admin/venues")->with($this->viewData);
 	}
 
 	public function create($data) {
-		$viewData = array();
-		$viewData["title"] = "Manage Venues";
-		$viewData["venue"] = new Venue($data["name"], $data["address"], $data["description"], $data["latitude"], $data["longitude"]);
+		$this->viewData["title"] = "Manage Venues";
+		$this->viewData["venue"] = new Venue($data["name"], $data["address"], $data["description"], $data["latitude"], $data["longitude"]);
 
-		if (!$viewData["venue"]->errors()) {
-			$viewData["venue"]->save();
-			$viewData["flash_message"] = "New Venue Created";
+		if (!$this->viewData["venue"]->errors()) {
+			$this->viewData["venue"]->save();
+			$this->viewData["flash_message"] = "New Venue Created";
 		} else {
-			$viewData["errors"] = $viewData["venue"]->errors();
-			$viewData["flash_error"] = "Form has errors";
+			$this->viewData["errors"] = $this->viewData["venue"]->errors();
+			$this->viewData["flash_error"] = "Form has errors";
 		}
 
-		$viewData["venues"] = Venue::getAll();
+		$this->viewData["venues"] = Venue::getAll();
 
 
-		return View::create("admin/venues")->with($viewData);
+		return View::create("admin/venues")->with($this->viewData);
 	}
 
 	public function read($venue_id) {
-		$viewData = array();
-		$viewData["venue"] = Venue::get($venue_id);
-		$viewData["venues"] = Venue::getAll();
-		$viewData["pageTitle"] = "Manage " . $viewData["venue"]->getName();
-		$viewData["id"] = $venue_id;
+		$this->viewData["venue"] = Venue::get($venue_id);
+		$this->viewData["venues"] = Venue::getAll();
+		$this->viewData["pageTitle"] = "Manage " . $this->viewData["venue"]->getName();
+		$this->viewData["id"] = $venue_id;
 
-		return View::create("admin/venues")->with($viewData);
+		return View::create("admin/venues")->with($this->viewData);
 	}
 
 	public function update($venue_id, $data) {
-		$viewData = array();
-		$viewData["venue"] = Venue::get($venue_id);
+		$this->viewData["venue"] = Venue::get($venue_id);
 
-		$viewData["venue"]->setName($data["name"]);
-		$viewData["venue"]->setAddress($data["address"]);
-		$viewData["venue"]->setDescription($data["description"]);
-		$viewData["venue"]->setLatitude($data["latitude"]);
-		$viewData["venue"]->setLongitude($data["longitude"]);
+		$this->viewData["venue"]->setName($data["name"]);
+		$this->viewData["venue"]->setAddress($data["address"]);
+		$this->viewData["venue"]->setDescription($data["description"]);
+		$this->viewData["venue"]->setLatitude($data["latitude"]);
+		$this->viewData["venue"]->setLongitude($data["longitude"]);
 
-		if (!$viewData["venue"]->errors()) {
-			$viewData["venue"]->update();
-			$viewData["flash_message"] = "Venue Updated";
+		if (!$this->viewData["venue"]->errors()) {
+			$this->viewData["venue"]->update();
+			$this->viewData["flash_message"] = "Venue Updated";
 		} else {
-			$viewData["errors"] = $viewData["venue"]->errors();
-			$viewData["flash_error"] = "Form has errors";
+			$this->viewData["errors"] = $this->viewData["venue"]->errors();
+			$this->viewData["flash_error"] = "Form has errors";
 		}
-		$viewData["venues"] = Venue::getAll();
+		$this->viewData["venues"] = Venue::getAll();
 
-		return View::create("admin/venues")->with($viewData);
+		return View::create("admin/venues")->with($this->viewData);
 	}
 
 	public function delete($id) {
-		$viewData = array();
 		Venue::delete($id);
-		$viewData["venue"] = new Venue("", "", "", "", "", "");
-		$viewData["venues"] = Venue::getAll();
-		$viewData["flash_message"] = "Venue Deleted";
+		$this->viewData["venue"] = new Venue("", "", "", "", "", "");
+		$this->viewData["venues"] = Venue::getAll();
+		$this->viewData["flash_message"] = "Venue Deleted";
 
-		return View::create("admin/venues")->with($viewData);
+		return View::create("admin/venues")->with($this->viewData);
 	}
 }
 

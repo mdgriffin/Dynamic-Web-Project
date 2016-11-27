@@ -1,9 +1,8 @@
 <?php
 
-interface RestfulController {
+interface RestfulControllerInterface {
 
 	public function before ();
-	public function after ();
 	public function index ();
 	public function create ($data);
 	public function read ($id);

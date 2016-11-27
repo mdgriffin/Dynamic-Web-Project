@@ -1,15 +1,22 @@
 <?php
 
-class AdminPackageController implements RestfulController {
+class AdminPackageController implements RestfulControllerInterface {
+	use Controller;
+
+	private $viewData = array();
 
 	public function before () {
 		// check that the user is logged in
 		if (!Auth::admin()) {
 			header('Location:login.php');
 		}
-	}
 
-	public function after () {}
+		if (Auth::admin()) {
+			$this->viewData["auth_admin"] = User::get(Auth::admin());
+		} else if (Auth::user()) {
+			$this->viewData["auth_user"] = User::get(Auth::user());
+		}
+	}
 
 	// display the index view
 	public function index () {
@@ -37,20 +44,13 @@ class AdminPackageController implements RestfulController {
 	}
 
 	public function read($venue_id) {
-		$pageTitle = "Manage Packages";
-		$errors = array();
-		$venue = Venue::get($venue_id);
-		$package = new Package("", "", "", "", "", "", "");
-		$packages = Package::getAll();
+		$this->viewData["pageTitle"] = "Manage Packages";
+		$this->viewData["errors"] = array();
+		$this->viewData["venue"] = Venue::get($venue_id);
+		$this->viewData["package"] = new Package("", "", "", "", "", "", "");
+		$this->viewData["packages"] = Package::getAll();
 
-		return View::create("admin/packages")->with(array(
-			"pageTitle" => $pageTitle,
-			"errors" => $errors,
-			"venue" => $venue,
-			"venue_id" => $venue_id,
-			"package" => $package,
-			"packages" => $packages
-		));
+		return View::create("admin/packages")->with($this->viewData);
 	}
 
 	public function update($venue_id, $data) {

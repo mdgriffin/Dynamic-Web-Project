@@ -85,8 +85,35 @@
 
 					<div class="headerNavBar-account">
 
-						<a href="login"><button type="button">Login</button></a>
-						<a href="register"><button type="button">Register</button></a>
+						<?php if ($this->auth_admin) { ?>
+
+							<button><?php echo $this->auth_admin->getForename(); ?></button>
+
+							<div class="headerNavBar-account-dropdown">
+
+								<ul>
+									<li><a href="admin">Admin Home</a></li>
+									<li><a href="admin/venues">Manage Venues</a></li>
+									<li><a href="admin/users">Manage Users</a></li>
+									<li><a href="admin/bookings">Bookings</a></li>
+									<li><form action="admin/logout" method="post">
+										<input type="submit" name="logout" value="Logout">
+									</form></li>
+								</ul>
+
+							</div>
+
+						<?php } else if ($this->auth_admin) { ?>
+
+
+
+						<?php } else { ?>
+
+							<a href="login"><button type="button">Login</button></a>
+							<a href="register"><button type="button">Register</button></a>
+
+						<?php } ?>
+
 
 					</div>
 

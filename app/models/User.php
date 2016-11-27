@@ -86,7 +86,7 @@ class	User {
 	}
 
 	public static function _isAdmin ($email, $password) {
-		$admin_pass_stmt = self::$db->prepare("SELECT password FROM Users WHERE email=:email AND is_admin=1");
+		$admin_pass_stmt = self::$db->prepare("SELECT user_id, password FROM Users WHERE email=:email AND is_admin=1");
 
 		$admin_pass_stmt->execute(array(
 			':email' => $email
@@ -95,9 +95,9 @@ class	User {
 		$admin = $admin_pass_stmt->fetch(PDO::FETCH_ASSOC);
 
 		if (hash_equals($admin["password"], crypt($password, $admin["password"]))) {
-				return true;
+				return $admin["user_id"];
 		} else {
-			return false;
+			return null;
 		}
 	}
 

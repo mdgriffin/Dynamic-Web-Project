@@ -10,7 +10,9 @@ require_once "lib/Validator.php";
 require_once "lib/Router.php";
 require_once "lib/View.php";
 require_once "lib/Model.php";
-require_once "lib/RestfulController.php";
+require_once "lib/Controller.php";
+require_once "lib/ControllerInterface.php";
+require_once "lib/RestfulControllerInterface.php";
 require_once "lib/Image.php";
 require_once "lib/Auth.php";
 
@@ -21,7 +23,7 @@ require_once "app/models/Package.php";
 require_once "app/models/VenueImage.php";
 
 // Controllers
-
+require_once "app/controllers/AdminController.php";
 require_once "app/controllers/AdminVenuesController.php";
 require_once "app/controllers/AdminPackageController.php";
 require_once "app/controllers/AdminUsersController.php";
@@ -37,11 +39,7 @@ Router::restful("/^.+admin\/users(?:.*)?(?:\?id=[0-9]{1,9})?$/", new AdminUsersC
  */
 
 Router::get("/^.+admin\/?(?:home)?$/", function () {
-	if (Auth::admin()) {
-		View::create("admin/index")->with(array("pageTitle" => "Home Page"));
-	} else {
-		header('Location:login');
-	}
+	(new AdminController)->getIndex();
 });
 
 /**
@@ -49,28 +47,15 @@ Router::get("/^.+admin\/?(?:home)?$/", function () {
  */
 
 Router::get("/^.+admin\/login(?:.*)?$/", function () {
-	if (!Auth::admin()) {
-		View::create("admin/login")->with(array("pageTitle" => "Admin Login"));
-	} else {
-		header('Location:home');
-	}
-
+	(new AdminController)->getLogin();
 });
 
 Router::post("/^.+admin\/login(?:\.php)?$/", function () {
-	if (User::isAdmin($_POST["email"], $_POST["password"])) {
-		$_SESSION["admin_logged_in"] = true;
-		header('Location:home');
-	} else {
-		View::create("admin/login")->with(array("pageTitle" => "Admin Login", "flash_error" => "Username and/or password is incorrect"));
-	}
+	(new AdminController)->postLogin($_POST["email"], $_POST["password"]);
 });
 
 Router::post("/^.+admin\/logout(?:\.php)?$/", function () {
-	if (isset($_POST["logout"])) {
-		session_destroy();
-		header('Location:login');
-	}
+	(new AdminController)->postLogout($_POST);
 });
 
 /**
@@ -78,7 +63,7 @@ Router::post("/^.+admin\/logout(?:\.php)?$/", function () {
  */
  Router::get("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
 	 if (Auth::admin()) {
-		 AdminImagesController::index($matches[1]);
+		 (new AdminImagesController)->index($matches[1]);
 	 } else {
 		 header('Location:login');
 	 }
@@ -88,9 +73,9 @@ Router::post("/^.+admin\/logout(?:\.php)?$/", function () {
 
 Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
 	 if (Auth::admin() && isset($_POST["METHOD"]) && $_POST["METHOD"] == "DELETE") {
-		 AdminImagesController::delete($matches[1], $_POST);
+		 (new AdminImagesController)->delete($matches[1], $_POST);
 	 } else if (Auth::admin()) {
-		 AdminImagesController::create($matches[1], $_POST, $_FILES);
+		 (new  AdminImagesController)->create($matches[1], $_POST, $_FILES);
 	 } else {
 		 header('Location:login');
 	 }

@@ -1,97 +1,100 @@
 <?php
 
-class AdminUsersController implements RestfulController {
+class AdminUsersController implements RestfulControllerInterface {
+	use Controller;
+
+	private $viewData = array();
 
 	public function before () {
 		// check that the user is logged in
 		if (!Auth::admin()) {
 			header('Location:login.php');
 		}
-	}
 
-	public function after () {}
+		if (Auth::admin()) {
+			$this->viewData["auth_admin"] = User::get(Auth::admin());
+		} else if (Auth::user()) {
+			$this->viewData["auth_user"] = User::get(Auth::user());
+		}
+	}
 
 	// display the index view
 	public function index () {
-		return View::create("admin/users")->with(array(
-			"pageTitle" => "Manage Users",
-			"errors" => array(),
-			"user" => new User("", "", "", "", 0),
-			"users" => User::getAll(),
-		));
+		$this->viewData["pageTitle"] = "Manage Users";
+		$this->viewData["errors"] = array();
+		$this->viewData["user"] = new User("", "", "", "", 0);
+		$this->viewData["users"] = User::getAll();
+
+		return View::create("admin/users")->with($this->viewData);
 	}
 
 	public function create($data) {
-		$viewData = array();
 		$user = new User($data["forename"], $data["surname"], $data["email"], $data["password"], 1);
 
 		if (!$user->errors()) {
 			$user->save();
-			$viewData["flash_message"] = "New User Created";
-			$viewData["user"] = new User("", "", "", "", 0);
+			$this->viewData["flash_message"] = "New User Created";
+			$this->viewData["user"] = new User("", "", "", "", 0);
 		} else {
-			$viewData["errors"] = $user->errors();
-			$viewData["flash_error"] = "Register User form has errors";
-			$viewData["user"] = $user;
+			$this->viewData["errors"] = $user->errors();
+			$this->viewData["flash_error"] = "Register User form has errors";
+			$this->viewData["user"] = $user;
 		}
 
-		$viewData["users"] = User::getAll();
-		$viewData["pageTitle"] = "Manage Users";
+		$this->viewData["users"] = User::getAll();
+		$this->viewData["pageTitle"] = "Manage Users";
 
-		return View::create("admin/users")->with($viewData);
+		return View::create("admin/users")->with($this->viewData);
 	}
 
 	public function read($user_id) {
-		$viewData = array();
-		$viewData["user_id"] = $user_id;
+		$this->viewData["user_id"] = $user_id;
 
-		$viewData["user"] = User::get($user_id);
-		$viewData["user"]->setPassword("");
+		$this->viewData["user"] = User::get($user_id);
+		$this->viewData["user"]->setPassword("");
 
-		$viewData["users"] = User::getAll();
-		$viewData["pageTitle"] = "Manage Users";
+		$this->viewData["users"] = User::getAll();
+		$this->viewData["pageTitle"] = "Manage Users";
 
-		return View::create("admin/users")->with($viewData);
+		return View::create("admin/users")->with($this->viewData);
 	}
 
 	public function update($user_id, $data) {
-		$viewData = array();
-		$viewData["user_id"] = $user_id;
+		$this->viewData["user_id"] = $user_id;
 
-		$viewData["user"] = User::get($user_id);
+		$this->viewData["user"] = User::get($user_id);
 
-		$viewData["user"]->setForename($data["forename"]);
-		$viewData["user"]->setSurname($data["surname"]);
-		$viewData["user"]->setEmail($data["email"]);
-		$viewData["user"]->setPassword($data["password"]);
+		$this->viewData["user"]->setForename($data["forename"]);
+		$this->viewData["user"]->setSurname($data["surname"]);
+		$this->viewData["user"]->setEmail($data["email"]);
+		$this->viewData["user"]->setPassword($data["password"]);
 
-		if (!$viewData["user"]->errors()) {
-			$viewData["user"]->update();
-			$viewData["flash_message"] = "User Updated";
+		if (!$this->viewData["user"]->errors()) {
+			$this->viewData["user"]->update();
+			$this->viewData["flash_message"] = "User Updated";
 		} else {
-			$viewData["errors"] = $viewData["user"]->errors();
-			$viewData["flash_error"] = "Form has errors";
+			$this->viewData["errors"] = $this->viewData["user"]->errors();
+			$this->viewData["flash_error"] = "Form has errors";
 		}
 
-		$viewData["users"] = User::getAll();
-		$viewData["pageTitle"] = "Manage Users";
+		$this->viewData["users"] = User::getAll();
+		$this->viewData["pageTitle"] = "Manage Users";
 
-		return View::create("admin/users")->with($viewData);
+		return View::create("admin/users")->with($this->viewData);
 	}
 
 	public function delete($user_id) {
-		$viewData = array();
-		$viewData["user_id"] = $user_id;
+		$this->viewData["user_id"] = $user_id;
 
-		$viewData["pageTitle"] = "Manage Users";
+		$this->viewData["pageTitle"] = "Manage Users";
 
 		User::delete($user_id);
-		$viewData["user"] = new User("", "", "", "", "", 0);
-		$viewData["flash_message"] = "User Deleted";
+		$this->viewData["user"] = new User("", "", "", "", "", 0);
+		$this->viewData["flash_message"] = "User Deleted";
 
-		$viewData["users"] = User::getAll();
+		$this->viewData["users"] = User::getAll();
 
-		return View::create("admin/users")->with($viewData);
+		return View::create("admin/users")->with($this->viewData);
 	}
 }
 

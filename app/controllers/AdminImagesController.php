@@ -1,22 +1,33 @@
 <?php
 
-class AdminImagesController {
+class AdminImagesController implements ControllerInterface {
+	use Controller;
 
-	// display the index view
-	public static function index ($venue_id) {
-		return View::create("admin/images")->with(array(
-			"venue" => Venue::get($venue_id),
-			"image" => new VenueImage($venue_id, "", ""),
-			"venue_images"=> VenueImage::getAll($venue_id),
-			"venue_id" => $venue_id,
-		));
+	private $viewData = array();
+
+	public function before () {
+		if (Auth::admin()) {
+			$this->viewData["auth_admin"] = User::get(Auth::admin());
+		} else if (Auth::user()) {
+			$this->viewData["auth_user"] = User::get(Auth::user());
+		}
 	}
 
-	public static function create($venue_id, $data, $files) {
+	// display the index view
+	public function index ($venue_id) {
+		$this->viewData["venue"] = Venue::get($venue_id);
+		$this->viewData["image"] = new VenueImage($venue_id, "", "");
+		$this->viewData["venue_images"] = VenueImage::getAll($venue_id);
+		$this->viewData["venue_id"] = $venue_id;
+
+		return View::create("admin/images")->with($this->viewData);
+	}
+
+	public function create($venue_id, $data, $files) {
 		$viewData = array();
-		$viewData["errors"] = array();
-		$viewData["venue"] = Venue::get($venue_id);
-		$viewData["venue_id"] = $venue_id;
+		$this->viewData["errors"] = array();
+		$this->viewData["venue"] = Venue::get($venue_id);
+		$this->viewData["venue_id"] = $venue_id;
 		$target_dir = "Assets/uploads/";
 		$imageFileType = pathinfo($_FILES['image_file']['name'], PATHINFO_EXTENSION);
 
@@ -35,52 +46,52 @@ class AdminImagesController {
 			}
 
 			if ($uploaded == false) {
-				$viewData["flash_error"] = "Sorry, your file was not uploaded.";
+				$this->viewData["flash_error"] = "Sorry, your file was not uploaded.";
 			} else {
 				if (move_uploaded_file($files["image_file"]["tmp_name"], $target_file)) {
-					$viewData["image"] = new VenueImage($venue_id, $target_file, $data["title"]);
+					$this->viewData["image"] = new VenueImage($venue_id, $target_file, $data["title"]);
 
-					if (!$viewData["image"]->errors()) {
-						$viewData["image"]->save();
-							$viewData["flash_message"] = "Successfully created a new venue image.";
+					if (!$this->viewData["image"]->errors()) {
+						$this->viewData["image"]->save();
+							$this->viewData["flash_message"] = "Successfully created a new venue image.";
 					} else {
-						$viewData["errors"] = $viewData["image"]->errors();
+						$this->viewData["errors"] = $this->viewData["image"]->errors();
 					}
 				} else {
-					$viewData["flash_error"] = "Sorry, there was an error uploading your file.";
+					$this->viewData["flash_error"] = "Sorry, there was an error uploading your file.";
 				}
 			}
 		} else {
-			$viewData["flash_error"] = "Please select an image file";
-			$viewData["image"] = new VenueImage($venue_id, "", "");
+			$this->viewData["flash_error"] = "Please select an image file";
+			$this->viewData["image"] = new VenueImage($venue_id, "", "");
 		}
 
-		$viewData["venue_images"] = VenueImage::getAll($venue_id);
+		$this->viewData["venue_images"] = VenueImage::getAll($venue_id);
 
-		return View::create("admin/images")->with($viewData, $data);
+		return View::create("admin/images")->with($this->viewData);
 	}
 
-	public static function delete($venue_id, $data) {
-		$viewData = array();
-		$viewData["errors"] = array();
-		$viewData["venue"] = Venue::get($venue_id);
-		$viewData["venue_id"] = $venue_id;
-		$viewData["image"] = new VenueImage($venue_id, "", "");
+	public function delete($venue_id, $data) {
+		$this->viewData = array();
+		$this->viewData["errors"] = array();
+		$this->viewData["venue"] = Venue::get($venue_id);
+		$this->viewData["venue_id"] = $venue_id;
+		$this->viewData["image"] = new VenueImage($venue_id, "", "");
 
 		$res = VenueImage::delete($data["image_id"]);
 		if ($res) {
-			$viewData["flash_message"] = "Successfully Delete Image";
+			$this->viewData["flash_message"] = "Successfully Delete Image";
 
 			unlink($data["source"]);
 
 			// remove the deleted image from the file system
 		} else {
-			$viewData["flash_error"] = "Failed to Delete Image";
+			$this->viewData["flash_error"] = "Failed to Delete Image";
 		}
 
-		$viewData["venue_images"] = VenueImage::getAll($venue_id);
+		$this->viewData["venue_images"] = VenueImage::getAll($venue_id);
 
-		return View::create("admin/images")->with($viewData);
+		return View::create("admin/images")->with($this->viewData);
 	}
 }
 
