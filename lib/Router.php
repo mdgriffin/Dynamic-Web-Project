@@ -2,21 +2,24 @@
 
 class Router {
 	private $controller;
+	private static $routeMatched = false;
 
 	public static function get ($regMatchStr, $callback_fn) {
-		if (preg_match($regMatchStr, $_SERVER["REQUEST_URI"], $matches) && $_SERVER["REQUEST_METHOD"] == "GET") {
+		if (!self::$routeMatched && preg_match($regMatchStr, $_SERVER["REQUEST_URI"], $matches) && $_SERVER["REQUEST_METHOD"] == "GET") {
 			$callback_fn($matches);
+			self::$routeMatched = true;
 		}
 	}
 
 	public static function post ($regMatchStr, $callback_fn) {
-		if (preg_match($regMatchStr, $_SERVER["REQUEST_URI"], $matches) && $_SERVER["REQUEST_METHOD"] == "POST") {
+		if (!self::$routeMatched && preg_match($regMatchStr, $_SERVER["REQUEST_URI"], $matches) && $_SERVER["REQUEST_METHOD"] == "POST") {
 			$callback_fn($matches);
+			self::$routeMatched = true;
 		}
 	}
 
 	public static function restful ($regMatchStr, $cb) {
-		if (preg_match($regMatchStr, $_SERVER["REQUEST_URI"])) {
+		if (!self::$routeMatched && preg_match($regMatchStr, $_SERVER["REQUEST_URI"])) {
 
 			$controller = $cb();
 
@@ -32,6 +35,14 @@ class Router {
 				$controller->index();
 			}
 
+			self::$routeMatched = true;
+
+		}
+	}
+
+	public static function missing ($cb) {
+		if (!self::$routeMatched) {
+			$cb();
 		}
 	}
 

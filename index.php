@@ -116,7 +116,9 @@ Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
 
 
 // handle the missing routes
-//Router::missing();
+Router::missing(function () {
+	echo "404!";
+});
 
 
 ?>
