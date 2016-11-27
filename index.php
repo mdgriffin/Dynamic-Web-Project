@@ -10,8 +10,6 @@ require_once "lib/Validator.php";
 require_once "lib/Router.php";
 require_once "lib/View.php";
 require_once "lib/Model.php";
-require_once "lib/Controller.php";
-require_once "lib/ControllerInterface.php";
 require_once "lib/RestfulControllerInterface.php";
 require_once "lib/Image.php";
 require_once "lib/Auth.php";
@@ -33,9 +31,17 @@ require_once "app/controllers/AdminUsersController.php";
 require_once "app/controllers/AdminImagesController.php";
 
 // Routing
-Router::restful("/^.+admin\/venues(?:\.php)?(?:\?id=[0-9]{1,9})?$/", new AdminVenuesController());
-Router::restful("/^.+admin\/packages(?:\.php)?(?:\?id=[0-9]{1,9})?$/", new AdminPackageController());
-Router::restful("/^.+admin\/users(?:.*)?(?:\?id=[0-9]{1,9})?$/", new AdminUsersController());
+Router::restful("/^.+admin\/venues(?:\.php)?(?:\?id=[0-9]{1,9})?$/", function () {
+	return new AdminVenuesController();
+});
+
+Router::restful("/^.+admin\/packages(?:\.php)?(?:\?id=[0-9]{1,9})?$/", function () {
+	return new AdminPackageController();
+});
+
+Router::restful("/^.+admin\/users(?:.*)?(?:\?id=[0-9]{1,9})?$/", function () {
+	return new AdminUsersController();
+});
 
 /**
  * Home Page
@@ -94,6 +100,10 @@ Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
 
 	Router::get("/^" . $config["base_url"] . "register$/", function () {
 		(new HomeController)->getRegister();
+	});
+
+	Router::post("/^" . $config["base_url"] . "register$/", function () {
+		(new HomeController)->postRegister();
 	});
 
 	Router::get("/^" . $config["base_url"] . "venues$/", function () {

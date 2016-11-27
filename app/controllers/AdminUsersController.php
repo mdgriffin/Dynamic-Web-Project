@@ -1,11 +1,10 @@
 <?php
 
 class AdminUsersController implements RestfulControllerInterface {
-	use Controller;
 
 	private $viewData = array();
 
-	public function before () {
+	public function __construct () {
 		// check that the user is logged in
 		if (!Auth::admin()) {
 			header('Location:login.php');
@@ -29,7 +28,7 @@ class AdminUsersController implements RestfulControllerInterface {
 	}
 
 	public function create($data) {
-		$user = new User($data["forename"], $data["surname"], $data["email"], $data["password"], 1);
+		$user = new User($data["forename"], $data["surname"], $data["email"], $data["password"], $data["is_admin"]);
 
 		if (!$user->errors()) {
 			$user->save();
@@ -68,6 +67,7 @@ class AdminUsersController implements RestfulControllerInterface {
 		$this->viewData["user"]->setSurname($data["surname"]);
 		$this->viewData["user"]->setEmail($data["email"]);
 		$this->viewData["user"]->setPassword($data["password"]);
+		$this->viewData["user"]->setIs_admin( $data["is_admin"]);
 
 		if (!$this->viewData["user"]->errors()) {
 			$this->viewData["user"]->update();

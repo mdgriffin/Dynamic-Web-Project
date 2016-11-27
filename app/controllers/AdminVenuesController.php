@@ -1,11 +1,10 @@
 <?php
 
 class AdminVenuesController implements RestfulControllerInterface {
-	use Controller;
 
 	private $viewData = array();
 
-	public function before () {
+	public function __construct () {
 		// check that the user is logged in
 		if (!Auth::admin()) {
 			header('Location:login.php');

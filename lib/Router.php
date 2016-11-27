@@ -15,10 +15,10 @@ class Router {
 		}
 	}
 
-	public static function restful ($regMatchStr, $controller ) {
+	public static function restful ($regMatchStr, $cb) {
 		if (preg_match($regMatchStr, $_SERVER["REQUEST_URI"])) {
 
-			$controller->before();
+			$controller = $cb();
 
 			if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
 				$controller->read($_GET["id"]);

@@ -2,7 +2,6 @@
 
 interface RestfulControllerInterface {
 
-	public function before ();
 	public function index ();
 	public function create ($data);
 	public function read ($id);

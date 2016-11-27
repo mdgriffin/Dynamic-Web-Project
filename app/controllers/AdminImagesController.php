@@ -1,11 +1,10 @@
 <?php
 
-class AdminImagesController implements ControllerInterface {
-	use Controller;
+class AdminImagesController {
 
 	private $viewData = array();
 
-	public function before () {
+	public function __construct () {
 		if (Auth::admin()) {
 			$this->viewData["auth_admin"] = User::get(Auth::admin());
 		} else if (Auth::user()) {

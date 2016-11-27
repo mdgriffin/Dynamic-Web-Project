@@ -1,11 +1,10 @@
 <?php
 
-class AdminController implements ControllerInterface {
-	use Controller;
+class AdminController {
 
 	private $viewData = array();
 
-	public function before () {
+	public function __construct () {
 		if (Auth::admin()) {
 			$this->viewData["auth_admin"] = User::get(Auth::admin());
 		} else if (Auth::user()) {
@@ -13,7 +12,7 @@ class AdminController implements ControllerInterface {
 		}
 	}
 
-	private function _getIndex () {
+	public function getIndex () {
 		if (Auth::admin()) {
 			$this->viewData["pageTitle"] = "Home Page";
 
@@ -23,7 +22,7 @@ class AdminController implements ControllerInterface {
 		}
 	}
 
-	private function _getLogin () {
+	public function getLogin () {
 		if (!Auth::admin()) {
 			$this->viewData["pageTitle"] = "Admin Login";
 
@@ -33,7 +32,7 @@ class AdminController implements ControllerInterface {
 		}
 	}
 
-	private function _postLogin ($email, $password) {
+	public function postLogin ($email, $password) {
 		$admin_id  = User::isAdmin($email, $password);
 
 		if ($admin_id) {
@@ -48,7 +47,7 @@ class AdminController implements ControllerInterface {
 		}
 	}
 
-	private function _postLogout ($data) {
+	public function postLogout ($data) {
 		if (isset($data["logout"])) {
 			session_destroy();
 			header('Location:login');
