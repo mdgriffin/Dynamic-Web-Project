@@ -2,13 +2,6 @@
 
 class AdminImagesController {
 
-	public static function before () {
-		// check that the user is logged in
-		if (!Auth::admin()) {
-			header('Location:login.php');
-		}
-	}
-
 	// display the index view
 	public static function index ($venue_id) {
 		return View::create("admin/images")->with(array(
