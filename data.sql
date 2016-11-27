@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS Users (
 	user_id int NOT NULL AUTO_INCREMENT,
 	forename varchar(30) NOT NULL,
 	surname varchar(30) NOT NULL,
-	email varchar(40) NOT NULL,
+	email varchar(40) NOT NULL UNIQUE,
 	password char(64) NOT NULL,
 	is_admin tinyint(1) DEFAULT 0,
 	PRIMARY KEY (user_id)
