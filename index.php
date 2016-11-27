@@ -77,7 +77,7 @@ Router::post("/^.+admin\/logout(?:\.php)?$/", function () {
  * Admin Images
  */
  Router::get("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
-	 if (Auth::user()) {
+	 if (Auth::admin()) {
 		 AdminImagesController::index($matches[1]);
 	 } else {
 		 header('Location:login');
@@ -87,9 +87,9 @@ Router::post("/^.+admin\/logout(?:\.php)?$/", function () {
 
 
 Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
-	 if (Auth::user() && isset($_POST["METHOD"]) && $_POST["METHOD"] == "DELETE") {
+	 if (Auth::admin() && isset($_POST["METHOD"]) && $_POST["METHOD"] == "DELETE") {
 		 AdminImagesController::delete($matches[1], $_POST);
-	 } else if (Auth::user()) {
+	 } else if (Auth::admin()) {
 		 AdminImagesController::create($matches[1], $_POST, $_FILES);
 	 } else {
 		 header('Location:login');
