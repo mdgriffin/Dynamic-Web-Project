@@ -17,6 +17,10 @@ class	User {
 		$this->setIs_admin($is_admin);
 	}
 
+	public function getFullname () {
+		return $this->forename . " " . $this->surname;
+	}
+
 	/**
 	 * Example of good Password Security found here: https://alias.io/2010/01/store-passwords-safely-with-php-and-mysql/
 	 **/

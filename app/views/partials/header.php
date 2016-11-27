@@ -87,15 +87,15 @@
 
 						<?php if ($this->auth_admin) { ?>
 
-							<button><?php echo $this->auth_admin->getForename(); ?></button>
+							<button><span class="icon-user"></span><?php echo $this->auth_admin->getFullname(); ?><span class="icon-down-open-big"></span></button>
 
 							<div class="headerNavBar-account-dropdown">
 
-								<ul>
+								<ul class="list-reset">
 									<li><a href="admin">Admin Home</a></li>
 									<li><a href="admin/venues">Manage Venues</a></li>
 									<li><a href="admin/users">Manage Users</a></li>
-									<li><a href="admin/bookings">Bookings</a></li>
+									<li><a href="admin/bookings">Manage Bookings</a></li>
 									<li><form action="admin/logout" method="post">
 										<input type="submit" name="logout" value="Logout">
 									</form></li>
@@ -109,8 +109,8 @@
 
 						<?php } else { ?>
 
-							<a href="login"><button type="button">Login</button></a>
-							<a href="register"><button type="button">Register</button></a>
+							<a href="login"><button>Login</button></a>
+							<a href="register"><button>Register</button></a>
 
 						<?php } ?>
 

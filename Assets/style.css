@@ -37,34 +37,37 @@
 }
 
 .icon-down-open-big:before {
-	content: "\63";
+  content: "\63";
 }
 .icon-search:before {
-	content: "\64";
+  content: "\64";
 }
 .icon-right-open-big:before {
-	content: "\61";
+  content: "\61";
 }
 .icon-left-open-big:before {
-	content: "\62";
+  content: "\62";
 }
 .icon-calendar:before {
-	content: "\65";
+  content: "\65";
 }
 .icon-map-marker:before {
-	content: "\66";
+  content: "\66";
 }
 .icon-email:before {
-	content: "\69";
+  content: "\69";
 }
 .icon-news:before {
-	content: "\6a";
+  content: "\6a";
 }
 .icon-building:before {
-	content: "\6b";
+  content: "\6b";
 }
 .icon-gift:before {
-	content: "\67";
+  content: "\67";
+}
+.icon-user:before {
+  content: "\68";
 }
 
 html {
@@ -644,6 +647,12 @@ button {
 	font-weight: bold;
 }
 
+.btn-medium {
+	padding: 10px 20px;
+	font-size: 1em;
+	font-weight: bold;
+}
+
 .btn-small {
 	padding: 5px 10px;
 	font-size: 0.9em;
@@ -653,6 +662,19 @@ button {
 	display: block;
 	width: 100%;
 	margin: 5px 0;
+}
+
+/**
+ * Lists
+ */
+
+.list-reset {
+	margin: 0;
+	padding: 0
+}
+
+.list-reset li {
+	list-style: none;
 }
 
 .flashMessage,
@@ -755,6 +777,7 @@ header {
 	border-bottom: 3px solid transparent;
 	margin-right: 10px;
 	cursor: pointer;
+	line-height: 1.2em
 }
 
 .headerNavBar nav a span {
@@ -768,24 +791,111 @@ header {
 
 .headerNavBar-account {
 	float: right;
-	padding: 10px 0;
+	position: relative;
 }
 
-.headerNavBar-account button {
-	background: #2266BF;
-	border-radius: 3px;
+.headerNavBar-account > button {
+	display: inline-block;
+	padding: 6px 5px;
+	background: none;
 	border: none;
-	color: #fff;
 	font-size: 1em;
-	padding: 10px;
+	line-height: 1.2em;
+	border-bottom: 3px solid transparent;
+}
+
+.headerNavBar-account > button:focus {
+	outline: none;
+}
+
+.headerNavBar-account > button span {
 	margin-left: 10px;
 }
 
-.headerNavBar-account button:hover {
-	background: #1B5299;
+.headerNavBar-account > button .icon-user {
+	background: #694D75;
+	color: #fff;
+	border-radius: 50%;
+	margin-right: 10px;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	display: inline-block;
+	vertical-align: middle;
 }
 
+.headerNavBar-account-dropdown {
+	display: none;
+	position: absolute;
+	top: 100%;
+	right: 0;
+	width: 300px;
+	background: #fff;
+	border: 1px solid #694D75;
+	border-top: 5px solid #694D75;
+	margin-top: 10px;
+}
 
+.headerNavBar-account-dropdown::before {
+	content: "";
+	position: absolute;
+	top: -15px;
+	left: 0;
+	width: 100%;
+	height: 10px;
+	background: transparent;
+}
+
+.headerNavBar-account-dropdown::after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;  /* left arrow slant */
+	border-right: 10px solid transparent; /* right arrow slant */
+	border-bottom: 10px solid #694D75; /* bottom, add background color here */
+	font-size: 0;
+	line-height: 0;
+	top: -15px;
+	right: 10px;
+}
+
+.headerNavBar-account-dropdown a {
+	text-decoration: none;
+}
+
+.headerNavBar-account-dropdown input[type=submit] {
+	border: none;
+	background: none;
+	font-size: 1em;
+	cursor: pointer;
+	width: 100%;
+	text-align: left;
+}
+
+.headerNavBar-account-dropdown input[type=submit]:focus {
+	outline: none;
+}
+
+.headerNavBar-account-dropdown a,
+.headerNavBar-account-dropdown input[type=submit] {
+	color: #303030;
+	padding: 10px;
+	display: block;
+}
+
+.headerNavBar-account-dropdown a:hover,
+ .headerNavBar-account-dropdown input[type=submit]:hover {
+	background: #f4f4f4;
+}
+
+.headerNavBar-account:hover > button {
+	color: #694D75;
+}
+
+.headerNavBar-account:hover .headerNavBar-account-dropdown {
+	display: block;
+}
 
 .inputWrapper {
 	display: inline-block;
