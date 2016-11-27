@@ -22,7 +22,10 @@ require_once "app/models/Venue.php";
 require_once "app/models/Package.php";
 require_once "app/models/VenueImage.php";
 
-// Controllers
+// Home controllers
+require_once "app/controllers/HomeController.php";
+
+// Admin Controllers
 require_once "app/controllers/AdminController.php";
 require_once "app/controllers/AdminVenuesController.php";
 require_once "app/controllers/AdminPackageController.php";
@@ -67,9 +70,7 @@ Router::post("/^.+admin\/logout(?:\.php)?$/", function () {
 	 } else {
 		 header('Location:login');
 	 }
-
  });
-
 
 Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
 	 if (Auth::admin() && isset($_POST["METHOD"]) && $_POST["METHOD"] == "DELETE") {
@@ -81,13 +82,27 @@ Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
 	 }
  });
 
-/**
- * Home Page
- */
 
- Router::get("/^" . $config["base_url"] . "(?:index.php)?$/", function () {
- 	View::create("home")->with(array("pageTitle" => "Home Page"));
- });
+	// Home Page
+	Router::get("/^" . $config["base_url"] . "(?:index.php)?$/", function () {
+		View::create("home")->with(array("pageTitle" => "Home Page"));
+	});
+
+	Router::get("/^" . $config["base_url"] . "login$/", function () {
+		(new HomeController)->getLogin();
+	});
+
+	Router::get("/^" . $config["base_url"] . "register$/", function () {
+		(new HomeController)->getRegister();
+	});
+
+	Router::get("/^" . $config["base_url"] . "venues$/", function () {
+		(new HomeController)->getVenueIndex();
+	});
+
+	Router::get("/^" . $config["base_url"] . "venues\/([0-9]{1,9})$/", function ($matches) {
+		(new HomeController)->getVenue($matches[1]);
+	});
 
 
 // handle the missing routes

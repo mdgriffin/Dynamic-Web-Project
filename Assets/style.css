@@ -794,6 +794,11 @@ header {
 	position: relative;
 }
 
+/* Login and register button */
+.headerNavBar-account > a button {
+	margin-top: 8px;
+}
+
 .headerNavBar-account > button {
 	display: inline-block;
 	padding: 6px 5px;

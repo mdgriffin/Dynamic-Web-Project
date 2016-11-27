@@ -109,13 +109,12 @@
 
 						<?php } else { ?>
 
-							<a href="login"><button>Login</button></a>
-							<a href="register"><button>Register</button></a>
+							<a href="login"><button class="btn btn-medium btn-primary">Login</button></a>
+							<a href="register"><button class="btn btn-medium btn-primary">Register</button></a>
 
 						<?php } ?>
 
-
-					</div>
+					</div><!-- headerNavBar-account -->
 
 				</div><!-- container -->
 
