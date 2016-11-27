@@ -1,7 +1,4 @@
-<?php
-
-include_once("app/views/partials/header.php");
-?>
+<?php include_once("app/views/partials/header.php"); ?>
 
 <h1>Admin: Manage Venues</h1>
 
