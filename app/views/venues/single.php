@@ -1,12 +1,14 @@
-<?php
-include_once("app/views/partials/header.php");
-?>
+<?php include_once("app/views/partials/header.php"); ?>
 
-	<h1>Single Venue id = <?php echo $this->venue_id; ?></h1>
+
+	<h1><?php echo $this->venue->getName(); ?></h1>
 
 	<div class="card">
 
+			<p><?php echo $this->venue->getDescription(); ?></p>
 
+
+			<!-- TODO Show images, map and packages -->
 
 	</div><!-- card -->
 

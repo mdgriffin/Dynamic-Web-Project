@@ -100,13 +100,15 @@ class HomeController {
 		$this->viewData["pageTitle"] = "Find the Perfect Venue";
 		$this->viewData["venues"] = Venue::getAllWithImage();
 
-
 		View::create("venues/index")->with($this->viewData);
 	}
 
 	public function getVenue ($venue_id) {
-		$this->viewData["pageTitle"] = "Create a new account";
 		$this->viewData["venue_id"] = $venue_id;
+		$this->viewData["venue"] = Venue::get($venue_id);
+		$this->viewData["images"] = VenueImage::getAll($venue_id);
+
+		$this->viewData["pageTitle"] = $this->viewData["venue"]->getName();
 
 		View::create("venues/single")->with($this->viewData);
 	}
