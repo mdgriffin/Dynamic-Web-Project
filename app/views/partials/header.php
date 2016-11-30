@@ -103,9 +103,21 @@
 
 							</div>
 
-						<?php } else if ($this->auth_admin) { ?>
+						<?php } else if ($this->auth_user) { ?>
 
+							<button><span class="icon-user"></span><?php echo $this->auth_user->getFullname(); ?><span class="icon-down-open-big"></span></button>
 
+							<div class="headerNavBar-account-dropdown">
+
+								<ul class="list-reset">
+									<li><a href="profile">Manage Profile</a></li>
+									<li><a href="bookings">Manage Bookings</a></li>
+									<li><form action="logout" method="post">
+										<input type="submit" name="logout" value="Logout">
+									</form></li>
+								</ul>
+
+							</div>
 
 						<?php } else { ?>
 

@@ -74,7 +74,7 @@ class	User {
 	}
 
 	public static function _isUser($email, $password) {
-		$user_pass_stmt = self::$db->prepare("SELECT password FROM Users WHERE email=:email");
+		$user_pass_stmt = self::$db->prepare("SELECT user_id, password FROM Users WHERE email=:email");
 
 		$user_pass_stmt->execute(array(
 			':email' => $email
@@ -83,9 +83,9 @@ class	User {
 		$user = $user_pass_stmt->fetch(PDO::FETCH_ASSOC);
 
 		if (hash_equals($user["password"], crypt($password, $user["password"]))) {
-				return true;
+				return $user["user_id"];
 		} else {
-			return false;
+			return null;
 		}
 	}
 

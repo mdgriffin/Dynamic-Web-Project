@@ -26,9 +26,9 @@
 
 			</form>
 
-		</div>
+		</div><!-- card -->
 
-	</div>
+	</div><!-- gs-col -->
 
 </div><!-- gs -->
 

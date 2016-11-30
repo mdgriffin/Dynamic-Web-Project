@@ -10,8 +10,8 @@ class Auth {
 	}
 
 	public static function user () {
-		if (isset($_SESSION["user_logged_in"]) && $_SESSION["user_logged_in"]) {
-			return $_SESSION["user_id"];
+		if (isset($_SESSION["auth_user_logged_in"]) && $_SESSION["auth_user_logged_in"]) {
+			return $_SESSION["auth_user_id"];
 		} else {
 			return false;
 		}

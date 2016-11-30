@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+// TODO The admin user should not be able to access the login and register user routes
+
 // Config
 require_once "app/config.php";
 
@@ -96,6 +98,15 @@ Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
 
 	Router::get("/^" . $config["base_url"] . "login$/", function () {
 		(new HomeController)->getLogin();
+	});
+
+	Router::post("/^" . $config["base_url"] . "login$/", function () {
+		(new HomeController)->postLogin($_POST["email"], $_POST["password"]);
+	});
+
+
+	Router::post("/^" . $config["base_url"] . "logout$/", function () {
+		(new HomeController)->postLogout($_POST);
 	});
 
 	Router::get("/^" . $config["base_url"] . "register$/", function () {
