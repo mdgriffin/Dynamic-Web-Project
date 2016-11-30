@@ -97,7 +97,12 @@ Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
 	});
 
 	Router::get("/^" . $config["base_url"] . "login$/", function () {
-		(new HomeController)->getLogin();
+		// Only allow acces to route if there is no user logged in
+		if (!Auth::admin() && !Auth::user()) {
+			(new HomeController)->getLogin();
+		} else {
+			header('Location:home');
+		}
 	});
 
 	Router::post("/^" . $config["base_url"] . "login$/", function () {
@@ -110,7 +115,12 @@ Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
 	});
 
 	Router::get("/^" . $config["base_url"] . "register$/", function () {
-		(new HomeController)->getRegister();
+		// Only allow acces to route if there is no user logged in
+		if (!Auth::admin() && !Auth::user()) {
+			(new HomeController)->getRegister();
+		} else {
+			header('Location:home');
+		}
 	});
 
 	Router::post("/^" . $config["base_url"] . "register$/", function () {
