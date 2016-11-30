@@ -98,6 +98,9 @@ class HomeController {
 
 	public function getVenueIndex () {
 		$this->viewData["pageTitle"] = "Find the Perfect Venue";
+		$this->viewData["venues"] = Venue::getAllWithImage();
+
+
 		View::create("venues/index")->with($this->viewData);
 	}
 

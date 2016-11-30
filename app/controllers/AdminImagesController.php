@@ -41,21 +41,24 @@ class AdminImagesController {
 		$imageFileType = pathinfo($_FILES['image_file']['name'], PATHINFO_EXTENSION);
 
 		if ($imageFileType) {
+			// TODO Use different method for generating image names
 			$target_file = $target_dir . round(microtime(true) * 10000) . "." . $imageFileType;
 			$uploaded = true;
 
 			$uploaded = (getimagesize($files["image_file"]["tmp_name"]) !== false? true:false);
 
-			if ($files["image_file"]["size"] > 500000) {
+			// Max file size 5MB
+			if ($files["image_file"]["size"] > 5000000) {
 				$uploaded = false;
 			}
 			// Limit to image formats only
-			if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+			if(strtolower($imageFileType) != "jpg" && strtolower($imageFileType) != "png" && strtolower($imageFileType) != "jpeg" && strtolower($imageFileType) != "gif" ) {
 				$uploaded = false;
 			}
 
 			if ($uploaded == false) {
 				$this->viewData["flash_error"] = "Sorry, your file was not uploaded.";
+				$this->viewData["image"] = new VenueImage($venue_id, "", "");
 			} else {
 				if (move_uploaded_file($files["image_file"]["tmp_name"], $target_file)) {
 					$this->viewData["image"] = new VenueImage($venue_id, $target_file, $data["title"]);

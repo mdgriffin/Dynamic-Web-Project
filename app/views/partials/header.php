@@ -76,7 +76,7 @@
 				<div class="container">
 
 					<nav>
-						<a href="#"><span class="icon-building"></span>Venues</a><!--
+						<a href="venues"><span class="icon-building"></span>Venues</a><!--
 						--><a href="#"><span class="icon-gift"></span>Packages</a><!--
 						--><a href="#"><span class="icon-map-marker"></span>Locations</a><!--
 						--><a href="#"><span class="icon-news"></span>Blog</a><!--
