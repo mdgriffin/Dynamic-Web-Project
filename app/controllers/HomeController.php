@@ -108,6 +108,34 @@ class HomeController {
 		View::create("venues/single")->with($this->viewData);
 	}
 
+	public function getProfile () {
+		$this->viewData["pageTitle"] = "Manage Profile";
+		View::create("profile")->with($this->viewData);
+	}
+
+	public function postProfile ($data) {
+		if (isset($this->viewData["auth_user"]) && $this->viewData["auth_user"]) {
+			$this->viewData["pageTitle"] = "Manage Profile";
+
+			$this->viewData["auth_user"]->setForename($data["forename"]);
+			$this->viewData["auth_user"]->setSurname($data["surname"]);
+			$this->viewData["auth_user"]->setEmail($data["email"]);
+			$this->viewData["auth_user"]->setPassword($data["password"]);
+
+			if (!$this->viewData["auth_user"]->errors()) {
+				$this->viewData["auth_user"]->update();
+				$this->viewData["flash_message"] = "Profile Updated";
+			} else {
+				$this->viewData["errors"] = $this->viewData["auth_user"]->errors();
+				$this->viewData["flash_error"] = "Form has errors";
+			}
+
+			View::create("profile")->with($this->viewData);
+		} else {
+			header('Location:home');
+		}
+	}
+
 }
 
 ?>

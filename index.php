@@ -127,6 +127,19 @@ Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
 		(new HomeController)->postRegister($_POST);
 	});
 
+	Router::get("/^" . $config["base_url"] . "profile$/", function () {
+		// Only allow acces to route if there is a user logged in
+		if (Auth::user()) {
+			(new HomeController)->getprofile();
+		} else {
+			header('Location:home');
+		}
+	});
+
+	Router::post("/^" . $config["base_url"] . "profile$/", function () {
+		(new HomeController)->postprofile($_POST);
+	});
+
 	Router::get("/^" . $config["base_url"] . "venues$/", function () {
 		(new HomeController)->getVenueIndex();
 	});
