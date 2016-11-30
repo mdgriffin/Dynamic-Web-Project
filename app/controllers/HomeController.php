@@ -13,19 +13,19 @@ class HomeController {
 
 		if (isset($_SESSION["flash_message"])) {
 			$this->viewData["flash_message"] = $_SESSION["flash_message"];
-			// TODO Uncomment
-			// unset($_SESSION["flash_message"])
+			unset($_SESSION["flash_message"]);
+		}
 
-		} else {
-			die("flash message not set");
+		if (isset($_SESSION["flash_error"])) {
+			$this->viewData["flash_error"] = $_SESSION["flash_error"];
+			unset($_SESSION["flash_error"]);
 		}
 	}
 
 	public function getIndex () {
 		$this->viewData["pageTitle"] = "VenYou - Find the Perfect Venue";
 
-		// TODO viewData not getting passed to header
-		View::create("home")->with(array($this->viewData));
+		View::create("home")->with($this->viewData);
 	}
 
 	public function getLogin () {
@@ -59,7 +59,7 @@ class HomeController {
 			header('Location:home');
 		} else {
 			$this->viewData["errors"] = $user->errors();
-			$this->viewData["flash_error"] = "Register form has errormnmns";
+			$this->viewData["flash_error"] = "Register form has errors";
 			$this->viewData["user"] = $user;
 
 			View::create("register")->with($this->viewData);

@@ -10,6 +10,16 @@ class AdminImagesController {
 		} else if (Auth::user()) {
 			$this->viewData["auth_user"] = User::get(Auth::user());
 		}
+
+		if (isset($_SESSION["flash_message"])) {
+			$this->viewData["flash_message"] = $_SESSION["flash_message"];
+			unset($_SESSION["flash_message"]);
+		}
+
+		if (isset($_SESSION["flash_error"])) {
+			$this->viewData["flash_error"] = $_SESSION["flash_error"];
+			unset($_SESSION["flash_error"]);
+		}
 	}
 
 	// display the index view
