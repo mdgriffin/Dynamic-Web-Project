@@ -133,6 +133,7 @@
 						<th>Max Guests</th>
 						<th>Start Date</th>
 						<th>End Date</th>
+						<th colspan="2">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -145,6 +146,14 @@
 								<td><?php echo $package["max_guests"]; ?></td>
 								<td><?php echo $package["start_date"]; ?></td>
 								<td><?php echo $package["end_date"]; ?></td>
+								<td><a href="admin/packages?id=<?php echo $package["package_id"]; ?>" class="btn btn-small btn-secondary">Update</a></td>
+								<td>
+									<form action="admin/packages" method="post">
+										<input type="hidden" name="METHOD" value="DELETE">
+										<input type="hidden" name="id" value="<?php echo $package["package_id"]; ?>">
+										<input type="submit" name="delete" value="Delete" class="btn btn-small btn-secondary">
+									</form>
+								</td>
 							</tr>
 					<?php } ?>
 				</tbody>

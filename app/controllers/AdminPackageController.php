@@ -61,27 +61,6 @@ class AdminPackageController {
 		return View::create("admin/packages")->with($this->viewData);
 	}
 
-	public function create($data) {
-		/*
-		$venue_id = $data["venue_id"];
-		$package = new Package($data["venue_id"], $data["description"], $data["price_per_guest"], $data["min_guests"], $data["max_guests"], $data["start_date"], $data["end_date"]);
-		$venue = Venue::get($venue_id);
-		$packages = Package::getAll();
-
-		if (!$package->errors()) {
-			$package->save();
-			$flash_message = "New Package Created";
-		} else {
-			$errors = $package->errors();
-			$flash_error = "Form has errors";
-		}
-
-		include_once("../app/templates/admin/packages.php");
-		*/
-	}
-
-
-
 	public function update($venue_id, $data) {
 		/*
 		$venue = Venue::get($venue_id);
