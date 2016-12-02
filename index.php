@@ -37,13 +37,23 @@ Router::restful("/^.+admin\/venues(?:\.php)?(?:\?id=[0-9]{1,9})?$/", function ()
 	return new AdminVenuesController();
 });
 
-Router::restful("/^.+admin\/packages(?:\.php)?(?:\?id=[0-9]{1,9})?$/", function () {
-	return new AdminPackageController();
-});
+
 
 Router::restful("/^.+admin\/users(?:.*)?(?:\?id=[0-9]{1,9})?$/", function () {
 	return new AdminUsersController();
 });
+
+/**
+ * Packages
+ */
+ Router::get("/^.+admin\/packages(?:\.php)?\?id=([0-9]{1,9})$/", function ($matches) {
+ 	return (new AdminPackageController())->getIndex($matches[1]);
+ });
+
+ Router::post("/^.+admin\/packages(?:\.php)?\?id=([0-9]{1,9})$/", function ($matches) {
+	 return (new AdminPackageController())->postIndex($matches[1], $_POST);
+ });
+
 
 /**
  * Home Page

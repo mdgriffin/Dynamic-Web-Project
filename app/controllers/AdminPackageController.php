@@ -1,6 +1,6 @@
 <?php
 
-class AdminPackageController implements RestfulControllerInterface {
+class AdminPackageController {
 
 	private $viewData = array();
 
@@ -28,9 +28,37 @@ class AdminPackageController implements RestfulControllerInterface {
 	}
 
 	// display the index view
-	public function index () {
-		die("index package view");
-		//header("location:admin/venues");
+	public function getIndex($venue_id) {
+		$this->viewData["pageTitle"] = "Manage Packages";
+		$this->viewData["errors"] = array();
+		$this->viewData["venue"] = Venue::get($venue_id);
+		$this->viewData["venue_id"] = $venue_id;
+		$this->viewData["package"] = new Package("", "", "", "", "", "", "");
+		$this->viewData["packages"] = Package::getAll();
+
+		return View::create("admin/packages")->with($this->viewData);
+	}
+
+	public function postIndex($venue_id, $data) {
+		$this->viewData["pageTitle"] = "Manage Packages";
+		$this->viewData["errors"] = array();
+		$this->viewData["venue"] = Venue::get($venue_id);
+		$this->viewData["venue_id"] = $venue_id;
+		$package = new Package($data["venue_id"], $data["description"], $data["price_per_guest"], $data["min_guests"], $data["max_guests"], $data["start_date"], $data["end_date"]);
+
+		if (!$package->errors()) {
+			$package->save();
+			$this->viewData["package"] = new Package("", "", "", "", "", "", "");
+			$this->viewData["flash_message"] = "New Package Created";
+		} else {
+			$this->viewData["errors"] = $package->errors();
+				$this->viewData["package"] = $package;
+				$this->viewData["flash_error"] = "Form has errors";
+		}
+
+			$this->viewData["packages"] = Package::getAll();
+
+		return View::create("admin/packages")->with($this->viewData);
 	}
 
 	public function create($data) {
@@ -52,15 +80,7 @@ class AdminPackageController implements RestfulControllerInterface {
 		*/
 	}
 
-	public function read($venue_id) {
-		$this->viewData["pageTitle"] = "Manage Packages";
-		$this->viewData["errors"] = array();
-		$this->viewData["venue"] = Venue::get($venue_id);
-		$this->viewData["package"] = new Package("", "", "", "", "", "", "");
-		$this->viewData["packages"] = Package::getAll();
 
-		return View::create("admin/packages")->with($this->viewData);
-	}
 
 	public function update($venue_id, $data) {
 		/*
