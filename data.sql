@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS Venue_Images (
 CREATE TABLE IF NOT EXISTS Packages (
 	package_id int NOT NULL AUTO_INCREMENT,
 	venue_id int NOT NULL,
+	title varchar(64) NOT NULL,
 	description varchar(255),
 	price_per_guest Decimal(10,2) NOT NULL,
 	min_guests int(5) NOT NULL,
