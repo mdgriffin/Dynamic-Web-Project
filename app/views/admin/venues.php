@@ -108,7 +108,7 @@
 								</form>
 							</td>
 							<td>
-								<a href="admin/packages.php?id=<?php echo $venue["venue_id"]; ?>" class="btn btn-small btn-secondary">Manage Packages</a>
+								<a href="admin/packages?venue_id=<?php echo $venue["venue_id"]; ?>" class="btn btn-small btn-secondary">Manage Packages</a>
 							</td>
 							<td>
 								<a href="admin/venues/<?php echo $venue["venue_id"]; ?>/images" class="btn btn-small btn-secondary">Manage Venue Images</a>

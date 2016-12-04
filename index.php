@@ -46,13 +46,27 @@ Router::restful("/^.+admin\/users(?:.*)?(?:\?id=[0-9]{1,9})?$/", function () {
 /**
  * Packages
  */
- Router::get("/^.+admin\/packages(?:\.php)?\?id=([0-9]{1,9})$/", function ($matches) {
+ Router::get("/^.+admin\/packages\?venue_id=([0-9]{1,9})$/", function ($matches) {
  	return (new AdminPackageController())->getIndex($matches[1]);
  });
 
- Router::post("/^.+admin\/packages(?:\.php)?\?id=([0-9]{1,9})$/", function ($matches) {
+ Router::delete("/^.+admin\/packages\?venue_id=([0-9]{1,9})$/", function ($matches) {
+ return (new AdminPackageController())->postDelete($matches[1], $_POST);
+ });
+
+ Router::post("/^.+admin\/packages\?venue_id=([0-9]{1,9})$/", function ($matches) {
 	 return (new AdminPackageController())->postIndex($matches[1], $_POST);
  });
+
+
+
+	Router::get("/^.+admin\/packages\?venue_id=([0-9]{1,9})\&package_id=([0-9]{1,9})$/", function ($matches) {
+		return (new AdminPackageController())->getUpdate($matches[1], $matches[2]);
+	});
+
+	Router::post("/^.+admin\/packages\?venue_id=([0-9]{1,9})\&package_id=([0-9]{1,9})$/", function ($matches) {
+		return (new AdminPackageController())->postUpdate($matches[1], $matches[2], $_POST);
+	});
 
 
 /**

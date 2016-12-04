@@ -4,7 +4,7 @@ class	Package {
 
 	private $id;
 	private $venue_id;
-	private $title
+	private $title;
 	private $description;
 	private $price_per_guest;
 	private $min_guests;
@@ -31,7 +31,7 @@ class	Package {
 			$errors["title"] = $titleValidator->errors();
 		}
 
-		$descriptionValidator = (new Validator($this->description)->isMinLength(24);
+		$descriptionValidator = (new Validator($this->description))->isMinLength(24);
 		if (!$descriptionValidator->isValid()) {
 			$errors["description"] = $descriptionValidator->errors();
 		}
@@ -42,12 +42,12 @@ class	Package {
 		}
 
 		$minGuestsValidator = (new Validator($this->min_guests))->isInteger();
-		if (!$minGuestsValidator->isValid() {
+		if (!$minGuestsValidator->isValid()) {
 			$errors["min_guests"] = $minGuestsValidator->errors();
 		}
 
 		$maxGuestsValidator = (new Validator($this->max_guests))->isInteger();
-		if (!$maxGuestsValidator->isValid() {
+		if (!$maxGuestsValidator->isValid()) {
 			$errors["max_guests"] = $maxGuestsValidator->errors();
 		}
 
@@ -83,7 +83,7 @@ class	Package {
 
 	private function _update () {
 		if (isset($this->id)) {
-			$update_stmt = self::$db->prepare("UPDATE Packages SET venue_id=:venue_id, title=:title, description=:description, price_per_guest=:price_per_guest, min_guests=:min_guests, max_guests=:max_guests, start_date=:start_date, end_date=:end_date");
+			$update_stmt = self::$db->prepare("UPDATE Packages SET venue_id=:venue_id, title=:title, description=:description, price_per_guest=:price_per_guest, min_guests=:min_guests, max_guests=:max_guests, start_date=:start_date, end_date=:end_date WHERE package_id=:package_id");
 
 			$update_stmt->execute(array(
 				':venue_id' => $this->venue_id,
@@ -93,7 +93,8 @@ class	Package {
 				':min_guests' => $this->min_guests,
 				':max_guests' => $this->max_guests,
 				':start_date' => $this->start_date,
-				':end_date' => $this->end_date
+				':end_date' => $this->end_date,
+				':package_id' => $this->id
 			));
 		} else {
 			return null;

@@ -8,22 +8,34 @@
 
 		<div class="gs-col gs6">
 
-			<?php if (isset($this->package_id)) { ?>
+			<?php if ($this->package_id) { ?>
 				<h2>Update Packages</h2>
 
-				<form action="admin/packages.php?id=<?php echo $this->venue_id; ?>%26package_id=<?php echo $this->package_id; ?>" method="post" class="form">
+				<form action="admin/packages?venue_id=<?php echo $this->venue_id; ?>&package_id=<?php echo $this->package_id; ?>" method="post" class="form">
 			<?php } else {?>
 				<h2>Create Package</h2>
 
-				<form action="admin/packages.php?id=<?php echo $this->venue_id; ?>" method="post" class="form">
+				<form action="admin/packages?venue_id=<?php echo $this->venue_id; ?>" method="post" class="form">
 			<?php } ?>
 
 				<input type="hidden" name="venue_id" value="<?php echo $this->venue_id; ?>">
 
 				<fieldset>
+					<input type="text" name="title" id="title" value="<?php echo $this->package->getTitle(); ?>"><!--
+					--><label for="title" class="form-mainLabel">Title</label>
+					<?php
+					if (isset($this->errors["title"]) && $this->errors) {
+						foreach ($this->errors["title"] as $this->error) {
+					?>
+							<p class="form-error"><?php echo $this->error; ?></p>
+					<?php
+						}
+					}
+					?>
+				</fieldset>
 
-					<input type="text" name="description" id="name" value="<?php echo $this->package->getDescription(); ?>"><!--
-					--><label for="name" class="form-mainLabel">Description</label>
+				<fieldset>
+					<textarea name="description" placeholder="DESCRIPTION"><?php echo $this->package->getDescription(); ?></textarea>
 					<?php
 					if (isset($this->errors["description"]) && $this->errors) {
 						foreach ($this->errors["description"] as $this->error) {
@@ -36,7 +48,6 @@
 				</fieldset>
 
 				<fieldset>
-
 					<input type="text" name="price_per_guest" id="price_per_guest" value="<?php echo $this->package->getPrice_per_guest(); ?>"><!--
 					--><label for="price_per_guest" class="form-mainLabel">Price Per Guest</label>
 					<?php
@@ -65,7 +76,6 @@
 				</fieldset>
 
 				<fieldset>
-
 					<input type="text" name="max_guests" id="max_guests" value="<?php echo $this->package->getMax_guests(); ?>"><!--
 					--><label for="max_guests" class="form-mainLabel">Maximum Number of Guests</label>
 					<?php
@@ -80,7 +90,6 @@
 				</fieldset>
 
 				<fieldset>
-
 					<input type="text" name="start_date" id="start_date" value="<?php echo $this->package->getStart_date(); ?>"><!--
 					--><label for="start_date" class="form-mainLabel">Start Date</label>
 					<?php
@@ -95,7 +104,6 @@
 				</fieldset>
 
 				<fieldset>
-
 					<input type="text" name="end_date" id="end_date" value="<?php echo $this->package->getEnd_date(); ?>"><!--
 					--><label for="end_date" class="form-mainLabel">End Date</label>
 					<?php
@@ -109,7 +117,7 @@
 					?>
 				</fieldset>
 
-				<?php if (isset($this->package_id)) { ?>
+				<?php if ($this->package_id) { ?>
 					<input type="submit" name="update" class="btn btn-primary btn-large" value="Update">
 				<?php } else {?>
 					<input type="submit" name="register" class="btn btn-primary btn-large" value="Register">
@@ -127,7 +135,7 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>description</th>
+						<th>Title</th>
 						<th>Price Per Guest</th>
 						<th>Min Guests</th>
 						<th>Max Guests</th>
@@ -140,17 +148,17 @@
 					<?php foreach ($this->packages as $package) { ?>
 							<tr>
 								<td><?php echo $package["package_id"]; ?></td>
-								<td><?php echo $package["description"]; ?></td>
+								<td><?php echo $package["title"]; ?></td>
 								<td><?php echo $package["price_per_guest"]; ?></td>
 								<td><?php echo $package["min_guests"]; ?></td>
 								<td><?php echo $package["max_guests"]; ?></td>
 								<td><?php echo $package["start_date"]; ?></td>
 								<td><?php echo $package["end_date"]; ?></td>
-								<td><a href="admin/packages?id=<?php echo $package["package_id"]; ?>" class="btn btn-small btn-secondary">Update</a></td>
+								<td><a href="admin/packages?venue_id=<?php echo $this->venue_id; ?>&package_id=<?php echo $package["package_id"]; ?>" class="btn btn-small btn-secondary">Update</a></td>
 								<td>
-									<form action="admin/packages" method="post">
+									<form action="admin/packages?venue_id=<?php echo $this->venue_id; ?>" method="post">
 										<input type="hidden" name="METHOD" value="DELETE">
-										<input type="hidden" name="id" value="<?php echo $package["package_id"]; ?>">
+										<input type="hidden" name="package_id" value="<?php echo $package["package_id"]; ?>">
 										<input type="submit" name="delete" value="Delete" class="btn btn-small btn-secondary">
 									</form>
 								</td>

@@ -4,6 +4,13 @@ class Router {
 	private $controller;
 	private static $routeMatched = false;
 
+	public static function delete ($regMatchStr, $callback_fn) {
+		if (!self::$routeMatched && preg_match($regMatchStr, $_SERVER["REQUEST_URI"], $matches) && $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["METHOD"]) && $_POST["METHOD"] == "DELETE") {
+			$callback_fn($matches);
+			self::$routeMatched = true;
+		}
+	}
+
 	public static function get ($regMatchStr, $callback_fn) {
 		if (!self::$routeMatched && preg_match($regMatchStr, $_SERVER["REQUEST_URI"], $matches) && $_SERVER["REQUEST_METHOD"] == "GET") {
 			$callback_fn($matches);
