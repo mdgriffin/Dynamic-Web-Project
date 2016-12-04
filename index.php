@@ -21,6 +21,7 @@ require_once "app/models/User.php";
 require_once "app/models/Venue.php";
 require_once "app/models/Package.php";
 require_once "app/models/VenueImage.php";
+require_once "app/models/Booking.php";
 
 // Home controllers
 require_once "app/controllers/HomeController.php";
@@ -168,6 +169,10 @@ Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
 
 	Router::get("/^" . $config["base_url"] . "venues\/([0-9]{1,9})$/", function ($matches) {
 		(new HomeController)->getVenue($matches[1]);
+	});
+
+	Router::get("/^" . $config["base_url"] . "packages\/([0-9]{1,9})$/", function ($matches) {
+		(new HomeController)->getPackage($matches[1]);
 	});
 
 

@@ -142,6 +142,15 @@ class HomeController {
 		}
 	}
 
+	public function getPackage ($package_id) {
+		$this->viewData["package"] = Package::get($package_id);
+		$this->viewData["venue"] = Venue::get($this->viewData["package"]->getVenue_id());
+		$this->viewData["booking"] = new Booking("", "", "", "", "", "");
+		$this->viewData["pageTitle"] = $this->viewData["package"]->getTitle() . " make a booking";
+
+		View::create("packages/single")->with($this->viewData);
+	}
+
 }
 
 ?>

@@ -57,7 +57,7 @@
 									<td><?php echo $package["min_guests"]; ?></td>
 									<td><?php echo $package["max_guests"]; ?></td>
 									<td><?php echo $package["start_date"] . " - " . $package["end_date"]; ?></td>
-									<td><a href="packages/<?php echo $package['package_id']; ?>/book" class="btn btn-secondary btn-medium">Book</a></td>
+									<td><a href="packages/<?php echo $package['package_id']; ?>" class="btn btn-secondary btn-medium">Book</a></td>
 								</tr>
 							<?php } ?>
 						</tbody>
