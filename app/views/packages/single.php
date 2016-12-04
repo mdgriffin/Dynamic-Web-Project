@@ -4,8 +4,6 @@
 
 	<div class="card">
 
-
-
 		<div class="gs">
 
 			<div class="gs-col gs6">
@@ -36,8 +34,8 @@
 						?>
 					</fieldset>
 
-					<fieldset>
-						<input type="text" name="event_date" id="event_date" value="<?php echo $this->booking->getEvent_date(); ?>"><!--
+					<fieldset class="form-datepicker">
+						<input type="text" name="event_date" readonly id="event_date" value="<?php echo $this->booking->getEvent_date(); ?>"><!--
 						--><label for="event_date" class="form-mainLabel">Event Date</label>
 						<?php
 						if ($this->errors && isset($this->errors["event_date"])) {
@@ -48,6 +46,14 @@
 							}
 						}
 						?>
+
+						<div class="datePicker-dropdown datePicker-dropdown-bottomLeft" id="event-datePicker-dropdown">
+							<div class="datePicker" id="event_datepicker"></div>
+
+							<button type="button" class="datePicker-btn datePicker-btn-prev" id="event-datePicker-prev"><span class="icon-left-open-big"></span></button>
+							<button type="button" class="datePicker-btn datePicker-btn-next" id="event-datePicker-next"><span class="icon-right-open-big"></span></button>
+						</div>
+
 					</fieldset>
 
 					<input type="submit" class="btn btn-primary btn-large" name="book_package" value="Book!">
@@ -61,3 +67,60 @@
 	</div><!-- card -->
 
 <?php include_once("app/views/partials/footer.php"); ?>
+
+<script type="text/javascript">
+
+(function () {
+
+	var dateInput = document.getElementById("event_date");
+	var datePickerDropdown = document.getElementById("event-datePicker-dropdown");
+
+	var startDateArr = "<?php echo $this->package->getStart_date(); ?>".split("-");
+	var startDate = new Date(startDateArr[0], startDateArr[1] - 1, startDateArr[2]);
+
+	var endDateArr = "<?php echo $this->package->getEnd_date(); ?>".split("-");
+	var endDate = new Date(endDateArr[0], endDateArr[1] - 1, endDateArr[2]);
+	var calStartDate = startDate > (new Date())? startDate : new Date();
+
+	var inputDatePicker = new calendarPlugin({
+		date: calStartDate,
+		el: document.getElementById("event_datepicker"),
+		disableBefore: calStartDate,
+		disableAfter: endDate,
+		onDateSelect: function (dateStamp) {
+			dateInput.value = new Date(dateStamp).toDateString();
+			removeClass(datePickerDropdown, "datePicker-dropdown-focus");
+		}
+	});
+
+	var datePickerPrevBtn = document.getElementById("event-datePicker-prev");
+	var datePickerNextBtn = document.getElementById("event-datePicker-next");
+
+	datePickerPrevBtn.addEventListener("click", function (e) {
+		if (inputDatePicker.prevMonthEnabled()) {
+			inputDatePicker.prevMonth();
+		}
+	});
+
+	datePickerNextBtn.addEventListener("click", function (e) {
+		if (inputDatePicker.nextMonthEnabled()) {
+			inputDatePicker.nextMonth();
+		}
+	});
+
+	dateInput.addEventListener("click", function () {
+		addClass(datePickerDropdown, "datePicker-dropdown-focus");
+	});
+
+	// hide the calendar if click is outside the calendar or the input
+	document.body.addEventListener("click", function (e) {
+		var el = e.target;
+		var isWithinDropdown =  hasParentWithID(el, "event_date") || hasParentWithClass(el, "cal") || hasParentWithClass(el, "datePicker-dropdown");
+
+		if (!isWithinDropdown) {
+			removeClass(datePickerDropdown, "datePicker-dropdown-focus");
+		}
+	});
+
+})();
+</script>

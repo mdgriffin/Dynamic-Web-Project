@@ -960,6 +960,10 @@ header {
 	outline: none;
 }
 
+.form-datepicker {
+	position: relative;
+}
+
 .datePicker-container {
 	display: inline-block;
 	position: relative;
@@ -968,12 +972,21 @@ header {
 .datePicker-dropdown {
 	position: absolute;
 	width: 300px;
-	top: 100%;
-	margin-top: 10px;
-	right: 0;
 	background: #fff;
 	border: 1px solid #1B5299;
 	display: none;
+}
+
+.datePicker-dropdown-bottomRight {
+	top: 100%;
+	margin-top: 10px;
+	right: 0;
+}
+
+.datePicker-dropdown-bottomLeft {
+	top: 100%;
+	margin-top: 10px;
+	left: 0;
 }
 
 .datePicker-dropdown:after {
@@ -1016,11 +1029,11 @@ header {
 	outline: none;
 }
 
-#datePicker-prev {
+.datePicker-btn-prev {
 	left: 16px;
 }
 
-#datePicker-next {
+.datePicker-btn-next {
 	right: 16px;
 }
 

@@ -253,6 +253,8 @@ var calendarPlugin = (function () {
 
 		onClickEvent: function (e) {
 
+			e.preventDefault();
+
 			var dateStamp;
 
 			if (e.target.nodeName === "BUTTON" && e.target.dataset.timestamp) {
@@ -362,7 +364,7 @@ var calendarPlugin = (function () {
 				nextMonthNum = getNextMonth(this.monthNum, this.yearNum),
 				enabled = false;
 
-			if (new Date(nextYearNum, nextMonthNum, getNumDaysInMonth(nextMonthNum, nextYearNum), 0, 0, 0, 0).getTime() < this.disableAfter) {
+			if (new Date(nextYearNum, nextMonthNum, 0, 0, 0, 0, 0).getTime() < this.disableAfter) {
 				enabled = true;
 			}
 
@@ -402,51 +404,53 @@ var calendarPlugin = (function () {
 
 })();
 
-var dateInput = document.getElementById("dateInput");
-var datePickerDropdown = document.getElementById("datePicker-dropdown");
+(function () {
 
-var headerDatePicker = new calendarPlugin({
-	date: new Date(),
-	el: document.getElementById("datePicker-header"),
-	disableBefore: new Date().setHours(0, 0, 0, 0), // disable before today
-	disableAfter: new Date(Date.now() + 730 * 24 * 60 * 60 * 1000).getTime(), // disable after 2 years
-	onDateSelect: function (dateStamp) {
-		console.log(dateStamp);
+	var dateInput = document.getElementById("dateInput");
+	var datePickerDropdown = document.getElementById("datePicker-dropdown");
 
-
-		dateInput.value = new Date(dateStamp).toDateString();
-		removeClass(datePickerDropdown, "datePicker-dropdown-focus");
-	}
-});
-
-//dateInput.value = new Date(checkoutDate).toDateString();
-
-var datePickerPrevBtn = document.getElementById("datePicker-prev");
-var datePickerNextBtn = document.getElementById("datePicker-next");
-
-datePickerPrevBtn.addEventListener("click", function (e) {
-	if (headerDatePicker.prevMonthEnabled()) {
-		headerDatePicker.prevMonth();
-	}
-});
-
-datePickerNextBtn.addEventListener("click", function (e) {
-	if (headerDatePicker.nextMonthEnabled()) {
-		headerDatePicker.nextMonth();
-	}
-});
-
-// hide the calendar if click is outside the calendar or the input
-document.body.addEventListener("click", function (e) {
-			var el = e.target;
-			var isWithinDropdown =  hasParentWithID(el, "dateInput") || hasParentWithClass(el, "cal") || hasParentWithClass(el, "datePicker-dropdown");
+	var headerDatePicker = new calendarPlugin({
+		date: new Date(),
+		el: document.getElementById("datePicker-header"),
+		disableBefore: new Date().setHours(0, 0, 0, 0), // disable before today
+		disableAfter: new Date(Date.now() + 730 * 24 * 60 * 60 * 1000).getTime(), // disable after 2 years
+		onDateSelect: function (dateStamp) {
+			console.log(dateStamp);
 
 
-			if (!isWithinDropdown) {
-				removeClass(datePickerDropdown, "datePicker-dropdown-focus");
-			}
-		});
+			dateInput.value = new Date(dateStamp).toDateString();
+			removeClass(datePickerDropdown, "datePicker-dropdown-focus");
+		}
+	});
 
-dateInput.addEventListener("click", function () {
-	addClass(datePickerDropdown, "datePicker-dropdown-focus");
-});
+	var datePickerPrevBtn = document.getElementById("datePicker-prev");
+	var datePickerNextBtn = document.getElementById("datePicker-next");
+
+	datePickerPrevBtn.addEventListener("click", function (e) {
+		if (headerDatePicker.prevMonthEnabled()) {
+			headerDatePicker.prevMonth();
+		}
+	});
+
+	datePickerNextBtn.addEventListener("click", function (e) {
+		if (headerDatePicker.nextMonthEnabled()) {
+			headerDatePicker.nextMonth();
+		}
+	});
+
+	// hide the calendar if click is outside the calendar or the input
+	document.body.addEventListener("click", function (e) {
+		var el = e.target;
+		var isWithinDropdown =  hasParentWithID(el, "dateInput") || hasParentWithClass(el, "cal") || hasParentWithClass(el, "datePicker-dropdown");
+
+
+		if (!isWithinDropdown) {
+			removeClass(datePickerDropdown, "datePicker-dropdown-focus");
+		}
+	});
+
+	dateInput.addEventListener("click", function () {
+		addClass(datePickerDropdown, "datePicker-dropdown-focus");
+	});
+
+})();
