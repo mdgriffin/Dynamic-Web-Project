@@ -32,6 +32,40 @@
 
 				</div><!-- gs-col -->
 
+				<div class="gs-col gs6">
+
+					<h3>Packages</h3>
+
+					<table class="table">
+
+						<thead>
+							<tr>
+								<th>Package</td>
+								<th>Price Per Guest</td>
+								<th>Min Guests</td>
+								<th>Max Guests</td>
+								<th>Available Between</td>
+								<th></th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<?php foreach ($this->packages as $package) { ?>
+								<tr>
+									<td><?php echo $package["title"]; ?></td>
+									<td><?php echo $package["price_per_guest"]; ?></td>
+									<td><?php echo $package["min_guests"]; ?></td>
+									<td><?php echo $package["max_guests"]; ?></td>
+									<td><?php echo $package["start_date"] . " - " . $package["end_date"]; ?></td>
+									<td><a href="packages/<?php echo $package['package_id']; ?>/book" class="btn btn-secondary btn-medium">Book</a></td>
+								</tr>
+							<?php } ?>
+						</tbody>
+
+					</table>
+
+				</div><!-- gs-col -->
+
 			</div><!-- gs -->
 
 			<!-- TODO Show images, map and packages -->

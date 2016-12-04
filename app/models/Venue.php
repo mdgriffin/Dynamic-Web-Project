@@ -103,10 +103,6 @@ class	Venue {
 		return $res;
 	}
 
-	private function _getPackages () {
-		// get the related room of this venue
-	}
-
 	private static function _getAllWithImage () {
 		$select_stmt = self::$db->prepare("SELECT *  FROM Venues V, Venue_Images I where V.venue_id = I.venue_id AND I.image_id = (SELECT MAX(image_id) FROM Venue_Images WHERE venue_id = V.venue_id)");
 		$select_stmt->execute();

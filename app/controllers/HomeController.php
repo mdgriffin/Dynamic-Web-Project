@@ -107,6 +107,7 @@ class HomeController {
 		$this->viewData["venue_id"] = $venue_id;
 		$this->viewData["venue"] = Venue::get($venue_id);
 		$this->viewData["images"] = VenueImage::getAll($venue_id);
+		$this->viewData["packages"] = Package::getAllByVenue($venue_id);
 
 		$this->viewData["pageTitle"] = $this->viewData["venue"]->getName();
 

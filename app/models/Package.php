@@ -107,6 +107,12 @@ class	Package {
 		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	private static function _getAllByVenue ($venue_id) {
+		$select_stmt = self::$db->prepare("SELECT * FROM Packages WHERE venue_id");
+		$select_stmt->execute(array($venue_id));
+		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	private static function _get($id) {
 		$select_stmt = self::$db->prepare("SELECT * FROM Packages WHERE package_id=?");
 		$select_stmt->execute(array($id));

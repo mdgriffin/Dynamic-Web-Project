@@ -34,7 +34,7 @@ class AdminPackageController {
 		$this->viewData["venue"] = Venue::get($venue_id);
 		$this->viewData["venue_id"] = $venue_id;
 		$this->viewData["package"] = new Package("", "", "", "", "", "", "", "");
-		$this->viewData["packages"] = Package::getAll();
+		$this->viewData["packages"] = Package::getAllByVenue($venue_id);
 
 		return View::create("admin/packages")->with($this->viewData);
 	}
@@ -56,7 +56,7 @@ class AdminPackageController {
 				$this->viewData["flash_error"] = "Form has errors";
 		}
 
-			$this->viewData["packages"] = Package::getAll();
+			$this->viewData["packages"] = Package::getAllByVenue($venue_id);
 
 		return View::create("admin/packages")->with($this->viewData);
 	}
@@ -67,7 +67,7 @@ class AdminPackageController {
 		$this->viewData["venue_id"] = $venue_id;
 		$this->viewData["package_id"] = $package_id;
 		$this->viewData["package"] = Package::get($package_id);
-		$this->viewData["packages"] = Package::getAll();
+		$this->viewData["packages"] = Package::getAllByVenue($venue_id);
 		$this->viewData["pageTitle"] = "Updating package " . $this->viewData["package"]->getTitle();
 
 		return View::create("admin/packages")->with($this->viewData);
@@ -98,7 +98,7 @@ class AdminPackageController {
 			$this->viewData["flash_error"] = "Form has errors";
 		}
 
-		$this->viewData["packages"] = Package::getAll();
+		$this->viewData["packages"] = Package::getAllByVenue($venue_id);
 
 		return View::create("admin/packages")->with($this->viewData);
 	}
