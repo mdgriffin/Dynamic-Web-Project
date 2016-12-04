@@ -48,8 +48,8 @@ CREATE TABLE IF NOT EXISTS Packages (
 CREATE TABLE IF NOT EXISTS Bookings (
 	booking_id int NOT NULL AUTO_INCREMENT,
 	user_id int NOT NULL,
-	package_id int NOT NULL,
 	venue_id int NOT NULL,
+	package_id int NOT NULL,
 	num_guests int NOT NULL,
 	booking_date date NOT NULL,
 	event_date date NOT NULL,
