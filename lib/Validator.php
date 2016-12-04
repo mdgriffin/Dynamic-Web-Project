@@ -4,13 +4,16 @@ class Validator {
 	private $value;
 	private $errors = array();
 	private $error_messages = array(
-		"isMinLength" => "Insuffient Length",
-		"isMaxLength" => "Too Long",
-		"isNumeric" => "Must contain only numeric characters",
-		"isAlpha" => "Must contain only alphabetic characters",
-		"isAlphaNumeric" => "Must contain only alpha-numeric characters",
-		"isEmpty" => "Cannot be empty",
-		"isEmail" => "Must be a valid email address"
+		"isMinLength"       => "Insuffient Length",
+		"isMaxLength"       => "Too Long",
+		"isInteger"         => "Must contain only numeric characters",
+		"isNumeric"         => "Must be a valid number",
+		"isPositiveNumber"  => "Must be a valid number greater than zero",
+		"isAlpha"           => "Must contain only alphabetic characters",
+		"isAlphaNumeric"    => "Must contain only alpha-numeric characters",
+		"isEmpty"           => "Cannot be empty",
+		"isEmail"           => "Must be a valid email address",
+		"isDate"            => "Must be a valid date in the format YY-MM-DD"
 	);
 
 	public function __construct ($value, $error_messages = array()) {
@@ -20,9 +23,25 @@ class Validator {
 		$this->error_messages = array_merge($this->error_messages, $error_messages);
 	}
 
-	public function isNumeric () {
+	public function isInteger () {
 		if (!ctype_digit($this->value)) {
+			$this->errors["isInteger"] = $this->error_messages["isInteger"];
+		}
+
+		return $this;
+	}
+
+	public function isNumeric () {
+		if (!is_numeric($this->value)) {
 			$this->errors["isNumeric"] = $this->error_messages["isNumeric"];
+		}
+
+		return this;
+	}
+
+	public function isPositiveNumber () {
+		if (!is_numeric($this->value) || (double)$this->value <= 0) {
+			$this->errors["isPositiveNumber"] = $this->error_messages["isPositiveNumber"];
 		}
 
 		return $this;
@@ -71,6 +90,15 @@ class Validator {
 	public function isEmail () {
 		if (!(bool)filter_var($this->value, FILTER_VALIDATE_EMAIL)) {
 			$this->errors["isEmail"] = $this->error_messages["isEmail"];
+		}
+
+		return $this;
+	}
+
+	public function isDate () {
+		$dt = DateTime::createFromFormat('Y-m-d', $this->value);
+		if (!$dt || !($dt->format('Y-m-d') === $this->value)) {
+			$this->errors["isDate"] = $this->error_messages["isDate"];
 		}
 
 		return $this;
