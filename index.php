@@ -25,6 +25,7 @@ require_once "app/models/Booking.php";
 
 // Home controllers
 require_once "app/controllers/HomeController.php";
+require_once "app/controllers/PackageController.php";
 
 // Admin Controllers
 require_once "app/controllers/AdminController.php";
@@ -171,8 +172,15 @@ Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
 		(new HomeController)->getVenue($matches[1]);
 	});
 
+
+	// Get package details and booking form
 	Router::get("/^" . $config["base_url"] . "packages\/([0-9]{1,9})$/", function ($matches) {
-		(new HomeController)->getPackage($matches[1]);
+		(new PackageController)->getPackage($matches[1]);
+	});
+
+	// Book a package
+	Router::post("/^" . $config["base_url"] . "packages\/([0-9]{1,9})$/", function ($matches) {
+		(new PackageController)->postPackage($matches[1], $_POST);
 	});
 
 

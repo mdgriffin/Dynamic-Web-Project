@@ -18,16 +18,16 @@
 
 				<h2>Make a Booking</h2>
 
-				<form class="form" action="packages/<?php echo $this->package->getPackage_id(); ?>" method="post">
+				<form class="form" action="packages/<?php echo $this->package->getId(); ?>" method="post">
 
 					<fieldset>
 						<input type="text" name="num_guests" id="num_guests" value="<?php echo $this->booking->getNum_guests(); ?>"><!--
 						--><label for="num_guests" class="form-mainLabel">Number of Guests</label>
 						<?php
 						if ($this->errors && isset($this->errors["num_guests"])) {
-							foreach ($this->errors["num_guests"] as $this->error) {
+							foreach ($this->errors["num_guests"] as $error) {
 						?>
-								<p class="form-error"><?php echo $this->error; ?></p>
+								<p class="form-error"><?php echo $error; ?></p>
 						<?php
 							}
 						}
@@ -35,17 +35,12 @@
 					</fieldset>
 
 					<fieldset class="form-datepicker">
-						<input type="text" name="event_date" readonly id="event_date" value="<?php echo $this->booking->getEvent_date(); ?>"><!--
+						<input type="hidden" name="event_date" readonly id="event_date" value="">
+						<input type="text" readonly id="event_date_display" value=""><!--
 						--><label for="event_date" class="form-mainLabel">Event Date</label>
-						<?php
-						if ($this->errors && isset($this->errors["event_date"])) {
-							foreach ($this->errors["event_date"] as $this->error) {
-						?>
-								<p class="form-error"><?php echo $this->error; ?></p>
-						<?php
-							}
-						}
-						?>
+						<?php 	if ($this->errors && isset($this->errors["event_date"])) { ?>
+							<p class="form-error"><?php echo $this->errors["event_date"]; ?></p>
+						<?php } ?>
 
 						<div class="datePicker-dropdown datePicker-dropdown-bottomLeft" id="event-datePicker-dropdown">
 							<div class="datePicker" id="event_datepicker"></div>
@@ -73,6 +68,7 @@
 (function () {
 
 	var dateInput = document.getElementById("event_date");
+	var displayDateInput = document.getElementById("event_date_display");
 	var datePickerDropdown = document.getElementById("event-datePicker-dropdown");
 
 	var startDateArr = "<?php echo $this->package->getStart_date(); ?>".split("-");
@@ -88,7 +84,12 @@
 		disableBefore: calStartDate,
 		disableAfter: endDate,
 		onDateSelect: function (dateStamp) {
-			dateInput.value = new Date(dateStamp).toDateString();
+			var selectedDate = new Date(dateStamp);
+
+			displayDateInput.value = selectedDate.toDateString();
+			// JavaScript months are zero indexed
+			dateInput.value = selectedDate.getFullYear() + "-" + (selectedDate.getMonth() + 1) + "-" + selectedDate.getDate();
+
 			removeClass(datePickerDropdown, "datePicker-dropdown-focus");
 		}
 	});
@@ -108,14 +109,14 @@
 		}
 	});
 
-	dateInput.addEventListener("click", function () {
+	displayDateInput.addEventListener("click", function () {
 		addClass(datePickerDropdown, "datePicker-dropdown-focus");
 	});
 
 	// hide the calendar if click is outside the calendar or the input
 	document.body.addEventListener("click", function (e) {
 		var el = e.target;
-		var isWithinDropdown =  hasParentWithID(el, "event_date") || hasParentWithClass(el, "cal") || hasParentWithClass(el, "datePicker-dropdown");
+		var isWithinDropdown =  hasParentWithID(el, "event_date_display") || hasParentWithClass(el, "cal") || hasParentWithClass(el, "datePicker-dropdown");
 
 		if (!isWithinDropdown) {
 			removeClass(datePickerDropdown, "datePicker-dropdown-focus");

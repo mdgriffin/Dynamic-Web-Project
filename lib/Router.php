@@ -19,7 +19,7 @@ class Router {
 	}
 
 	public static function post ($regMatchStr, $callback_fn) {
-		if (!self::$routeMatched && preg_match($regMatchStr, $_SERVER["REQUEST_URI"], $matches) && $_SERVER["REQUEST_METHOD"] == "POST" && $_POST["METHOD"] != "DELETE") {
+		if (!self::$routeMatched && preg_match($regMatchStr, $_SERVER["REQUEST_URI"], $matches) && $_SERVER["REQUEST_METHOD"] == "POST" && (!isset($_POST["METHOD"]) || $_POST["METHOD"] != "DELETE")) {
 			$callback_fn($matches);
 			self::$routeMatched = true;
 		}

@@ -10,6 +10,7 @@ class Validator {
 		"isNumeric"         => "Must be a valid number",
 		"isPositiveNumber"  => "Must be a valid number greater than zero",
 		"isAlpha"           => "Must contain only alphabetic characters",
+		"isInRange"         => "Value outside of range",
 		"isAlphaNumeric"    => "Must contain only alpha-numeric characters",
 		"isEmpty"           => "Cannot be empty",
 		"isEmail"           => "Must be a valid email address",
@@ -42,6 +43,14 @@ class Validator {
 	public function isPositiveNumber () {
 		if (!is_numeric($this->value) || (double)$this->value <= 0) {
 			$this->errors["isPositiveNumber"] = $this->error_messages["isPositiveNumber"];
+		}
+
+		return $this;
+	}
+
+	public function isInRange($range_start, $range_end) {
+		if ($this->value < $range_start || $this->value > $range_end) {
+			$this->errors["isInRange"] = $this->error_messages["isInRange"];
 		}
 
 		return $this;
