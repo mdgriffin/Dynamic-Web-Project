@@ -6,33 +6,18 @@ session_start();
 // Config
 require_once "app/config.php";
 
-// Library
-require_once "lib/connection.php";
-require_once "lib/Validator.php";
-require_once "lib/Router.php";
-require_once "lib/View.php";
-require_once "lib/Model.php";
-require_once "lib/RestfulControllerInterface.php";
-require_once "lib/Image.php";
-require_once "lib/Auth.php";
-
-// Models
-require_once "app/models/User.php";
-require_once "app/models/Venue.php";
-require_once "app/models/Package.php";
-require_once "app/models/VenueImage.php";
-require_once "app/models/Booking.php";
-
-// Home controllers
-require_once "app/controllers/HomeController.php";
-require_once "app/controllers/PackageController.php";
-
-// Admin Controllers
-require_once "app/controllers/AdminController.php";
-require_once "app/controllers/AdminVenuesController.php";
-require_once "app/controllers/AdminPackageController.php";
-require_once "app/controllers/AdminUsersController.php";
-require_once "app/controllers/AdminImagesController.php";
+// Class Autoloading
+spl_autoload_register(function ($class_name) {
+	if (file_exists("lib/" . $class_name . ".php")) {
+		include "lib/" . $class_name . ".php";
+	} else if (file_exists("app/models/" . $class_name . ".php")) {
+		include "app/models/" . $class_name . ".php";
+	} else if (file_exists("app/controllers/" . $class_name . ".php")) {
+		include "app/controllers/" . $class_name . ".php";
+	} else {
+		return false;
+	}
+});
 
 /**
  * Routing
