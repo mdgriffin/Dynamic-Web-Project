@@ -37,7 +37,7 @@ class PackageController {
 		if (Auth::admin()) {
 			$user_id = $this->viewData["auth_admin"]->getId();
 		} else if (Auth::user()) {
-			$user_id = $this->viewData["auth_admin"]->getId();
+			$user_id = $this->viewData["auth_user"]->getId();
 		}
 
 		$booking = new Booking($user_id, $this->viewData["package"]->getVenue_id(), $package_id, $data["num_guests"], $data["event_date"]);

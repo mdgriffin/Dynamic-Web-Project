@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS Bookings (
 	package_id int NOT NULL,
 	num_guests int NOT NULL,
 	booking_date date NOT NULL,
-	event_date date NOT NULL,
+	event_date datetime NOT NULL,
 	total Decimal(10, 2) NOT NULL,
 	PRIMARY KEY (booking_id),
 	FOREIGN KEY (user_id) REFERENCES Users (user_id),

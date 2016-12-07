@@ -45,7 +45,7 @@ class Booking {
 	}
 
 	private function _save () {
-		$insert_stmt = self::$db->prepare("INSERT INTO Bookings (user_id, venue_id, package_id, num_guests, booking_date, event_date, total) VALUES(:user_id, :venue_id, :package_id, :num_guests, CURRENT_DATE, :event_date, (SELECT price_per_guest FROM Packages WHERE package_id = :package_id2) * :num_guests2)");
+		$insert_stmt = self::$db->prepare("INSERT INTO Bookings (user_id, venue_id, package_id, num_guests, booking_date, event_date, total) VALUES(:user_id, :venue_id, :package_id, :num_guests, NOW(), :event_date, (SELECT price_per_guest FROM Packages WHERE package_id = :package_id2) * :num_guests2)");
 
 		$insert_stmt->execute(array(
 			':user_id' => $this->user_id,
