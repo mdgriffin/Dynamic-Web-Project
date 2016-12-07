@@ -23,11 +23,18 @@ class PackageController {
 	}
 
 	public function getPackage ($package_id) {
-		$this->viewData["package"] = Package::get($package_id);
-		$this->viewData["booking"] = new Booking();
-		$this->viewData["pageTitle"] = $this->viewData["package"]->getTitle() . " make a booking";
+		if (Auth::user() || Auth::admin()) {
+			$this->viewData["package"] = Package::get($package_id);
+			$this->viewData["booking"] = new Booking();
+			$this->viewData["pageTitle"] = $this->viewData["package"]->getTitle() . " make a booking";
 
-		View::create("packages/single")->with($this->viewData);
+			View::create("packages/single")->with($this->viewData);
+		} else {
+			$this->viewData["pageTitle"] = "Please login to continue booking";
+
+			View::create("please-login")->with($this->viewData);
+		}
+
 	}
 
 	public function postPackage ($package_id, $data) {
