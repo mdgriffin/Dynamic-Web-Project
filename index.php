@@ -34,61 +34,65 @@ require_once "app/controllers/AdminPackageController.php";
 require_once "app/controllers/AdminUsersController.php";
 require_once "app/controllers/AdminImagesController.php";
 
-// Routing
+/**
+ * Routing
+ */
+
+// Restful controller for managing venues
 Router::restful("/^.+admin\/venues(?:\.php)?(?:\?id=[0-9]{1,9})?$/", function () {
 	return new AdminVenuesController();
 });
 
-
-
+// Restful controller for managing users
 Router::restful("/^.+admin\/users(?:.*)?(?:\?id=[0-9]{1,9})?$/", function () {
 	return new AdminUsersController();
 });
 
 /**
- * Packages
+ * Admin Manage Packages
  */
 
+// Show Index view of Venue Packages
 Router::get("/^.+admin\/packages\?venue_id=([0-9]{1,9})$/", function ($matches) {
 	return (new AdminPackageController())->getIndex($matches[1]);
 });
 
+// Register a new package
 Router::post("/^.+admin\/packages\?venue_id=([0-9]{1,9})$/", function ($matches) {
 	return (new AdminPackageController())->postIndex($matches[1], $_POST);
 });
 
+// Delete a package
 Router::delete("/^.+admin\/packages\?venue_id=([0-9]{1,9})$/", function ($matches) {
 	return (new AdminPackageController())->postDelete($matches[1], $_POST);
 });
 
+// Show update form
 Router::get("/^.+admin\/packages\?venue_id=([0-9]{1,9})\&package_id=([0-9]{1,9})$/", function ($matches) {
 	return (new AdminPackageController())->getUpdate($matches[1], $matches[2]);
 });
 
+// Update a package
 Router::post("/^.+admin\/packages\?venue_id=([0-9]{1,9})\&package_id=([0-9]{1,9})$/", function ($matches) {
 	return (new AdminPackageController())->postUpdate($matches[1], $matches[2], $_POST);
 });
 
-/**
- * Home Page
- */
-
+// Admin Home Page
 Router::get("/^.+admin\/?(?:home)?$/", function () {
 	(new AdminController)->getIndex();
 });
 
-/**
- * Admin Login
- */
-
+// Show admin login form
 Router::get("/^.+admin\/login(?:.*)?$/", function () {
 	(new AdminController)->getLogin();
 });
 
+// Admin Login
 Router::post("/^.+admin\/login(?:\.php)?$/", function () {
 	(new AdminController)->postLogin($_POST["email"], $_POST["password"]);
 });
 
+// Admin Logout
 Router::post("/^.+admin\/logout(?:\.php)?$/", function () {
 	(new AdminController)->postLogout($_POST);
 });
@@ -96,98 +100,105 @@ Router::post("/^.+admin\/logout(?:\.php)?$/", function () {
 /**
  * Admin Images
  */
- Router::get("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
-	 if (Auth::admin()) {
-		 (new AdminImagesController)->index($matches[1]);
-	 } else {
-		 header('Location:login');
-	 }
- });
 
+// Show index of admin images
+Router::get("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
+	if (Auth::admin()) {
+		(new AdminImagesController)->index($matches[1]);
+	} else {
+		header('Location:login');
+	}
+});
+
+// Create and delete an image
 Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
-	 if (Auth::admin() && isset($_POST["METHOD"]) && $_POST["METHOD"] == "DELETE") {
-		 (new AdminImagesController)->delete($matches[1], $_POST);
-	 } else if (Auth::admin()) {
-		 (new  AdminImagesController)->create($matches[1], $_POST, $_FILES);
-	 } else {
-		 header('Location:login');
-	 }
- });
+	if (Auth::admin() && isset($_POST["METHOD"]) && $_POST["METHOD"] == "DELETE") {
+		(new AdminImagesController)->delete($matches[1], $_POST);
+	} else if (Auth::admin()) {
+		(new  AdminImagesController)->create($matches[1], $_POST, $_FILES);
+	} else {
+		header('Location:login');
+	}
+});
 
+// Home Page
+Router::get("/^" . $config["base_url"] . "(?:home)?$/", function () {
+	(new HomeController)->getIndex();
+});
 
-	// Home Page
-	Router::get("/^" . $config["base_url"] . "(?:home)?$/", function () {
-		(new HomeController)->getIndex();
-	});
+// Show user login form
+Router::get("/^" . $config["base_url"] . "login$/", function () {
+	// Only allow acces to route if there is no user logged in
+	if (!Auth::admin() && !Auth::user()) {
+		(new HomeController)->getLogin();
+	} else {
+		header('Location:home');
+}
+});
 
-	Router::get("/^" . $config["base_url"] . "login$/", function () {
-		// Only allow acces to route if there is no user logged in
-		if (!Auth::admin() && !Auth::user()) {
-			(new HomeController)->getLogin();
-		} else {
-			header('Location:home');
-		}
-	});
+// Handle User Login
+Router::post("/^" . $config["base_url"] . "login$/", function () {
+(new HomeController)->postLogin($_POST["email"], $_POST["password"]);
+});
 
-	Router::post("/^" . $config["base_url"] . "login$/", function () {
-		(new HomeController)->postLogin($_POST["email"], $_POST["password"]);
-	});
+// Handle User logout
+Router::post("/^" . $config["base_url"] . "logout$/", function () {
+	(new HomeController)->postLogout($_POST);
+});
 
+// Show Register Form
+Router::get("/^" . $config["base_url"] . "register$/", function () {
+	// Only allow acces to route if there is no user logged in
+	if (!Auth::admin() && !Auth::user()) {
+		(new HomeController)->getRegister();
+	} else {
+		header('Location:home');
+	}
+});
 
-	Router::post("/^" . $config["base_url"] . "logout$/", function () {
-		(new HomeController)->postLogout($_POST);
-	});
+//Handle User Registration
+Router::post("/^" . $config["base_url"] . "register$/", function () {
+	(new HomeController)->postRegister($_POST);
+});
 
-	Router::get("/^" . $config["base_url"] . "register$/", function () {
-		// Only allow acces to route if there is no user logged in
-		if (!Auth::admin() && !Auth::user()) {
-			(new HomeController)->getRegister();
-		} else {
-			header('Location:home');
-		}
-	});
+// Show user profile
+Router::get("/^" . $config["base_url"] . "profile$/", function () {
+	// Only allow acces to route if there is a user logged in
+	if (Auth::user()) {
+		(new HomeController)->getprofile();
+	} else {
+		header('Location:home');
+	}
+});
 
-	Router::post("/^" . $config["base_url"] . "register$/", function () {
-		(new HomeController)->postRegister($_POST);
-	});
+// Handle updating of a users profile (details)
+Router::post("/^" . $config["base_url"] . "profile$/", function () {
+	(new HomeController)->postprofile($_POST);
+});
 
-	Router::get("/^" . $config["base_url"] . "profile$/", function () {
-		// Only allow acces to route if there is a user logged in
-		if (Auth::user()) {
-			(new HomeController)->getprofile();
-		} else {
-			header('Location:home');
-		}
-	});
+// Show Index of Venues
+Router::get("/^" . $config["base_url"] . "venues$/", function () {
+	(new HomeController)->getVenueIndex();
+});
 
-	Router::post("/^" . $config["base_url"] . "profile$/", function () {
-		(new HomeController)->postprofile($_POST);
-	});
+// Show a single Venue
+Router::get("/^" . $config["base_url"] . "venues\/([0-9]{1,9})$/", function ($matches) {
+	(new HomeController)->getVenue($matches[1]);
+});
 
-	Router::get("/^" . $config["base_url"] . "venues$/", function () {
-		(new HomeController)->getVenueIndex();
-	});
+// Get package details and booking form
+Router::get("/^" . $config["base_url"] . "packages\/([0-9]{1,9})$/", function ($matches) {
+	(new PackageController)->getPackage($matches[1]);
+});
 
-	Router::get("/^" . $config["base_url"] . "venues\/([0-9]{1,9})$/", function ($matches) {
-		(new HomeController)->getVenue($matches[1]);
-	});
-
-
-	// Get package details and booking form
-	Router::get("/^" . $config["base_url"] . "packages\/([0-9]{1,9})$/", function ($matches) {
-		(new PackageController)->getPackage($matches[1]);
-	});
-
-	// Book a package
-	Router::post("/^" . $config["base_url"] . "packages\/([0-9]{1,9})$/", function ($matches) {
-		(new PackageController)->postPackage($matches[1], $_POST);
-	});
-
+// Book a package
+Router::post("/^" . $config["base_url"] . "packages\/([0-9]{1,9})$/", function ($matches) {
+	(new PackageController)->postPackage($matches[1], $_POST);
+});
 
 // handle the missing routes
 Router::missing(function () {
 	echo "404!";
 });
-
 
 ?>
