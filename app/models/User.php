@@ -152,6 +152,12 @@ class	User {
 		return $res;
 	}
 
+	private static function _getBookings ($id) {
+		$select_stmt = self::$db->prepare("SELECT B.booking_date, B.event_date, B.total, B.venue_id, B.package_id, V.name As venue_name, P.title As package_name FROM Bookings B, Venues V, Packages P WHERE B.user_id=? AND B.venue_id = V.venue_id AND B.package_id = P.package_id ORDER BY B.booking_date DESC");
+		$select_stmt->execute(array($id));
+		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 }
 
 ?>

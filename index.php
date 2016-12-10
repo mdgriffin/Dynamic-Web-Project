@@ -131,7 +131,7 @@ Router::get("/^" . $config["base_url"] . "(?:home)?$/", function () {
 Router::get("/^" . $config["base_url"] . "login$/", function () {
 	// Only allow acces to route if there is no user logged in
 	if (!Auth::admin() && !Auth::user()) {
-		(new HomeController)->getLogin();
+		(new UserController)->getLogin();
 	} else {
 		header('Location:home');
 }
@@ -139,19 +139,19 @@ Router::get("/^" . $config["base_url"] . "login$/", function () {
 
 // Handle User Login
 Router::post("/^" . $config["base_url"] . "login$/", function () {
-(new HomeController)->postLogin($_POST["email"], $_POST["password"]);
+	(new UserController)->postLogin($_POST["email"], $_POST["password"]);
 });
 
 // Handle User logout
 Router::post("/^" . $config["base_url"] . "logout$/", function () {
-	(new HomeController)->postLogout($_POST);
+	(new UserController)->postLogout($_POST);
 });
 
 // Show Register Form
 Router::get("/^" . $config["base_url"] . "register$/", function () {
 	// Only allow acces to route if there is no user logged in
 	if (!Auth::admin() && !Auth::user()) {
-		(new HomeController)->getRegister();
+		(new UserController)->getRegister();
 	} else {
 		header('Location:home');
 	}
@@ -159,22 +159,32 @@ Router::get("/^" . $config["base_url"] . "register$/", function () {
 
 //Handle User Registration
 Router::post("/^" . $config["base_url"] . "register$/", function () {
-	(new HomeController)->postRegister($_POST);
+	(new UserController)->postRegister($_POST);
 });
 
 // Show user profile
 Router::get("/^" . $config["base_url"] . "profile$/", function () {
 	// Only allow acces to route if there is a user logged in
 	if (Auth::user()) {
-		(new HomeController)->getprofile();
+		(new UserController)->getprofile();
 	} else {
 		header('Location:home');
 	}
 });
 
+Router::get("/^" . $config["base_url"] . "bookings$/", function () {
+	// Only allow acces to route if there is a user logged in
+	if (Auth::user()) {
+		(new UserController)->getBookings();
+	} else {
+		header('Location:home');
+	}
+});
+
+
 // Handle updating of a users profile (details)
 Router::post("/^" . $config["base_url"] . "profile$/", function () {
-	(new HomeController)->postprofile($_POST);
+	(new UserController)->postprofile($_POST);
 });
 
 // Show Index of Venues
@@ -199,6 +209,7 @@ Router::post("/^" . $config["base_url"] . "packages\/([0-9]{1,9})$/", function (
 
 // handle the missing routes
 Router::missing(function () {
+	header($_SERVER["SERVER_PROTOCOL"]. " 404 Not Found", true, 404);
 	echo "404!";
 });
 
