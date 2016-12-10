@@ -207,6 +207,11 @@ Router::post("/^" . $config["base_url"] . "packages\/([0-9]{1,9})$/", function (
 	(new PackageController)->postPackage($matches[1], $_POST);
 });
 
+// Search Results
+Router::get("/^" . $config["base_url"] . "search(?:\?.+)$/", function () {
+	(new HomeController)->getSearch($_GET);
+});
+
 // handle the missing routes
 Router::missing(function () {
 	header($_SERVER["SERVER_PROTOCOL"]. " 404 Not Found", true, 404);

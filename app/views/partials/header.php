@@ -28,9 +28,9 @@
 
 					<form action="search" method="get">
 
-						<label for="location">Where</label>
+						<label for="term">Where</label>
 						<div class="inputWrapper searchWrapper">
-							<input type="text" name="location" value="" class="searchInput" placeholder="Location or venue name">
+							<input type="text" name="term" value="" class="searchInput" placeholder="Location or venue name">
 						</div>
 
 						<label for="num_guests">Number of guests</label>
@@ -65,6 +65,9 @@
 							</div>
 
 						</div><!-- datePicker-container -->
+
+						<input type="submit" value="Search" class="btn btn-medium btn-primary" />
+
 					</form>
 
 				</div><!-- container -->

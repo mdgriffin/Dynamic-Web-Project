@@ -46,7 +46,17 @@ class HomeController {
 		View::create("venues/single")->with($this->viewData);
 	}
 
+	public function getSearch ($params) {
 
+		$num_guests = explode("-", $params["num_guests"]);
+		$min_guests = $num_guests[0];
+		$max_guests = $num_guests[1];
+
+		$this->viewData["results"] = Venue::find($params["term"], $min_guests, $max_guests, $params["date"]);
+
+		return View::create("search")->with($this->viewDate);
+
+	}
 
 }
 

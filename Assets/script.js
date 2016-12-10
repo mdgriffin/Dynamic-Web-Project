@@ -415,10 +415,14 @@ var calendarPlugin = (function () {
 		disableBefore: new Date().setHours(0, 0, 0, 0), // disable before today
 		disableAfter: new Date(Date.now() + 730 * 24 * 60 * 60 * 1000).getTime(), // disable after 2 years
 		onDateSelect: function (dateStamp) {
-			console.log(dateStamp);
+			//dateInput.value = new Date(dateStamp).toDateString();
+			var selectedDate = new Date(dateStamp);
 
+			// TODO Show a formatted date and set a hidden input
+			//displayDateInput.value = selectedDate.toDateString();
+			// JavaScript months are zero indexed
+			dateInput.value = selectedDate.getFullYear() + "-" + (selectedDate.getMonth() + 1) + "-" + selectedDate.getDate();
 
-			dateInput.value = new Date(dateStamp).toDateString();
 			removeClass(datePickerDropdown, "datePicker-dropdown-focus");
 		}
 	});

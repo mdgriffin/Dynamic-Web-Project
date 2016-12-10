@@ -109,6 +109,31 @@ class	Venue {
 		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	private static function _find ($searchterm, $min_guests, $max_guests, $date) {
+		$select_stmt = self::$db->prepare(
+			"SELECT V.venue_id, V.name, V.description, V.latitude, V.longitude, P.title, P.description, P.price_per_guest FROM Venues V, Packages P " .
+			"WHERE (V.address LIKE :location OR V.name LIKE :venue) " .
+				"AND P.min_guests <= :min_guests " .
+				"AND P.max_guests >= :max_guests " .
+				"AND V.venue_id NOT IN (SELECT B.venue_id FROM Bookings B WHERE B.event_date = :event_date) " .
+				"AND V.venue_id = P.venue_id " .
+				"AND :date BETWEEN P.start_date AND P.end_date"
+		);
+
+		$select_stmt->execute(array(
+			':location' => "%" . $searchterm . "%",
+			':venue' => "%" . $searchterm . "%",
+			':min_guests' => $min_guests,
+			':max_guests' => $max_guests,
+			":event_date" => $date,
+			":date" => $date
+		));
+
+		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+
+
 }
 
 ?>
