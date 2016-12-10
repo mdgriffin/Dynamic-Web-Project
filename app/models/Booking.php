@@ -60,7 +60,7 @@ class Booking {
 		$this->id = self::$db->lastInsertId("booking_id");
 	}
 
-	private static function _get($id) {
+	private static function _get ($id) {
 		$select_stmt = self::$db->prepare("SELECT * FROM Bookings WHERE booking_id=?");
 		$select_stmt->execute(array($id));
 		$booking_res = $select_stmt->fetch(PDO::FETCH_ASSOC);
@@ -76,6 +76,13 @@ class Booking {
 			return null;
 		}
 
+	}
+
+	private static function _getAll () {
+		$select_stmt = self::$db->prepare("SELECT B.*, U.forename, U.surname, V.name As venue_name, P.Title AS package_name FROM Bookings B, Venues V, Users U, Packages P WHERE B.venue_id = V.venue_id AND B.user_id = U.user_id  AND B.package_id = P.package_id ORDER BY B.booking_date DESC");
+
+		$select_stmt->execute();
+		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	private static function _venue_available ($venue_id, $event_date) {

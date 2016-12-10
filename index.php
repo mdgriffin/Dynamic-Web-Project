@@ -106,6 +106,22 @@ Router::post("/^.+admin\/venues\/([0-9]{1,9})\/images?$/", function ($matches) {
 	}
 });
 
+/**
+ * Admin Manage Bookings
+ */
+
+ Router::get("/^.+admin\/bookings$/", function () {
+ 	if (Auth::admin()) {
+ 		(new AdminBookingsController)->index();
+ 	} else {
+ 		header('Location:login');
+ 	}
+ });
+
+/**
+ * Home Pages
+ */
+
 // Home Page
 Router::get("/^" . $config["base_url"] . "(?:home)?$/", function () {
 	(new HomeController)->getIndex();
