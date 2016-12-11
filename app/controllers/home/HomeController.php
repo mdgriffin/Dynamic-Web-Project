@@ -46,17 +46,33 @@ class HomeController {
 		View::create("venues/single")->with($this->viewData);
 	}
 
-	public function getSearch ($params) {
+	public function getVenueCard ($venue_id) {
+		$venue_images = VenueImage::getAll($venue_id);
 
+		if ($venue_images) {
+			$image = $venue_images[0];
+		}
+		return View::create("venues/card")->with(array("venue" => Venue::get($venue_id), "image" => $image));
+	}
+
+	public function getSearch ($params) {
 		$num_guests = explode("-", $params["num_guests"]);
 		$min_guests = $num_guests[0];
 		$max_guests = $num_guests[1];
-
+		$this->viewData["pageTitle"] = "Venue Search Results";
 
 		$this->viewData["results"] = Venue::find($params["term"], $min_guests, $max_guests, $params["date"]);
 
 		return View::create("search")->with($this->viewData);
 
+	}
+
+	public function getLocations () {
+		$this->viewData["pageTitle"] = "View Venues by Location";
+		$this->viewData["venues"] = Venue::getAll();
+		$this->viewData["scripts"] = array("Assets/location-map.js", "https://maps.googleapis.com/maps/api/js?key=AIzaSyDbgC6kK0wUhX1WExJo7Qavhx-UWp94xvE&callback=initMap");
+
+		return View::create("locations")->with($this->viewData);
 	}
 
 }

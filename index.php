@@ -214,6 +214,15 @@ Router::get("/^" . $config["base_url"] . "search(?:\?.+)$/", function () {
 	(new HomeController)->getSearch($_GET);
 });
 
+// Locations Map View
+Router::get("/^" . $config["base_url"] . "locations(?:\?.+)?$/", function () {
+	(new HomeController)->getLocations();
+});
+
+Router::get("/^" . $config["base_url"] . "venues\/card\/([0-9]{1,9})$/", function ($matches) {
+	(new HomeController)->getVenueCard($matches[1]);
+});
+
 // handle the missing routes
 Router::missing(function () {
 	header($_SERVER["SERVER_PROTOCOL"]. " 404 Not Found", true, 404);

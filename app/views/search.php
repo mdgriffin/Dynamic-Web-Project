@@ -23,7 +23,6 @@
 
 			</div><!-- search-result -->
 
-
 		<?php } ?>
 
 	</div><!-- card -->

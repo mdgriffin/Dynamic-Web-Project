@@ -451,7 +451,8 @@ html {
 }
 
 .fullWidth,
-.fullWidth-top {
+.fullWidth-top,
+.fullWidth-cover {
 	margin-left: -20px;
 	margin-right: -20px;
 }
@@ -462,6 +463,11 @@ html {
 
 .fullWidth-top > img {
 	border-radius: 3px 3px 0 0;
+}
+
+.fullWidth-cover {
+	margin-top: -20px;
+	margin-bottom: -20px;
 }
 
 body {
@@ -849,6 +855,7 @@ header {
 	border: 1px solid #694D75;
 	border-top: 5px solid #694D75;
 	margin-top: 10px;
+	z-index: 1;
 }
 
 .headerNavBar-account-dropdown::before {
@@ -981,6 +988,7 @@ header {
 	background: #fff;
 	border: 1px solid #1B5299;
 	display: none;
+	z-index: 1;
 }
 
 .datePicker-dropdown-bottomRight {
@@ -1143,6 +1151,8 @@ header {
 	}
 }
 
+/* Venue Single Page */
+
 .venues-single a {
 	text-decoration: none;
 }
@@ -1177,4 +1187,56 @@ header {
 .venueSingle-image img {
 		width: 100%;
 		margin-bottom: 20px;
+}
+
+/* Locations Page */
+
+.locations-mapContainer {
+	position: relative;
+}
+
+.locations-map-venue {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	width: 300px;
+	padding: 10px;
+	background: #fff;
+	z-index: 1;
+	max-height: 600px;
+	opacity: 0;
+	transition: all 0.5s;
+}
+
+.locations-map-venue-visible {
+	opacity: 1;
+}
+
+
+.locations-map-venue h3 {
+	margin-top: 0;
+}
+
+.locations-map-venue img {
+	max-width: 100%;
+}
+
+.locations-map {
+	width: 100%;
+	padding-bottom: 50%;
+}
+
+.locations-list-single {
+	padding: 10px 20px;
+	border-top: 1px solid #eaeaea;
+	border-bottom: 1px solid #eaeaea;
+}
+
+.locations-list-single:hover {
+	background: #eaeaea;
+	cursor: pointer;
+}
+
+.locations-list-single h3 {
+	margin: 0;
 }

@@ -5,6 +5,7 @@ class Image {
 	private static $target_dir = "Assets/temp_images/";
 	private static $sizes = array(
 		"banner" => array(900, 450),
+		"small_banner" => array(450, 225),
 		"large_square" => array(900, 900),
 		"medium_square" => array(600, 600),
 		"thumbnail" => array(150, 150)
