@@ -12,11 +12,11 @@
 			<?php if ($this->id) { ?>
 				<h2>Update Venue</h2>
 
-				<form action="admin/venues.php?id=<?php echo $this->id; ?>" class="form" method="post">
+				<form action="admin/venues?id=<?php echo $this->id; ?>" class="form" method="post">
 			<?php } else {?>
 				<h2>Register Venue</h2>
 
-				<form action="admin/venues.php" class="form" method="post">
+				<form action="admin/venues" class="form" method="post">
 			<?php } ?>
 				<fieldset>
 
@@ -98,10 +98,10 @@
 							<td><?php echo $venue["venue_id"]; ?></td>
 							<td><?php echo $venue["name"]; ?></td>
 							<td>
-								<a href="admin/venues.php?id=<?php echo $venue["venue_id"]; ?>" class="btn btn-small btn-secondary">Update</a>
+								<a href="admin/venues?id=<?php echo $venue["venue_id"]; ?>" class="btn btn-small btn-secondary">Update</a>
 							</td>
 							<td>
-								<form action="admin/venues.php" method="post">
+								<form action="admin/venues" method="post">
 									<input type="hidden" name="METHOD" value="DELETE">
 									<input type="hidden" name="id" value="<?php echo $venue["venue_id"]; ?>">
 									<input type="submit" name="delete" value="Delete Venue" class="btn btn-small btn-secondary">

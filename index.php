@@ -24,12 +24,12 @@ spl_autoload_register(function ($class_name) {
  */
 
 // Restful controller for managing venues
-Router::restful("/^.+admin\/venues(?:\.php)?(?:\?id=[0-9]{1,9})?$/", function () {
+Router::restful("/^.+admin\/venues(?:\?id=[0-9]{1,9})?$/", function () {
 	return new AdminVenuesController();
 });
 
 // Restful controller for managing users
-Router::restful("/^.+admin\/users(?:.*)?(?:\?id=[0-9]{1,9})?$/", function () {
+Router::restful("/^.+admin\/users(?:\?id=[0-9]{1,9})?$/", function () {
 	return new AdminUsersController();
 });
 
@@ -73,12 +73,12 @@ Router::get("/^.+admin\/login(?:.*)?$/", function () {
 });
 
 // Admin Login
-Router::post("/^.+admin\/login(?:\.php)?$/", function () {
+Router::post("/^.+admin\/login\/?$/", function () {
 	(new AdminController)->postLogin($_POST["email"], $_POST["password"]);
 });
 
 // Admin Logout
-Router::post("/^.+admin\/logout(?:\.php)?$/", function () {
+Router::post("/^.+admin\/logout\/??$/", function () {
 	(new AdminController)->postLogout($_POST);
 });
 

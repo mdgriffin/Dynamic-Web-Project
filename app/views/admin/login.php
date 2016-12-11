@@ -8,7 +8,7 @@
 
 		<div class="card">
 
-			<form action="admin/login.php" class="form" method="post">
+			<form action="admin/login" class="form" method="post">
 
 				<fieldset>
 
