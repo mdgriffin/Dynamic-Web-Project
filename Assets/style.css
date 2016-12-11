@@ -760,6 +760,11 @@ header {
 	width: 400px;
 }
 
+.header-topBar .btn {
+	margin-left: 20px;
+	vertical-align: middle;
+}
+
 .headerNavBar {
 	background: #f4f4f4;
 	-webkit-box-shadow: inset hoff voff blur color;
