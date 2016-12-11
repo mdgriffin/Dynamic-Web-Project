@@ -32,7 +32,7 @@ class PackageController {
 		} else {
 			$this->viewData["pageTitle"] = "Please login to continue booking";
 
-			$_SESSION["after_login"] = $_SERVER['HTTP_REFERER'];
+			$_SESSION["after_login"] = "packages/" . $package_id;
 
 			View::create("please-login")->with($this->viewData);
 		}
