@@ -12,8 +12,10 @@ spl_autoload_register(function ($class_name) {
 		include "lib/" . $class_name . ".php";
 	} else if (file_exists("app/models/" . $class_name . ".php")) {
 		include "app/models/" . $class_name . ".php";
-	} else if (file_exists("app/controllers/" . $class_name . ".php")) {
-		include "app/controllers/" . $class_name . ".php";
+	} else if (file_exists("app/controllers/admin/" . $class_name . ".php")) {
+		include "app/controllers/admin/" . $class_name . ".php";
+	} else if (file_exists("app/controllers/home/" . $class_name . ".php")) {
+		include "app/controllers/home/" . $class_name . ".php";
 	} else {
 		return false;
 	}
