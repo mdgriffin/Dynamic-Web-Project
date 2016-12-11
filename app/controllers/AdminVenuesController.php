@@ -7,7 +7,7 @@ class AdminVenuesController implements RestfulControllerInterface {
 	public function __construct () {
 		// check that the user is logged in
 		if (!Auth::admin()) {
-			header('Location:login.php');
+			header('Location:login');
 		}
 
 		if (Auth::admin()) {

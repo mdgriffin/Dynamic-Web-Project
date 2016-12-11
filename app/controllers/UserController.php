@@ -38,7 +38,13 @@ class UserController {
 			$_SESSION["auth_user_logged_in"] = true;
 			$_SESSION["auth_user_id"] = $user_id;
 
-			header('Location:home');
+			if (isset($_SESSION["after_login"])) {
+				header("Location:" . $_SESSION["after_login"]);
+				unset($_SESSION["after_login"]);
+			} else {
+				header('Location:home');
+			}
+
 		} else {
 			$viewData["pageTitle"] = "Please Login";
 			$viewData["flash_error"] = "Username and/or password is incorrect";
@@ -77,11 +83,16 @@ class UserController {
 			$user->save();
 			$_SESSION["flash_message"] = "Account Successfully Registered";
 
-			// TODO Log the User in
 			$_SESSION["auth_user_logged_in"] = true;
 			$_SESSION["auth_user_id"] = $user->getId();
 
-			header('Location:home');
+			if (isset($_SESSION["after_login"])) {
+				header("Location:" . $_SESSION["after_login"]);
+				unset($_SESSION["after_login"]);
+			} else {
+				header('Location:home');
+			}
+
 		} else {
 			$this->viewData["errors"] = $user->errors();
 			$this->viewData["flash_error"] = "Register form has errors";
