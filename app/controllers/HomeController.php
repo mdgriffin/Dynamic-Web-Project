@@ -52,9 +52,10 @@ class HomeController {
 		$min_guests = $num_guests[0];
 		$max_guests = $num_guests[1];
 
+
 		$this->viewData["results"] = Venue::find($params["term"], $min_guests, $max_guests, $params["date"]);
 
-		return View::create("search")->with($this->viewDate);
+		return View::create("search")->with($this->viewData);
 
 	}
 
