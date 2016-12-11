@@ -407,6 +407,7 @@ var calendarPlugin = (function () {
 (function () {
 
 	var dateInput = document.getElementById("dateInput");
+	var displayDateInput = document.getElementById("dateInput-display");
 	var datePickerDropdown = document.getElementById("datePicker-dropdown");
 
 	var headerDatePicker = new calendarPlugin({
@@ -415,12 +416,9 @@ var calendarPlugin = (function () {
 		disableBefore: new Date().setHours(0, 0, 0, 0), // disable before today
 		disableAfter: new Date(Date.now() + 730 * 24 * 60 * 60 * 1000).getTime(), // disable after 2 years
 		onDateSelect: function (dateStamp) {
-			//dateInput.value = new Date(dateStamp).toDateString();
 			var selectedDate = new Date(dateStamp);
 
-			// TODO Show a formatted date and set a hidden input
-			//displayDateInput.value = selectedDate.toDateString();
-			// JavaScript months are zero indexed
+			displayDateInput.value = selectedDate.toDateString();
 			dateInput.value = selectedDate.getFullYear() + "-" + (selectedDate.getMonth() + 1) + "-" + selectedDate.getDate();
 
 			removeClass(datePickerDropdown, "datePicker-dropdown-focus");
@@ -445,7 +443,7 @@ var calendarPlugin = (function () {
 	// hide the calendar if click is outside the calendar or the input
 	document.body.addEventListener("click", function (e) {
 		var el = e.target;
-		var isWithinDropdown =  hasParentWithID(el, "dateInput") || hasParentWithClass(el, "cal") || hasParentWithClass(el, "datePicker-dropdown");
+		var isWithinDropdown =  hasParentWithID(el, "dateInput-display") || hasParentWithClass(el, "cal") || hasParentWithClass(el, "datePicker-dropdown");
 
 
 		if (!isWithinDropdown) {
@@ -453,7 +451,8 @@ var calendarPlugin = (function () {
 		}
 	});
 
-	dateInput.addEventListener("click", function () {
+	displayDateInput.addEventListener("click", function () {
+		console.log(datePickerDropdown);
 		addClass(datePickerDropdown, "datePicker-dropdown-focus");
 	});
 

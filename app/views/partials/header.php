@@ -54,7 +54,8 @@
 							<label for="date">Date</label>
 
 							<div class="inputWrapper dateWrapper">
-								<input type="text" name="date" value="" class="dateInput" id="dateInput" readonly>
+								<input type="hidden" name="date" value="" class="dateInput" id="dateInput">
+								<input type="text" value="" class="dateInput" id="dateInput-display" readonly>
 							</div>
 
 							<div class="datePicker-dropdown datePicker-dropdown-bottomRight" id="datePicker-dropdown">
