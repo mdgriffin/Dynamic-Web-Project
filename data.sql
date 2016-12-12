@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS Venues (
 	venue_id int NOT NULL AUTO_INCREMENT,
 	name varchar(60) NOT NULL,
 	address varchar(120) NOT NULL,
-	description varchar(255) NOT NULL,
+	description text NOT NULL,
 	latitude FLOAT( 10, 6 ) NOT NULL,
 	longitude FLOAT( 10, 6 ) NOT NULL,
 	PRIMARY KEY (venue_id)
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS Packages (
 	package_id int NOT NULL AUTO_INCREMENT,
 	venue_id int NOT NULL,
 	title varchar(64) NOT NULL,
-	description varchar(255),
+	description text,
 	price_per_guest Decimal(10,2) NOT NULL,
 	min_guests int(5) NOT NULL,
 	max_guests int(5) NOT NULL,
