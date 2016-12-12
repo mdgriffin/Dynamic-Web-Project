@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS Venue_Images (
 	source varchar(64) NOT NULL,
 	title varchar(64) NOT NULL,
 	PRIMARY KEY (image_id),
-	FOREIGN KEY (venue_id) REFERENCES Venues (venue_id)
+	CONSTRAINT fk_venues_venue_images FOREIGN KEY (venue_id) REFERENCES Venues (venue_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Packages (
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS Packages (
 	start_date date NOT NULL,
 	end_date date NOT NULL,
 	PRIMARY KEY (package_id),
-	FOREIGN KEY (venue_id) REFERENCES Venues (venue_id)
+	CONSTRAINT fk_venues_packages FOREIGN KEY (venue_id) REFERENCES Venues (venue_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Bookings (
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS Bookings (
 	event_date datetime NOT NULL,
 	total Decimal(10, 2) NOT NULL,
 	PRIMARY KEY (booking_id),
-	FOREIGN KEY (user_id) REFERENCES Users (user_id),
-	FOREIGN KEY (package_id) REFERENCES Packages (package_id),
-	FOREIGN KEY (venue_id) REFERENCES Venues (venue_id)
+	CONSTRAINT fk_booking_user FOREIGN KEY (user_id) REFERENCES Users (user_id) ON DELETE CASCADE,
+	CONSTRAINT fk_booking_package FOREIGN KEY (package_id) REFERENCES Packages (package_id)  ON DELETE CASCADE,
+	CONSTRAINT fk_booking_venue FOREIGN KEY (venue_id) REFERENCES Venues (venue_id)  ON DELETE CASCADE
 );
