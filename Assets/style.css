@@ -1,39 +1,39 @@
 @font-face {
-	font-family: "icon-font";
-	src:url("fonts/icon-font.eot");
-	src:url("fonts/icon-font.eot?#iefix") format("embedded-opentype"),
-		url("fonts/icon-font.woff") format("woff"),
-		url("fonts/icon-font.ttf") format("truetype"),
-		url("fonts/icon-font.svg#icon-font") format("svg");
-	font-weight: normal;
-	font-style: normal;
+  font-family: "icon-font";
+  src:url("fonts/icon-font.eot");
+  src:url("fonts/icon-font.eot?#iefix") format("embedded-opentype"),
+    url("fonts/icon-font.woff") format("woff"),
+    url("fonts/icon-font.ttf") format("truetype"),
+    url("fonts/icon-font.svg#icon-font") format("svg");
+  font-weight: normal;
+  font-style: normal;
 
 }
 
 [data-icon]:before {
-	font-family: "icon-font" !important;
-	content: attr(data-icon);
-	font-style: normal !important;
-	font-weight: normal !important;
-	font-variant: normal !important;
-	text-transform: none !important;
-	speak: none;
-	line-height: 1;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  font-family: "icon-font" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
-	font-family: "icon-font" !important;
-	font-style: normal !important;
-	font-weight: normal !important;
-	font-variant: normal !important;
-	text-transform: none !important;
-	speak: none;
-	line-height: 1;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  font-family: "icon-font" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .icon-down-open-big:before {
@@ -69,6 +69,18 @@
 .icon-user:before {
   content: "\68";
 }
+.icon-twitter:before {
+  content: "\6f";
+}
+.icon-instagram:before {
+  content: "\70";
+}
+.icon-facebook:before {
+  content: "\6d";
+}
+.icon-google-plus:before {
+  content: "\72";
+}
 
 html {
 	box-sizing: border-box;
@@ -79,8 +91,6 @@ html {
 *:after {
 	box-sizing: inherit;
 }
-
-
 
 /**
  * Micro Clearfix
@@ -919,6 +929,42 @@ header {
 	display: block;
 }
 
+/**
+ * footer
+ */
+
+footer {
+	min-height: 200px;
+	background: #fff;
+	margin-top: 100px;
+}
+
+.footer-social a {
+	color: #694D75;
+	text-decoration: none;
+}
+
+.footer-social a span {
+	font-size: 2em;
+	vertical-align: middle;
+}
+
+.footer-social a:hover {
+	color: #50345C;
+}
+
+.footer-disclaimer {
+	text-align: center;
+}
+
+
+
+.footer-highlighted {
+	background: #B9D6F2;
+	min-height: 150px;
+	margin: 20px 0;
+}
+
 .inputWrapper {
 	display: inline-block;
 	position: relative;
@@ -1152,6 +1198,10 @@ header {
 }
 
 /* Venue Single Page */
+
+.venues-single {
+	margin-bottom: 40px;
+}
 
 .venues-single a {
 	text-decoration: none;

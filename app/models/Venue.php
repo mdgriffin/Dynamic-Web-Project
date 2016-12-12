@@ -109,6 +109,12 @@ class	Venue {
 		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	private static function _getLatest($num) {
+		$select_stmt = self::$db->prepare("SELECT venue_id, name FROM Venues ORDER BY venue_id DESC LIMIT {$num}");
+		$select_stmt->execute();
+		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	private static function _find ($searchterm, $min_guests, $max_guests, $date) {
 		$select_stmt = self::$db->prepare(
 			"SELECT V.venue_id, V.name, V.description AS venue_description, V.latitude, V.longitude, P.package_id, P.title, P.description AS package_description, P.price_per_guest FROM Venues V, Packages P " .

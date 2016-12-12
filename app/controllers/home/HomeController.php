@@ -20,6 +20,8 @@ class HomeController {
 			$this->viewData["flash_error"] = $_SESSION["flash_error"];
 			unset($_SESSION["flash_error"]);
 		}
+
+		$this->viewData["latest_venues"] = Venue::getLatest(10);
 	}
 
 	public function getIndex () {
