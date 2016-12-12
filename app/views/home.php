@@ -3,14 +3,12 @@
 </div><!-- container -->
 
 	<div class="home-banner">
-			<img src="Assets/images/banner1.png" class="cardBannerImage-cover" alt="">
-	</div><!-- card -->
+
+		<h2>Find the perfect venue<br><span>whatever the occasion</span></h2>
+
+	</div><!-- home-banner -->
 
 <div class="container">
-
-	<div class="card home-card">
-		<h3>Find the perfect venue, whatever the occasion</h3>
-	</div><!-- card -->
 
 	<h2>Featured Venues</h2>
 

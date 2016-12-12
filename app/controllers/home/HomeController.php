@@ -27,6 +27,7 @@ class HomeController {
 	public function getIndex () {
 		$this->viewData["pageTitle"] = "VenYou - Find the Perfect Venue";
 		$this->viewData["featured_venues"] = Venue::getAllWithImage(3);
+		$this->viewData["styles"] = array("https://fonts.googleapis.com/css?family=Lora");
 
 		View::create("home")->with($this->viewData);
 	}

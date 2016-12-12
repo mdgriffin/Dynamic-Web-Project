@@ -1,1 +1,2 @@
-Images/banner1.png: https://www.pexels.com/photo/lights-party-wooden-chairs-92926/
+Images/banner1.png: https://www.pexels.com/photo/lights-party-wooden-chairs-92926/,
+Images/banner2.png: https://www.pexels.com/photo/bridal-bride-celebration-ceremony-65038/

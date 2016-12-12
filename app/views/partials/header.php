@@ -5,8 +5,13 @@
 		<title><?php echo $this->pageTitle; ?></title>
 		<base href="/Dynamic-Web-Project/">
 
-		<link href="https://fonts.googleapis.com/css?family=Nunito|Open+Sans" rel="stylesheet">
 		<link rel="stylesheet" href="assets/style.css">
+		<?php if ($this->styles) {
+			foreach($this->styles as $style) { ?>
+				<link href="<?php echo $style; ?>" rel="stylesheet">
+
+		<?php }
+		} ?>
 	</head>
 	<body>
 
