@@ -28,10 +28,6 @@ class Image {
 			$src_image = imagecreatefromjpeg($imageSrc);
 
 			list($src_width, $src_height) = getimagesize($imageSrc);
-
-			//list($srcX, $srcY) = self::getSourceXY(self::$sizes[$sizeKey][0], self::$sizes[$sizeKey][1], $src_width, $src_height);
-			//list($normalizedSrcWidth, $normalizedSrcHeight) = self::getNormalizedSize(self::$sizes[$sizeKey][0], self::$sizes[$sizeKey][1], $src_width, $src_height);
-
 			list($normalizedSrcWidth, $normalizedSrcHeight,$srcX, $srcY) = self::getBestFit($src_width, $src_height, self::$sizes[$sizeKey][0], self::$sizes[$sizeKey][1]);
 
 			imagecopyresampled($dest_image, $src_image, 0, 0, $srcX, $srcY, self::$sizes[$sizeKey][0], self::$sizes[$sizeKey][1], $normalizedSrcWidth, $normalizedSrcHeight);
