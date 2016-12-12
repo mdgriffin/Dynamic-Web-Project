@@ -21,11 +21,13 @@ class HomeController {
 			unset($_SESSION["flash_error"]);
 		}
 
-		$this->viewData["latest_venues"] = Venue::getLatest(10);
+		$this->viewData["latest_venues"] = Venue::getLatestSummarized(10);
 	}
 
 	public function getIndex () {
 		$this->viewData["pageTitle"] = "VenYou - Find the Perfect Venue";
+		$this->viewData["featured_venues"] = Venue::getAllWithImage(3);
+
 		View::create("home")->with($this->viewData);
 	}
 

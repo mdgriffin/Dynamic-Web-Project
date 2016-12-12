@@ -103,13 +103,18 @@ class	Venue {
 		return $res;
 	}
 
-	private static function _getAllWithImage () {
-		$select_stmt = self::$db->prepare("SELECT *  FROM Venues V, Venue_Images I where V.venue_id = I.venue_id AND I.image_id = (SELECT MAX(image_id) FROM Venue_Images WHERE venue_id = V.venue_id)");
+	private static function _getAllWithImage ($num) {
+		if (func_num_args()) {
+			$select_stmt = self::$db->prepare("SELECT *  FROM Venues V, Venue_Images I where V.venue_id = I.venue_id AND I.image_id = (SELECT MAX(image_id) FROM Venue_Images WHERE venue_id = V.venue_id) LIMIT {$num}");
+		} else {
+			$select_stmt = self::$db->prepare("SELECT *  FROM Venues V, Venue_Images I where V.venue_id = I.venue_id AND I.image_id = (SELECT MAX(image_id) FROM Venue_Images WHERE venue_id = V.venue_id)");
+		}
+
 		$select_stmt->execute();
 		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	private static function _getLatest($num) {
+	private static function _getLatestSummarized($num) {
 		$select_stmt = self::$db->prepare("SELECT venue_id, name FROM Venues ORDER BY venue_id DESC LIMIT {$num}");
 		$select_stmt->execute();
 		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
