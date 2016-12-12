@@ -20,6 +20,8 @@ class AdminBookingsController {
 			$this->viewData["flash_error"] = $_SESSION["flash_error"];
 			unset($_SESSION["flash_error"]);
 		}
+
+		$this->viewData["latest_venues"] = Venue::getLatestSummarized(10);
 	}
 
 	// display the index view
