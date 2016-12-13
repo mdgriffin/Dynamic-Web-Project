@@ -80,7 +80,7 @@ Router::post("/^.+admin\/login\/?$/", function () {
 });
 
 // Admin Logout
-Router::post("/^.+admin\/logout\/??$/", function () {
+Router::post("/^.+admin\/logout\/?$/", function () {
 	(new AdminController)->postLogout($_POST);
 });
 
