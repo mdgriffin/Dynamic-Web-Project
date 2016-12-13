@@ -82,11 +82,11 @@ var hasParentWithID = function (el, compareID) {
 	var breakpoints = {
 		small: {
 			size: 480,
-			cols: [6]
+			cols: [6, 12]
 		},
 		medium: {
 			size: 768,
-			cols: [3, 4, 6, 12]
+			cols: [2, 3, 4, 6, 12]
 		},
 		large: {
 			size: 992,
@@ -96,7 +96,7 @@ var hasParentWithID = function (el, compareID) {
 			size: 1200,
 			cols: [2, 3, 4, 5]
 		}
-	}
+	};
 
  	var columns = 12;
  	var gutter = 20;
