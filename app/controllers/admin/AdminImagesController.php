@@ -25,7 +25,7 @@ class AdminImagesController {
 	}
 
 	// display the index view
-	public function index ($venue_id) {
+	public function getIndex ($venue_id) {
 		$this->viewData["venue"] = Venue::get($venue_id);
 		$this->viewData["image"] = new VenueImage($venue_id, "", "");
 		$this->viewData["venue_images"] = VenueImage::getAll($venue_id);
@@ -34,7 +34,7 @@ class AdminImagesController {
 		return View::create("admin/images")->with($this->viewData);
 	}
 
-	public function create($venue_id, $data, $files) {
+	public function postCreate($venue_id, $data, $files) {
 		$viewData = array();
 		$this->viewData["errors"] = array();
 		$this->viewData["venue"] = Venue::get($venue_id);
@@ -85,7 +85,7 @@ class AdminImagesController {
 		return View::create("admin/images")->with($this->viewData);
 	}
 
-	public function delete($venue_id, $data) {
+	public function postDelete($venue_id, $data) {
 		$this->viewData = array();
 		$this->viewData["errors"] = array();
 		$this->viewData["venue"] = Venue::get($venue_id);
