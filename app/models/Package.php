@@ -61,6 +61,16 @@ class	Package {
 			$errors["end_date"] = $endDateValidator->errors();
 		}
 
+		if ($startDateValidator->isValid() && $endDateValidator->isValid()) {
+			$startDt = DateTime::createFromFormat('Y-m-d', $this->start_date);
+			$endDt = DateTime::createFromFormat('Y-m-d', $this->end_date);
+
+			if ($endDt < $startDt) {
+				$errors["start_date"] = array("Start Date must be before end date");
+				$errors["end_date"] = array("End Date must be after start date");
+			}
+		}
+
 		return $errors;
 	}
 
