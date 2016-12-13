@@ -64,67 +64,6 @@
 <?php include_once("app/views/partials/footer.php"); ?>
 
 <script type="text/javascript">
-/*
-(function () {
-
-	var dateInput = document.getElementById("event_date");
-	var displayDateInput = document.getElementById("event_date_display");
-	var datePickerDropdown = document.getElementById("event-datePicker-dropdown");
-
-	var startDateArr = "<?php echo $this->package->getStart_date(); ?>".split("-");
-	var startDate = new Date(startDateArr[0], startDateArr[1] - 1, startDateArr[2]);
-
-	var endDateArr = "<?php echo $this->package->getEnd_date(); ?>".split("-");
-	var endDate = new Date(endDateArr[0], endDateArr[1] - 1, endDateArr[2]);
-	var calStartDate = startDate > (new Date())? startDate : new Date();
-
-	var inputDatePicker = new calendarPlugin({
-		date: calStartDate,
-		el: document.getElementById("event_datepicker"),
-		disableBefore: calStartDate,
-		disableAfter: endDate,
-		onDateSelect: function (dateStamp) {
-			var selectedDate = new Date(dateStamp);
-
-			displayDateInput.value = selectedDate.toDateString();
-			// JavaScript months are zero indexed
-			dateInput.value = selectedDate.getFullYear() + "-" + (selectedDate.getMonth() + 1) + "-" + selectedDate.getDate();
-
-			removeClass(datePickerDropdown, "datePicker-dropdown-focus");
-		}
-	});
-
-	var datePickerPrevBtn = document.getElementById("event-datePicker-prev");
-	var datePickerNextBtn = document.getElementById("event-datePicker-next");
-
-	datePickerPrevBtn.addEventListener("click", function (e) {
-		if (inputDatePicker.prevMonthEnabled()) {
-			inputDatePicker.prevMonth();
-		}
-	});
-
-	datePickerNextBtn.addEventListener("click", function (e) {
-		if (inputDatePicker.nextMonthEnabled()) {
-			inputDatePicker.nextMonth();
-		}
-	});
-
-	displayDateInput.addEventListener("click", function () {
-		addClass(datePickerDropdown, "datePicker-dropdown-focus");
-	});
-
-	// hide the calendar if click is outside the calendar or the input
-	document.body.addEventListener("click", function (e) {
-		var el = e.target;
-		var isWithinDropdown =  hasParentWithID(el, "event_date_display") || hasParentWithClass(el, "cal") || hasParentWithClass(el, "datePicker-dropdown");
-
-		if (!isWithinDropdown) {
-			removeClass(datePickerDropdown, "datePicker-dropdown-focus");
-		}
-	});
-
-})();
-*/
 
 <?php
 if ($this->booking->getEvent_date()) {

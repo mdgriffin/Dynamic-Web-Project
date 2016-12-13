@@ -24,6 +24,13 @@ class PackageController {
 		$this->viewData["latest_venues"] = Venue::getLatestSummarized(10);
 	}
 
+	public function getIndex () {
+		$this->viewData["pageTitle"] = "Find the Perfect Venue | Packages";
+		$this->viewData["packages"] = Package::getAll();
+
+		View::create("packages/index")->with($this->viewData);
+	}
+
 	public function getPackage ($package_id) {
 		if (Auth::user() || Auth::admin()) {
 			$this->viewData["package"] = Package::get($package_id);

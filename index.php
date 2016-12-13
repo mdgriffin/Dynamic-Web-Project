@@ -223,6 +223,12 @@ Router::get("/^" . $config["base_url"] . "venues\/card\/([0-9]{1,9})$/", functio
 	(new HomeController)->getVenueCard($matches[1]);
 });
 
+// Index of Packages
+
+Router::get("/^" . $config["base_url"] . "packages$/", function () {
+	(new PackageController)->getIndex();
+});
+
 // handle the missing routes
 Router::missing(function () {
 	header($_SERVER["SERVER_PROTOCOL"]. " 404 Not Found", true, 404);
