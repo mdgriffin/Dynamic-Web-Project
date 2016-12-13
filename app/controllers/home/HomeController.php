@@ -66,6 +66,11 @@ class HomeController {
 		$max_guests = $num_guests[1];
 		$this->viewData["pageTitle"] = "Venue Search Results";
 
+		if (!$params["term"] || !$params["date"]){
+			$_SESSION["flash_error"] = "Search term and date must be completed to search";
+			header("location:home");
+		}
+
 		$this->viewData["results"] = Venue::find($params["term"], $min_guests, $max_guests, $params["date"]);
 
 		return View::create("search")->with($this->viewData);
