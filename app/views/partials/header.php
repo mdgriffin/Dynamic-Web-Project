@@ -33,26 +33,34 @@
 
 					<form action="search" method="get">
 
-						<label for="term">Where</label>
-						<div class="inputWrapper searchWrapper">
-							<input type="text" name="term" value="" class="searchInput" placeholder="Location or venue name">
-						</div>
+						<div class="searchContainer">
 
-						<label for="num_guests">Number of guests</label>
+							<label for="term">Where</label>
+							<div class="inputWrapper searchWrapper">
+								<input type="text" name="term" value="" class="searchInput" placeholder="Location or venue name">
+							</div>
 
-						<div class="inputWrapper selectWrapper">
-							<select class="" name="num_guests">
-								<option value="0-20">Less than 20</option>
-								<option value="20-40">20-40</option>
-								<option value="40-60">40-60</option>
-								<option value="60-100">60-100</option>
-								<option value="100-150">100-150</option>
-								<option value="150-200">150-200</option>
-								<option value="200-250">200-250</option>
-								<option value="250-500">250-500</option>
-								<option value="500-1000">More than500</option>
-							</select>
-						</div>
+						</div><!-- searchContainer -->
+
+						<div class="guestContainer">
+
+							<label for="num_guests">Number of guests</label>
+
+							<div class="inputWrapper selectWrapper">
+								<select class="" name="num_guests">
+									<option value="0-20">Less than 20</option>
+									<option value="20-40">20-40</option>
+									<option value="40-60">40-60</option>
+									<option value="60-100">60-100</option>
+									<option value="100-150">100-150</option>
+									<option value="150-200">150-200</option>
+									<option value="200-250">200-250</option>
+									<option value="250-500">250-500</option>
+									<option value="500-1000">More than500</option>
+								</select>
+							</div>
+
+						</div><!-- guestContainer -->
 
 						<div class="datePicker-container">
 
@@ -82,7 +90,7 @@
 
 			<div class="headerNavBar">
 
-				<div class="container">
+				<div class="container clearfix">
 
 					<nav>
 						<a href="venues"><span class="icon-building"></span>Venues</a><!--

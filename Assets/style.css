@@ -822,6 +822,16 @@ header {
 	text-decoration: none;
 }
 
+
+
+@media screen and (max-width: 900px) {
+	label[for="term"],
+	label[for="num_guests"] {
+		display: block;
+	}
+}
+
+
 .header-topBar-logo h1 {
 	font-family: 'Nunito', sans-serif;
 	display: inline;
@@ -1018,6 +1028,37 @@ header {
 
 .headerNavBar-account:hover .headerNavBar-account-dropdown {
 	display: block;
+}
+
+.searchContainer,
+.guestContainer {
+	display: inline-block;
+}
+
+
+@media screen and (max-width: 1450px) {
+	.header-topBar-logo {
+		display: block;
+		text-align: center;
+	}
+}
+
+@media screen and (max-width: 1300px) {
+	.header-topBar .btn {
+		display: block;
+		margin: 10px auto !important;
+	}
+}
+
+@media screen and (max-width: 1200px) {
+
+	.header-topBar label {
+		display: block;
+		margin-left: 0;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
 }
 
 /**
