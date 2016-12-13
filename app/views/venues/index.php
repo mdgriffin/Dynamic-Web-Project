@@ -2,7 +2,7 @@
 include_once("app/views/partials/header.php");
 ?>
 
-	<h1>Venue Index</h1>
+	<h1>All Venues</h1>
 
 	<div class="gs">
 

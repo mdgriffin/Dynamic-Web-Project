@@ -6,22 +6,6 @@
 
 			<p><?php echo $this->venue->getDescription(); ?></p>
 
-			<h3>Images</h3>
-
-			<div class="gs">
-
-					<?php foreach ($this->images as $image) { ?>
-
-						<div class="gs-col gs3 venueSingle-image">
-
-							<img src="<?php echo Image::getSize($image['source'], 'medium_square'); ?>" alt="<?php echo $image['title']; ?>" />
-
-							</div><!-- gs-col -->
-
-					<?php } ?>
-
-			</div><!-- gs -->
-
 			<div class="gs">
 
 				<div class="gs-col gs6">
@@ -67,6 +51,24 @@
 				</div><!-- gs-col -->
 
 			</div><!-- gs -->
+
+			<h3>Images</h3>
+
+			<div class="gs">
+
+					<?php foreach ($this->images as $image) { ?>
+
+						<div class="gs-col gs3 venueSingle-image">
+
+							<a href="<?php echo $image['source']; ?>"><img src="<?php echo Image::getSize($image['source'], 'medium_square'); ?>" alt="<?php echo $image['title']; ?>" /></a>
+
+							</div><!-- gs-col -->
+
+					<?php } ?>
+
+			</div><!-- gs -->
+
+
 
 			<!-- TODO Show images, map and packages -->
 
