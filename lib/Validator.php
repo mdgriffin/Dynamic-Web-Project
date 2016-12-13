@@ -106,7 +106,7 @@ class Validator {
 
 	public function isDate () {
 		$dt = DateTime::createFromFormat('Y-m-d', $this->value);
-		if (!$dt || !($dt->format('Y-m-d') === $this->value)) {
+		if (!$dt) {
 			$this->errors["isDate"] = $this->error_messages["isDate"];
 		}
 
