@@ -475,6 +475,9 @@ var InputCalendar = (function () {
 
 		self.calendar = new calendarPlugin(settings);
 
+		// selectedDate.toDateString()
+		self.displayInputEl.value = settings.date.toDateString();
+
 		self.displayInputEl.addEventListener("click", self.onDisplayInputClick.bind(self));
 		self.prevBtnEl.addEventListener("click", self.onPrevBtnClick.bind(self));
 		self.nextBtnEl.addEventListener("click", self.onNextBtnCLick.bind(self));

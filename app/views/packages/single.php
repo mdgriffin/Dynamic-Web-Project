@@ -64,7 +64,7 @@
 <?php include_once("app/views/partials/footer.php"); ?>
 
 <script type="text/javascript">
-
+/*
 (function () {
 
 	var dateInput = document.getElementById("event_date");
@@ -124,4 +124,35 @@
 	});
 
 })();
+*/
+
+<?php
+if ($this->booking->getEvent_date()) {
+	$date_parts = explode("-", $this->booking->getEvent_date());
+	echo "var eventDate = new Date($date_parts[0], " . ((int)$date_parts[1] - 1)  . ", $date_parts[2]);";
+} else {
+	echo "var eventDate = new Date();";
+}
+
+	$date_parts = explode("-", $this->package->getStart_date());
+	echo "var startDate = new Date($date_parts[0], " . ((int)$date_parts[1] - 1)  . ", $date_parts[2]);";
+
+	$date_parts = explode("-", $this->package->getEnd_date());
+	echo "var endDate = new Date($date_parts[0], " . ((int)$date_parts[1] - 1)  . ", $date_parts[2]);";
+?>
+
+var startDate = startDate > (new Date())? startDate : new Date();
+
+var eventDateCalendar = new InputCalendar({
+	date: eventDate,
+	inputEl: document.getElementById("event_date"),
+	displayInputEl: document.getElementById("event_date_display"),
+	dropDownEl: document.getElementById("event-datePicker-dropdown"),
+	nextBtnEl: document.getElementById("event-datePicker-next"),
+	prevBtnEl: document.getElementById("event-datePicker-prev"),
+	el: document.getElementById("event_datepicker"),
+	disableBefore: startDate, // disable before today
+	disableAfter: endDate // disable after 2 years
+});
+
 </script>

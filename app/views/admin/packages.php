@@ -193,8 +193,28 @@
 
 <script type="text/javascript">
 
+
+(function () {
+
+	<?php
+	if ($this->package->getStart_date()) {
+		$date_parts = explode("-", $this->package->getStart_Date());
+		echo "var startDate = new Date($date_parts[0], " . ((int)$date_parts[1] - 1)  . ", $date_parts[2]);";
+	} else {
+		echo "var startDate = new Date();";
+	}
+
+	if ($this->package->getEnd_date()) {
+		$date_parts = explode("-", $this->package->getEnd_Date());
+		echo "var endDate = new Date($date_parts[0], " . ((int)$date_parts[1] - 1)  . ", $date_parts[2]);";
+	} else {
+		echo "var endDate = new Date();";
+	}
+
+	?>
+
 	var startCalendar = new InputCalendar({
-		date: new Date(),
+		date: startDate,
 		inputEl: document.getElementById("start_date"),
 		displayInputEl: document.getElementById("start_date_display"),
 		dropDownEl: document.getElementById("start-datePicker-dropdown"),
@@ -206,7 +226,7 @@
 	});
 
 	var endCalendar = new InputCalendar({
-		date: new Date(),
+		date: endDate,
 		inputEl: document.getElementById("end_date"),
 		displayInputEl: document.getElementById("end_date_display"),
 		dropDownEl: document.getElementById("end-datePicker-dropdown"),
@@ -216,5 +236,7 @@
 		disableBefore: new Date().setHours(0, 0, 0, 0), // disable before today
 		disableAfter: new Date(Date.now() + 730 * 24 * 60 * 60 * 1000).getTime(), // disable after 2 years
 	});
+
+	})();
 
 </script>
