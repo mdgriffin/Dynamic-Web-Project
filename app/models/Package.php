@@ -112,13 +112,13 @@ class	Package {
 	}
 
 	private static function _getAll () {
-		$select_stmt = self::$db->prepare("SELECT P.*, V.name AS venue_name FROM Packages P, Venues V WHERE P.venue_id = V.venue_id");
+		$select_stmt = self::$db->prepare("SELECT P.*, V.name AS venue_name FROM Packages P, Venues V WHERE P.venue_id = V.venue_id AND end_date > CURRENT_DATE");
 		$select_stmt->execute();
 		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	private static function _getAllByVenue ($venue_id) {
-		$select_stmt = self::$db->prepare("SELECT * FROM Packages WHERE venue_id = ?");
+		$select_stmt = self::$db->prepare("SELECT * FROM Packages WHERE venue_id = ? AND end_date > CURRENT_DATE");
 		$select_stmt->execute(array($venue_id));
 		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
