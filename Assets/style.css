@@ -640,6 +640,12 @@ textarea:focus + .form-mainLabel {
 	text-align: right;
 }
 
+.table td .btn {
+	display: block;
+	margin: 2px 0;	
+}
+
+
 /**
  * Buttons
  */
