@@ -158,6 +158,13 @@ class	User {
 		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	private static function _getStats () {
+		$select_stmt = self::$db->prepare("SELECT U.user_id, CONCAT(forename, ' ', surname) AS best_customer , (SELECT COUNT(user_id) FROM Users) AS num_users FROM Users U WHERE U.user_id = (SELECT B.user_id FROM Bookings B GROUP BY B.user_id ORDER BY SUM(total) DESC LIMIT 1);");
+		$select_stmt->execute();
+
+		return $select_stmt->fetch(PDO::FETCH_ASSOC);
+	}
+
 }
 
 ?>

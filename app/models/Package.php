@@ -137,6 +137,13 @@ class	Package {
 		return $res;
 	}
 
+	private static function _getStats () {
+		$select_stmt = self::$db->prepare("SELECT P.venue_id, P.package_id, title AS most_popular_package, (SELECT COUNT(package_id) FROM Packages) AS num_packages FROM Packages P WHERE P.package_id = (SELECT B.package_id FROM Bookings B GROUP BY B.package_id ORDER BY SUM(total) DESC LIMIT 1)");
+		$select_stmt->execute();
+
+		return $select_stmt->fetch(PDO::FETCH_ASSOC);
+	}
+
 }
 
 ?>

@@ -143,6 +143,12 @@ class	Venue {
 		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	private static function _getStats () {
+		$select_stmt = self::$db->prepare("SELECT V.venue_id, name AS highest_selling_venue, (SELECT COUNT(venue_id) FROM Venues) AS num_venues FROM Venues V WHERE V.venue_id = (SELECT B.venue_id FROM Bookings B GROUP BY B.venue_id ORDER BY SUM(total) DESC LIMIT 1)");
+		$select_stmt->execute();
+		return $select_stmt->fetch(PDO::FETCH_ASSOC);
+	}
+
 }
 
 ?>

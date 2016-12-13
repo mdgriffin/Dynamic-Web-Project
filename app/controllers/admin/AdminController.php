@@ -27,6 +27,12 @@ class AdminController {
 	public function getIndex () {
 		if (Auth::admin()) {
 			$this->viewData["pageTitle"] = "Home Page";
+			$this->viewData["booking_stats"] = Booking::getStats();
+			$this->viewData["latest_bookings"] = Booking::getLatest(10);
+			$this->viewData["venue_stats"] = Venue::getStats();
+			$this->viewData["user_stats"] = User::getStats();
+			$this->viewData["package_stats"] = Package::getStats();
+
 
 			View::create("admin/index")->with($this->viewData);
 		} else {

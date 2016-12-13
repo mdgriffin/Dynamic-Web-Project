@@ -85,6 +85,12 @@ class Booking {
 		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	private static function _getLatest($num) {
+		$select_stmt = self::$db->prepare("SELECT B.*, U.forename, U.surname, V.name As venue_name, P.Title AS package_name FROM Bookings B, Venues V, Users U, Packages P WHERE B.venue_id = V.venue_id AND B.user_id = U.user_id  AND B.package_id = P.package_id ORDER BY B.booking_date DESC LIMIT {$num}");
+		$select_stmt->execute();
+		return $select_stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	private static function _venue_available ($venue_id, $event_date) {
 		$select_stmt = self::$db->prepare("SELECT booking_id FROM Bookings WHERE venue_id=:venue_id AND event_date=:event_date");
 		$select_stmt->execute(array(
@@ -100,6 +106,13 @@ class Booking {
 			return true;
 		}
 
+	}
+
+	private static function _getStats () {
+		$select_stmt = self::$db->prepare("SELECT count(booking_id) AS num_bookings, SUM(total)  AS total_booking_cost, AVG(total) AS average_booking_cost FROM Bookings");
+		$select_stmt->execute();
+
+		return $select_stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
 }
