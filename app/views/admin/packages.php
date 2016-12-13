@@ -89,8 +89,9 @@
 					?>
 				</fieldset>
 
-				<fieldset>
-					<input type="text" name="start_date" id="start_date" value="<?php echo $this->package->getStart_date(); ?>"><!--
+				<fieldset class="form-datepicker">
+					<input type="hidden" name="start_date" readonly id="start_date" value="<?php echo $this->package->getStart_date(); ?>">
+					<input type="text" readonly id="start_date_display" value=""><!--
 					--><label for="start_date" class="form-mainLabel">Start Date</label>
 					<?php
 					if (isset($this->errors["start_date"]) && $this->errors) {
@@ -101,10 +102,18 @@
 						}
 					}
 					?>
+
+					<div class="datePicker-dropdown datePicker-dropdown-bottomLeft" id="start-datePicker-dropdown">
+						<div class="datePicker" id="start_datepicker"></div>
+
+						<button type="button" class="datePicker-btn datePicker-btn-prev" id="start-datePicker-prev"><span class="icon-left-open-big"></span></button>
+						<button type="button" class="datePicker-btn datePicker-btn-next" id="start-datePicker-next"><span class="icon-right-open-big"></span></button>
+					</div>
 				</fieldset>
 
-				<fieldset>
-					<input type="text" name="end_date" id="end_date" value="<?php echo $this->package->getEnd_date(); ?>"><!--
+				<fieldset class="form-datepicker">
+					<input type="hidden" name="end_date" readonly id="end_date" value="<?php echo $this->package->getEnd_date(); ?>">
+					<input type="text" readonly id="end_date_display" value=""><!--
 					--><label for="end_date" class="form-mainLabel">End Date</label>
 					<?php
 					if (isset($this->errors["end_date"]) && $this->errors) {
@@ -115,6 +124,13 @@
 						}
 					}
 					?>
+
+					<div class="datePicker-dropdown datePicker-dropdown-bottomLeft" id="end-datePicker-dropdown">
+						<div class="datePicker" id="end_datepicker"></div>
+
+						<button type="button" class="datePicker-btn datePicker-btn-prev" id="end-datePicker-prev"><span class="icon-left-open-big"></span></button>
+						<button type="button" class="datePicker-btn datePicker-btn-next" id="end-datePicker-next"><span class="icon-right-open-big"></span></button>
+					</div>
 				</fieldset>
 
 				<?php if ($this->package_id) { ?>
@@ -174,3 +190,31 @@
 </div><!-- card -->
 
 <?php include_once("app/views/partials/footer.php"); ?>
+
+<script type="text/javascript">
+
+	var startCalendar = new InputCalendar({
+		date: new Date(),
+		inputEl: document.getElementById("start_date"),
+		displayInputEl: document.getElementById("start_date_display"),
+		dropDownEl: document.getElementById("start-datePicker-dropdown"),
+		nextBtnEl: document.getElementById("start-datePicker-next"),
+		prevBtnEl: document.getElementById("start-datePicker-prev"),
+		el: document.getElementById("start_datepicker"),
+		disableBefore: new Date().setHours(0, 0, 0, 0), // disable before today
+		disableAfter: new Date(Date.now() + 730 * 24 * 60 * 60 * 1000).getTime(), // disable after 2 years
+	});
+
+	var endCalendar = new InputCalendar({
+		date: new Date(),
+		inputEl: document.getElementById("end_date"),
+		displayInputEl: document.getElementById("end_date_display"),
+		dropDownEl: document.getElementById("end-datePicker-dropdown"),
+		nextBtnEl: document.getElementById("end-datePicker-next"),
+		prevBtnEl: document.getElementById("end-datePicker-prev"),
+		el: document.getElementById("end_datepicker"),
+		disableBefore: new Date().setHours(0, 0, 0, 0), // disable before today
+		disableAfter: new Date(Date.now() + 730 * 24 * 60 * 60 * 1000).getTime(), // disable after 2 years
+	});
+
+</script>

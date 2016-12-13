@@ -452,8 +452,79 @@ var calendarPlugin = (function () {
 	});
 
 	displayDateInput.addEventListener("click", function () {
-		console.log(datePickerDropdown);
 		addClass(datePickerDropdown, "datePicker-dropdown-focus");
 	});
+
+})();
+
+
+var InputCalendar = (function () {
+
+	var Plugin = function (settings) {
+		var self = this;
+
+		self.dropDownEl = settings.dropDownEl;
+		self.calendarEl = settings.el;
+		self.inputEl = settings.inputEl;
+		self.displayInputEl = settings.displayInputEl;
+		self.nextBtnEl = settings.nextBtnEl;
+		self.prevBtnEl = settings.prevBtnEl;
+		settings.onDateSelect = function (dateStamp) {
+			self.onDateSelect(dateStamp);
+		};
+
+		self.calendar = new calendarPlugin(settings);
+
+		self.displayInputEl.addEventListener("click", self.onDisplayInputClick.bind(self));
+		self.prevBtnEl.addEventListener("click", self.onPrevBtnClick.bind(self));
+		self.nextBtnEl.addEventListener("click", self.onNextBtnCLick.bind(self));
+		document.body.addEventListener("click", self.onBodyClick.bind(self));
+	};
+
+	Plugin.prototype = {
+
+		onNextBtnCLick: function () {
+			if (this.calendar.nextMonthEnabled()) {
+				this.calendar.nextMonth();
+			}
+		},
+
+		onPrevBtnClick: function () {
+			if (this.calendar.prevMonthEnabled()) {
+				this.calendar.prevMonth();
+			}
+		},
+
+		onDisplayInputClick: function () {
+			addClass(this.dropDownEl, "datePicker-dropdown-focus");
+		},
+
+		onBodyClick: function (e) {
+			closeDropdown = true;
+
+			for (var  i = 0; i < e.path.length; i++) {
+				if (e.path[i] === this.dropDownEl || e.path[i] === this.calendarEl || e.path[i] === this.displayInputEl) {
+					closeDropdown = false;
+					break;
+				}
+			}
+
+			if (closeDropdown) {
+				removeClass(this.dropDownEl, "datePicker-dropdown-focus");
+			}
+		},
+
+		onDateSelect: function (dateStamp) {
+			var selectedDate = new Date(dateStamp);
+
+			this.displayInputEl.value = selectedDate.toDateString();
+			this.inputEl.value = selectedDate.getFullYear() + "-" + (selectedDate.getMonth() + 1) + "-" + selectedDate.getDate();
+
+			removeClass(this.dropDownEl, "datePicker-dropdown-focus");
+		}
+
+	};
+
+	return Plugin;
 
 })();
