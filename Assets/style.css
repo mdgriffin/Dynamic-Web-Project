@@ -354,6 +354,30 @@ html {
  		margin-right: 50%
  	}
 
+	.gs-medium8 {
+		width: 66.66667%
+	}
+
+	.gs-medium8-before {
+		margin-left: 66.66667%
+	}
+
+	.gs-medium8-after {
+		margin-right: 66.66667%
+	}
+
+	.gs-medium9 {
+		width: 75%
+	}
+
+	.gs-medium9-before {
+		margin-left: 75%
+	}
+
+	.gs-medium9-after {
+		margin-right: 75%
+	}
+
  	.gs-medium12 {
  		width: 100%
  	}
@@ -380,6 +404,18 @@ html {
 
  	.gs-large2-after {
  		margin-right: 16.66667%
+ 	}
+
+ 	.gs-large3 {
+ 		width: 25%
+ 	}
+
+ 	.gs-large3-before {
+ 		margin-left: 25%
+ 	}
+
+ 	.gs-large3-after {
+ 		margin-right: 25%
  	}
 
  	.gs-large4 {
@@ -486,6 +522,7 @@ html {
 
 
 
+
 .fullWidth,
 .fullWidth-top,
 .fullWidth-cover {
@@ -523,6 +560,10 @@ body {
 	padding: 20px;
 	border-radius: 3px;
 	box-shadow: 0px 8px 15px -6px rgba(0, 0, 0, 0.1);
+}
+
+.card-spaced {
+	margin-bottom: 40px;
 }
 
 .card img {
@@ -1254,7 +1295,10 @@ footer {
 	background-size: cover;
 	padding-bottom: 33.3333%;
 	position: relative;
+	background-position: center;
 }
+
+
 
 .home-banner h2 {
 	color: #fff;
@@ -1264,6 +1308,18 @@ footer {
 	font-family: 'Lora', serif;
 	font-size: 3em;
 	text-shadow: 0 3px 3px rgba(0,0,0,0.5);
+}
+
+@media screen and (max-width: 700px) {
+
+	.home-banner {
+		padding-bottom: 75%;
+	}
+
+	.home-banner h2 {
+		font-size: 2em;
+	}
+
 }
 
 .home-card,
@@ -1348,6 +1404,12 @@ footer {
 .locations-map {
 	width: 100%;
 	padding-bottom: 50%;
+}
+
+@media screen and (max-width: 900px) {
+	.locations-map {
+		padding-bottom: 100%;
+	}
 }
 
 .locations-list-single {

@@ -4,9 +4,9 @@
 
 	<div class="gs">
 
-		<div class="gs-col gs3">
+		<div class="gs-col gs-small12 gs-medium6 gs-large3">
 
-			<div class="card">
+			<div class="card card-spaced">
 
 				<table class="table">
 					<thead>
@@ -32,9 +32,9 @@
 
 		</div><!-- gs-col -->
 
-		<div class="gs-col gs3">
+		<div class="gs-col gs-small12 gs-medium6 gs-large3">
 
-			<div class="card">
+			<div class="card  card-spaced">
 
 				<table class="table">
 
@@ -58,9 +58,9 @@
 
 		</div><!-- gs-col -->
 
-		<div class="gs-col gs3">
+		<div class="gs-col gs-small12 gs-medium6 gs-large3">
 
-			<div class="card">
+			<div class="card  card-spaced">
 
 				<table class="table">
 
@@ -84,9 +84,9 @@
 
 		</div><!-- gs-col -->
 
-		<div class="gs-col gs3">
+		<div class="gs-col gs-small12 gs-medium6 gs-large3">
 
-			<div class="card">
+			<div class="card  card-spaced">
 
 				<table class="table">
 
@@ -114,7 +114,7 @@
 
 	<h2>Latest Bookings</h2>
 
-	<div class="card">
+	<div class="card  card-spaced">
 
 		<table class="table">
 

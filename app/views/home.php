@@ -16,7 +16,7 @@
 
 		<?php foreach ($this->featured_venues as $venue) { ?>
 
-			<div class="gs-col gs4 venues-single">
+			<div class="gs-col gs-small12 gs-medium6 gs-large4 venues-single">
 
 				<a href="venues/<?php echo $venue['venue_id']; ?>"><div class="card">
 

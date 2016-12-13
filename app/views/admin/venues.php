@@ -7,7 +7,7 @@
 
 	<div class="gs">
 
-		<div class="gs-col gs6">
+		<div class="gs-col gs-small12 gs-medium6">
 
 			<?php if ($this->id) { ?>
 				<h2>Update Venue</h2>
@@ -82,7 +82,7 @@
 
 		</div><!-- gs-col -->
 
-		<div class="gs-col gs6">
+		<div class="gs-col gs-small12 gs-medium6">
 
 			<h2>Venues</h2>
 

@@ -4,7 +4,7 @@ include_once("app/views/partials/header.php");
 
 <div class="gs">
 
-	<div class="gs-col gs4 gs4-before">
+	<div class="gs-col gs-small12 gs-medium8 gs-medium2-before gs-large4 gs-large4-before">
 
 		<h1>Log In</h1>
 

@@ -6,7 +6,7 @@
 
 			<div class="gs">
 
-				<div class="gs-col gs3 locations-list">
+				<div class="gs-col gs-medium3 gs-small12 locations-list">
 
 					<div class="card">
 
@@ -28,7 +28,7 @@
 
 				</div><!-- gs-col -->
 
-				<div class=" gs-col gs9">
+				<div class=" gs-col gs-medium9 gs-small12">
 
 					<div class="locations-mapContainer">
 						<div class="locations-map-venue-container" id="locations-map-venue-container">

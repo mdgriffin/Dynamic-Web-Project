@@ -6,7 +6,7 @@
 
 	<div class="gs">
 
-		<div class="gs-col gs6">
+		<div class="gs-col  gs-small12 gs-medium6">
 
 			<form action="admin/venues/<?php echo $this->venue_id; ?>/images" class="form" method="post" enctype="multipart/form-data">
 
@@ -37,7 +37,7 @@
 
 		</div><!-- gs-col -->
 
-		<div class="gs-col gs6">
+		<div class="gs-col  gs-small12 gs-medium6">
 
 			<table class="table">
 				<thead>

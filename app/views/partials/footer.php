@@ -7,11 +7,11 @@
 
 			<div class="gs">
 
-				<div class="gs-col gs8 gs2-before">
+				<div class="gs-col gs-medium8 gs-medium2-before gs-small12">
 
 					<div class="gs">
 
-						<div class="gs-col gs4">
+						<div class="gs-col gs-medium4 gs-small12">
 
 							<h3>About</h3>
 
@@ -25,7 +25,7 @@
 
 						</div><!-- gs-col -->
 
-						<div class="gs-col gs4">
+						<div class="gs-col gs-medium4 gs-small12">
 
 								<h3>Latest Venues</h3>
 
@@ -37,7 +37,7 @@
 
 						</div><!-- gs-col -->
 
-						<div class="gs-col gs4 footer-social">
+						<div class="gs-col gs-medium4 gs-small12 footer-social">
 
 							<h3>Social</h3>
 

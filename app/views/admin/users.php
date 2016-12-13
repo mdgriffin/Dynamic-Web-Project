@@ -6,7 +6,7 @@
 
 <div class="gs">
 
-	<div class="gs-col gs6">
+	<div class="gs-col  gs-small12 gs-medium6">
 
 			<?php if ($this->user_id) { ?>
 				<h2>Update User</h2>
@@ -95,7 +95,7 @@
 
 		</div><!-- gs-col -->
 
-		<div class="gs-col gs6">
+		<div class="gs-col  gs-small12 gs-medium6">
 
 			<h2>Users</h2>
 

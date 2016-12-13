@@ -8,7 +8,7 @@
 
 			<div class="gs">
 
-				<div class="gs-col gs6">
+				<div class="gs-col gs-small12 gs-medium6">
 
 					<h3>Location</h3>
 
@@ -16,7 +16,7 @@
 
 				</div><!-- gs-col -->
 
-				<div class="gs-col gs6">
+				<div class="gs-col gs-small12 gs-medium6">
 
 					<h3>Packages</h3>
 
@@ -58,7 +58,7 @@
 
 					<?php foreach ($this->images as $image) { ?>
 
-						<div class="gs-col gs3 venueSingle-image">
+						<div class="gs-col gs-small12 gs-medium6 gs-large3 venueSingle-image">
 
 							<a href="<?php echo $image['source']; ?>"><img src="<?php echo Image::getSize($image['source'], 'medium_square'); ?>" alt="<?php echo $image['title']; ?>" /></a>
 

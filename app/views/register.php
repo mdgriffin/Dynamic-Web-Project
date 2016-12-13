@@ -4,7 +4,7 @@ include_once("app/views/partials/header.php");
 
 	<div class="gs">
 
-		<div class="gs-col gs6 gs3-before">
+		<div class="gs-col gs-small12 gs-medium8 gs-medium2-before gs-large6 gs-large3-before">
 
 			<h1>Create a new account</h1>
 

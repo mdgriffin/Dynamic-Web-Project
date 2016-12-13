@@ -6,7 +6,7 @@
 
 		<div class="gs">
 
-			<div class="gs-col gs6">
+			<div class="gs-col gs-small12 gs-medium6">
 
 				<h2>Package Details</h2>
 
@@ -14,7 +14,7 @@
 
 			</div>
 
-			<div class="gs-col gs6">
+			<div class="gs-col gs-small12 gs-medium6">
 
 				<h2>Make a Booking</h2>
 

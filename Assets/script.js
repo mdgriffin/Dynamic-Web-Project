@@ -86,11 +86,11 @@ var hasParentWithID = function (el, compareID) {
 		},
 		medium: {
 			size: 768,
-			cols: [2, 3, 4, 6, 12]
+			cols: [2, 3, 4, 6, 8, 9, 12]
 		},
 		large: {
 			size: 992,
-			cols: [2, 4, 5, 6, 8]
+			cols: [2, 3, 4, 5, 6, 8]
 		},
 		xlarge: {
 			size: 1200,
