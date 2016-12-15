@@ -116,7 +116,7 @@
 							<td><?php echo $user["surname"]; ?></td>
 							<td><?php echo $user["email"]; ?></td>
 							<td><?php echo ((int)$user["is_admin"] == 1? "Yes": "No "); ?></td>
-							<td><a href="admin/users?id=<?php echo $user["user_id"]; ?>"><button class="btn btn-small btn-secondary">Update</button></a></td>
+							<td><a href="admin/users?id=<?php echo $user["user_id"]; ?>" class="btn btn-small btn-secondary">Update</a></td>
 							<td>
 								<form action="admin/users" method="post">
 									<input type="hidden" name="METHOD" value="DELETE">
